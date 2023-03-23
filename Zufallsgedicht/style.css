@@ -1,0 +1,16 @@
+p {
+    font-size: 20pt;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    position: relative;
+    margin-top: 35%;
+    text-align: center;
+}
+
+body {
+    background-color: rgb(255, 140, 0);
+}
+
+.pic {
+    position: relative;
+    margin-left: 350px;
+}
