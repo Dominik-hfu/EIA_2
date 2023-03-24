@@ -4,7 +4,7 @@ namespace poem {
     let praedikat: string[] = [' isst ', ' kocht ', ' fährt ', ' spielt ']
     let objekt: string[] = [' Donuts ', ' Truthan ', ' Skateboard ', ' Saxophon ']
 
-    for (let i = subjekt.length; i--; i < 0) {
+    for (let i:number = subjekt.length; i--; i < 0) {
 
         let x: number = Math.floor(Math.random() * subjekt.length);
         let y: number = Math.floor(Math.random() * praedikat.length);
@@ -14,13 +14,13 @@ namespace poem {
 
     }
 
-    function getVerse(subjekt: string[], praedikat: string[], objekt: string[], x: number, y: number, z: number) {
+    function getVerse(_subjekt: string[], _praedikat: string[], _objekt: string[], _x: number, _y: number, _z: number) {
 
         let verse: string = ''
 
-        let randomSubjekt: string[] = subjekt.splice(x, 1)
-        let randomPraedikat: string[] = praedikat.splice(y, 1)
-        let randomObjekt: string[] = objekt.splice(z, 1)
+        let randomSubjekt: string[] = subjekt.splice(_x, 1)
+        let randomPraedikat: string[] = praedikat.splice(_y, 1)
+        let randomObjekt: string[] = objekt.splice(_z, 1)
 
         verse += randomSubjekt[0] + '' + randomPraedikat[0] + '' + randomObjekt[0] + '.';
         console.log(verse)

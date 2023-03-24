@@ -10,11 +10,11 @@ var poem;
         let z = Math.floor(Math.random() * objekt.length);
         getVerse(subjekt, praedikat, objekt, x, y, z);
     }
-    function getVerse(subjekt, praedikat, objekt, x, y, z) {
+    function getVerse(_subjekt, _praedikat, _objekt, _x, _y, _z) {
         let verse = '';
-        let randomSubjekt = subjekt.splice(x, 1);
-        let randomPraedikat = praedikat.splice(y, 1);
-        let randomObjekt = objekt.splice(z, 1);
+        let randomSubjekt = subjekt.splice(_x, 1);
+        let randomPraedikat = praedikat.splice(_y, 1);
+        let randomObjekt = objekt.splice(_z, 1);
         verse += randomSubjekt[0] + '' + randomPraedikat[0] + '' + randomObjekt[0] + '.';
         console.log(verse);
     }
