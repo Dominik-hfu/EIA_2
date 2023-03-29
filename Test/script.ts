@@ -1,5 +1,14 @@
-function isDivisible(_dividend: number, _divisor: number): boolean {
-    let result: boolean = (_dividend % _divisor == 0);
-    return result;
+namespace L02_Load {
+  document.addEventListener("load", handleLoad);
+
+  function handleLoad(_event: Event): void {
+      console.log(_event);
   }
-  console.log(result:boolean);
+}
+namespace L02_Load {
+  window.addEventListener("load", handleLoad);
+
+  function handleLoad(_event: Event): void {
+      console.log(_event);
+  }
+}
