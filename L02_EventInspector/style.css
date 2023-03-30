@@ -11,7 +11,7 @@ h1 {
 h1:hover{zoom: 102%;
 font-weight: bold;}
 
-.div0 {
+#div0 {
     background-color: #474747;
     float: right;
     margin-right: 20px;
@@ -21,7 +21,7 @@ font-weight: bold;}
     opacity: 0.9;
 }
 
-.div0:hover {
+#div0:hover {
     opacity: 1;
 }
 
@@ -55,13 +55,17 @@ button:hover {
     opacity: 1;
 }
 .mouseposition{
-    height: 80px;
-    width: 80px;
-    background-color: aqua;
+    height: 60px;
+    width: 130px;
+    background-color: #bababa;
     text-align: center;
+    padding: 5px;
+    border-radius: 10px;
 }
 span{
     font-size: 12px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 600;
 }
 /* .box_3{
     height: 50px;

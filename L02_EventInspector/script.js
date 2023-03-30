@@ -4,75 +4,41 @@ function handleLoad() {
     document.addEventListener('mousemove', setInfoBox);
     document.addEventListener('click', logInfo);
     document.addEventListener('keyup', logInfo);
-    let box = document.querySelector('div0');
-    box.addEventListener('click', logInfo);
-    box.addEventListener('keyup', logInfo);
-    let box_2 = document.querySelector('div1');
-    box_2.addEventListener('click', logInfo);
-    box_2.addEventListener('keyup', logInfo);
-    let main = document.querySelector('body');
-    main.addEventListener('click', logInfo);
-    main.addEventListener('keyup', logInfo);
-    console.log();
 }
 ;
-let span = null;
+// function handleload ist nur der handler, der den events zuhört und die funktion ausführt
 function setInfoBox(_event) {
+    let span = document.querySelector('span');
     if (!span) {
         span = document.createElement('span');
-        let offsetX = _event.offsetX;
-        let offsetY = _event.offsetY;
-        span.innerHTML = `Mouse position: (${_event.clientX - offsetX}, ${_event.clientY - offsetY}), Event target: ${_event.target}`;
-        document.body.appendChild(span);
-        span.classList.add('mouseposition');
-        span.style.position = 'absolute';
-        span.style.top = `${_event.clientY}px`;
-        span.style.left = `${_event.clientX}px`;
     }
-    document.addEventListener('mouseleave', () => {
-        if (span) {
-            document.body.removeChild(span);
-            span = null;
-        }
-    });
-    // CSS-Stil für das span-Element festlegen
-    // Eventlistener für das "mousemove"-Ereignis hinzufügen
-    // Die Position des Mauszeigers abrufen
-    // Das "span"-Element an die Mausposition anpassen
-    // Das "span"-Element an den Mauszeiger anhängen
-    //   body.appendChild(span);
-    // Zusammenfassend gibt clientX und clientY die Mausposition relativ zum Viewport des Dokuments zurück,
-    // während offsetX und offsetY die Mausposition relativ zum Auslöser des Events zurückgeben.
-    // Span element weiter weg von maus da sonst immer span angezeigt wird
-    // Span mit if bedingung nur einmal anzeigen lassen
+    let offsetX = _event.offsetX + 10;
+    let offsetY = _event.offsetY + 10;
+    let target = _event.target;
+    span.innerHTML = "Mouse position: (" + offsetX + "," + offsetY + ")" + target;
+    document.body.appendChild(span);
+    span.classList.add('mouseposition');
+    span.style.position = 'absolute';
+    span.style.top = `${offsetY}px`;
+    span.style.left = `${offsetX}px`;
+}
+function logInfo(_event) {
+    console.log("Target:", _event.target);
+    console.log("Event Type:", _event.type);
+    console.log("Current Target:", _event.currentTarget);
+    console.log("Event Object:", _event);
 }
 ;
-function logInfo() {
+let button = document.getElementById('button');
+function clickButton(_event) {
+    console.log('hi');
 }
 ;
-let mousePositionSpan = null;
-function createSpanWithMousePosition(event) {
-    // Wenn das 'mousePositionSpan'-Element noch nicht vorhanden ist, wird es erstellt und dem Dokument hinzugefügt
-    if (!mousePositionSpan) {
-        mousePositionSpan = document.createElement('span');
-        document.body.appendChild(mousePositionSpan);
-    }
-    const offsetX = event.offsetX;
-    const offsetY = event.offsetY;
-    mousePositionSpan.innerText = `Mouse position: (${event.clientX - offsetX}, ${event.clientY - offsetY}), Event target: ${event.target}`;
-    mousePositionSpan.style.position = 'absolute';
-    mousePositionSpan.style.top = `${event.clientY}px`;
-    mousePositionSpan.style.left = `${event.clientX}px`;
-}
-// Registriere das 'mousemove'-Event mit der 'createSpanWithMousePosition'-Funktion als Handler
-document.addEventListener('mousemove', (event) => {
-    createSpanWithMousePosition(event);
-    // Entferne das 'mousePositionSpan'-Element, wenn die Maus das Dokument verlässt
-    document.addEventListener('mouseleave', () => {
-        if (mousePositionSpan) {
-            document.body.removeChild(mousePositionSpan);
-            mousePositionSpan = null;
-        }
+button.addEventListener('click', clickButton);
+function process(_event) {
+    document.addEventListener('meinCustomEvent', function (_event) {
+        // Handle das CustomEvent hier
     });
-});
+    console.log(CustomEvent);
+}
 //# sourceMappingURL=script.js.map
