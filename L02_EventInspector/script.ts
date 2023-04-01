@@ -1,8 +1,14 @@
-window.addEventListener('load', handleLoad);
-function handleLoad() {
-  document.addEventListener('mousemove', setInfoBox);
-  document.addEventListener('click', logInfo);
-  document.addEventListener('keyup', logInfo);
+namespace Inspectora{
+
+  window.addEventListener('load', handleLoad);
+  // beim Laden des Windows wiwrd die Funktion handleload ausgeführt. Diese installiert unterschiedliche EventListener auf document, button.
+  function handleLoad() {
+    document.addEventListener('mousemove', setInfoBox);
+    document.addEventListener('click', logInfo);
+    document.addEventListener('keyup', logInfo);
+    let button: HTMLButtonElement = <HTMLButtonElement>document.getElementById('button');
+    button.addEventListener('click', clickButton);
+    document.addEventListener('dontclickthebutton', process);
 };
 // function handleload ist nur der handler, der den events zuhört und die funktion ausführt
 
@@ -24,7 +30,8 @@ function setInfoBox(_event: MouseEvent) {
   span.style.left = `${offsetX}px`;
 
 }
-
+// setInfoBox Funktion erstellt span wenn es noch keinen gibt über die if Bedingung und legt die Position dessen fest. Hängt diesen mit offset an die Maus.
+// Leider funktioniert das wenn über das div gehovert wird nicht einwandfrei :(
 
 function logInfo(_event: Event) {
 
@@ -34,24 +41,19 @@ function logInfo(_event: Event) {
   console.log("Event Object:", _event);
 
 };
+// Funktion logInfo wird durch klicken oder Tastendruck aktiviert und gibt in der Konsole das Ziel, den Typ des Ziels, das aktuelle Ziel und das Objekt aus.
 
-let button: HTMLButtonElement = <HTMLButtonElement>document.getElementById('button');
 
-function clickButton(_event: Event) {
-console.log('hi')
+function clickButton(_event: MouseEvent) {
+  let button:HTMLButtonElement=<HTMLButtonElement>document.getElementById('button');
+  let myevent= new CustomEvent('dontclickthebutton', {bubbles:true})
+  button.dispatchEvent(myevent);
 };
+// Funktion clickButton wir durch click auf den Button ausgeführt. Erstellt Variable button, myevent und damit ein eigenes Event namens dontclickthebutton.
+// Button versendet das dontclickthebutton Event
 
-button.addEventListener('click', clickButton);
-
-function process(_event:CustomEvent){
-
-  
-  document.addEventListener('meinCustomEvent', function(_event) {
-    // Handle das CustomEvent hier
-  });
-
-
-  console.log(CustomEvent)
+function process(_event:Event){
+console.log('youclickedthebutton');
 }
-
-
+}
+// Function process wird durch dontclickthebutton Event ausgefüht und sagt youclickedthebutton in der Konsole.
