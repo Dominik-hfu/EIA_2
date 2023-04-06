@@ -1,0 +1,62 @@
+body {
+    background-color: #ffb854;
+}
+
+h1 {
+    text-align: center;
+}
+
+#taskcreation {
+    text-align: center;
+}
+
+.createtask {
+    background-color: white;
+    opacity: 0.8;
+}
+
+.createtask:hover {
+    background-color: #868686;
+    opacity: 1;
+}
+
+.todo {
+    text-align: center;
+    margin-top: 50px;
+    margin-right: 20px;
+    margin-left: 20px;
+
+}
+.input{color: black;}
+
+.task {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    background-color: #868686;
+
+}
+
+.task span {
+    display: flex;
+    background-color: #ffb854;
+    align-self: center;
+
+}
+
+#trash {
+    opacity: 0.8;
+}
+
+#trash:hover {
+    opacity: 1;
+}
+
+@media only screen and (max-width: 1200px) {
+
+    /* For mobile phones: */
+    [class="task"] {
+        width: 100%;
+    }
+}
