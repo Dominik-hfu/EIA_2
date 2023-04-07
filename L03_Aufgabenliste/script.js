@@ -1,20 +1,28 @@
 "use strict";
+/*
+Aufgabe: <L03_Aufgabenliste>
+Name: <Dominik Putz>
+Matrikel: <272244>
+Datum: <07.04.2023>
+Quellen: <->
+*/
 var organizer;
 (function (organizer) {
     let name = document.querySelector('select');
     name.addEventListener('change', function () {
-        console.log("you choosed a person");
+        let selectedName = name.options[name.selectedIndex].textContent;
+        console.log("you choosed: " + selectedName);
     });
-    // let task: HTMLInputElement=document.querySelector('taskdefinition') as HTMLInputElement;
-    // task.addEventListener('keyup', function(){
-    //     console.log("you created a new task")
-    // })
-    let inputField = document.querySelector("input[type='text']"); // Zugriff auf Input-Feld Element
+    // possibly null :/
+    let taskName;
+    let comment;
+    let inputField = document.querySelector("input[type='text']");
     inputField.addEventListener("keyup", (event) => {
         if (event.key === "Enter") {
-            let inputText = event.target.value; // Zugriff auf den eingegebenen Text im Input-Feld
-            // (event.target as HTMLInputElement).value = "";
-            console.log(`taskdefinition: ${inputText}`); // Konsolenausgabe des eingegebenen Textes
+            let inputText = event.target.value;
+            taskName = inputText;
+            event.target.value = "";
+            console.log(`taskdefinition: ${inputText}`);
         }
     });
     let date = document.querySelector("input[type='date']");
@@ -26,25 +34,48 @@ var organizer;
     commentField.addEventListener("keyup", (event) => {
         if (event.key === "Enter") {
             let inputComment = event.target.value; // Zugriff auf den eingegebenen Text im Input-Feld
-            // (event.target as HTMLInputElement).value = "";
-            console.log(`comment:${inputComment}`); // Konsolenausgabe des eingegebenen Textes
+            comment = inputComment;
+            event.target.value = "";
+            console.log(`comment:${inputComment}`);
         }
     });
     // hier id, da 2 input elemente vorhanden sind und nicht beide mit der gleichen klasse getrennt von einander funktionieren
     let button = document.querySelector('.createtask');
     button.addEventListener('click', function () {
-        let name = document.getElementById("select").value;
+        let nameSelect = document.getElementById("select");
+        let selectedName = nameSelect.options[nameSelect.selectedIndex].textContent;
         let date = document.querySelector("input[type='date']").value;
-        let inputField = document.getElementById("input").value;
-        let commentField = document.getElementById("comment").value;
-        console.log(name, inputField, date, commentField);
+        console.log(selectedName, taskName, date, comment);
     });
-    // löschen der zeile auskommentiert, da sonst buttonfunktion nicht funktioniert
+    let trash = document.getElementById('trash');
+    trash.addEventListener('click', function () {
+        console.clear();
+    });
+    let garbage1 = document.querySelector('.garbage1');
+    // // Keine Ahnung was für ein Typ :/
+    garbage1.addEventListener('click', function () {
+        let deleteTask = document.querySelector('.task1');
+        deleteTask.remove();
+        console.log('you deleted task 1');
+    });
+    let garbage2 = document.querySelector('.garbage2');
+    garbage2.addEventListener('click', function () {
+        let deleteTask = document.querySelector('.task2');
+        deleteTask.remove();
+        console.log('you deleted task 2');
+    });
+    let garbage3 = document.querySelector('.garbage3');
+    garbage3.addEventListener('click', function () {
+        let deleteTask = document.querySelector('.task3');
+        deleteTask.remove();
+        console.log('you deleted task 3');
+    });
+    // is possibly null :/
+    // musste ich leider so machen, da ich nicht wusste wie ich sonst den Zugriff auf jeden einzelnen Mülleimer und Zeile hätte
+    // Formatierung ging leider nicht schöner :/
+    // Rahmen ist irgendwie kaputt
 })(organizer || (organizer = {}));
-// Eingabe gewährleisten, Speicherung der Eingabe in Variablen oder consolen Ausgabe
-// Erstellen von p oder span bei enter also eventlistener auf felder mit keyboard und klick
+//Speicherung der Eingabe in Variablen
+// Erstellen von p oder span bei Enter und Erstellen Button
 // child appenden
-// stylen
-// To do liste
-// Matrikelnummer und mitwirkende etc hier rein schreiben
 //# sourceMappingURL=script.js.map

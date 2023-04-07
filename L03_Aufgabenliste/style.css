@@ -1,13 +1,36 @@
 body {
-    background-color: #ffb854;
-}
+    background-color: #6d6d6d;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;}
+
+ 
+select{font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+background-color: #949494;
+border-radius: 10px;}
+
+input{font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+background-color: #949494;
+border-radius: 10px;}
+
+input::placeholder{color: #00ffea;}
+
+button{font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+background-color: #949494;
+border-radius: 10px;}
 
 h1 {
     text-align: center;
+    font-size: 40pt;
 }
-
+h2{
+    text-align: center;
+    font-size: 14pt;
+    font-style: italic;
+}
 #taskcreation {
     text-align: center;
+    border-radius: 20px;
+    border-color:#6d6d6d;
+    border-width: 8px;
 }
 
 .createtask {
@@ -16,7 +39,7 @@ h1 {
 }
 
 .createtask:hover {
-    background-color: #868686;
+    background-color: #00ffea;
     opacity: 1;
 }
 
@@ -27,7 +50,6 @@ h1 {
     margin-left: 20px;
 
 }
-.input{color: black;}
 
 .task {
     margin-top: 20px;
@@ -35,14 +57,19 @@ h1 {
     justify-content: space-between;
     padding: 5px;
     background-color: #868686;
+    border-color: #6d6d6d;
+    border-radius: 20px;
 
 }
 
 .task span {
     display: flex;
-    background-color: #ffb854;
     align-self: center;
 
+}
+
+.task:hover{
+background-color: #949494;
 }
 
 #trash {
@@ -53,9 +80,14 @@ h1 {
     opacity: 1;
 }
 
+.fa-regular{opacity: 0.8;}
+.fa-regular:hover{
+    opacity: 1;
+    zoom: 102%;
+}
+
 @media only screen and (max-width: 1200px) {
 
-    /* For mobile phones: */
     [class="task"] {
         width: 100%;
     }
