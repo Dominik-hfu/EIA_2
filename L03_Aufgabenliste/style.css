@@ -62,12 +62,6 @@ h2{
 
 }
 
-.task span {
-    display: flex;
-    align-self: center;
-
-}
-
 .task:hover{
 background-color: #949494;
 }
@@ -86,9 +80,31 @@ background-color: #949494;
     zoom: 102%;
 }
 
+
 @media only screen and (max-width: 1200px) {
 
     [class="task"] {
         width: 100%;
     }
 }
+/* CSS-Regeln für die `span`-Elemente */
+.task span {
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+    border-right: 1px solid #ccc;
+}
+
+.task span:last-of-type {
+    border-right: none;
+}
+
+.window{
+    background-color: red;
+}
+
+
