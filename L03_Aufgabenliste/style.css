@@ -102,13 +102,3 @@ background-color: #949494;
 .task span:last-of-type {
     border-right: none;
 }
-
-.window{
-    background-color: red;
-}
-
-.timeIsUp{
-    background-color: red;
-}
-
-

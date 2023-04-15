@@ -3,21 +3,58 @@
 Aufgabe: <L04_Aufgabenliste>
 Name: <Dominik Putz>
 Matrikel: <272244>
-Datum: <14.04.2023>
+Datum: <15.04.2023>
 Quellen: <->
 */
 var organizer;
 (function (organizer) {
-    // Funktion zum Berechnen der Differenz zwischen zwei Daten in Tagen
-    function dateDifferenceInDays(date1, date2) {
-        const oneDay = 24 * 60 * 60 * 1000; // Stunden * Minuten * Sekunden * Millisekunden
-        const diffDays = Math.round((date2.getTime() - date1.getTime()) / oneDay);
-        return diffDays;
+    function createDropdownMenu(taskElement, progressBar) {
+        let dropdown = document.createElement('select');
+        let optionNotStarted = document.createElement('option');
+        optionNotStarted.textContent = 'Nicht angefangen';
+        optionNotStarted.value = 'not-started';
+        dropdown.appendChild(optionNotStarted);
+        let optionInProgress = document.createElement('option');
+        optionInProgress.textContent = 'In Bearbeitung';
+        optionInProgress.value = 'in-progress';
+        dropdown.appendChild(optionInProgress);
+        let optionCompleted = document.createElement('option');
+        optionCompleted.textContent = 'Erledigt';
+        optionCompleted.value = 'completed';
+        dropdown.appendChild(optionCompleted);
+        //Um Select Element mit Optionen zu erstellen
+        dropdown.addEventListener('change', function () {
+            let selectedStatus = this.value; //Speichert gewählte Option von Select Element
+            taskElement.setAttribute('data-status', selectedStatus); // Parameter taskElement bekommt das Attribut Status
+            switch (selectedStatus) {
+                case 'not-started':
+                    progressBar.value = 0;
+                    break;
+                case 'in-progress':
+                    progressBar.value = 50;
+                    break;
+                case 'completed':
+                    progressBar.value = 100;
+                    break;
+            }
+            // 3 Status Varianten können existieren
+        });
+        return dropdown;
+        // Gibt den Wert des Select Elementes zurück
     }
-    // Funktion zum Festlegen der Textfarbe basierend auf dem Fälligkeitsdatum
+    ;
+    // Funktion zum Berechnen der Differenz zwischen zwei Daten in Tagen
+    // Einfache Anweisung wie die Funktion arbeiten soll
+    function dateDifferenceInDays(date1, date2) {
+        let oneDay = 24 * 60 * 60 * 1000; // Stunden * Minuten * Sekunden * Millisekunden, Für die Umrechnung von Millisekunden in Tagen
+        let diffDays = Math.round((date2.getTime() - date1.getTime()) / oneDay); //
+        return diffDays; //gibt die differenz ziwschen dem gewählten und dem aktuellen Datum zurück
+    }
+    // Funktion zum Festlegen der Textfarbe basierend auf dem Fälligkeitsdatum, Aufruf und Ausführen der Funktion das erst Mal in Zeile 141
     function setTaskTextColor(dueDate) {
-        const currentDate = new Date();
-        const daysDifference = dateDifferenceInDays(currentDate, dueDate);
+        let currentDate = new Date(); //aktuelles datum
+        let daysDifference = dateDifferenceInDays(currentDate, dueDate); //ruft die Funktion auf und speichert das Ergebnis
+        // Parameter sind aktuelles und gewähltes Datum
         if (daysDifference >= 3) {
             return 'green';
         }
@@ -27,15 +64,16 @@ var organizer;
         else {
             return 'red';
         }
-    }
+    } //Bedingungen für die unteschiedlichen Farben, direktes styling im Code möglich
     let todos = document.querySelector(".todo");
     let name = document.querySelector('select');
     name.addEventListener('change', function selectname() {
-        let selectedName = name.options[name.selectedIndex].textContent;
+        let selectedName = name.options[name.selectedIndex].textContent; //Gewählte Option wird selectedName gespeichert
         console.log("you choosed: " + selectedName);
     });
     let taskName;
     let comment;
+    //global, werden später benötigt
     let inputField = document.querySelector("input[type='text']");
     inputField.addEventListener("keyup", (event) => {
         if (event.key === "Enter") {
@@ -73,21 +111,6 @@ var organizer;
             let dueDate = new Date(inputDate);
             let newtask = document.createElement('fieldset');
             newtask.classList.add('task');
-            newtask.addEventListener('click', function () {
-                let i = true;
-                // let j:number=0;
-                // for(j=0; j++, j<10;)
-                // es muss immer wieder überprüft werden ob der span schon geklickt wurde/ erster klicken anzeigen, zweiter klick ausblenden
-                if (i == true) {
-                    let window = document.createElement('span');
-                    window.classList.add('window');
-                    i = false;
-                    newtask.appendChild(window);
-                    window.appendChild(nameSpan);
-                    // Name rutscht weg
-                    // If Bedingung lässt zu das nur beim ersten geklickt werden kann
-                }
-            });
             let nameSpan = document.createElement('span');
             nameSpan.textContent = selectedName;
             nameSpan.style.color = setTaskTextColor(dueDate);
@@ -103,20 +126,36 @@ var organizer;
             dateSpan.style.color = setTaskTextColor(dueDate);
             newtask.appendChild(dateSpan);
             dateInput.value = "";
-            const selectedDate = new Date(dateInput.value);
-            const currentDate = new Date();
-            const isDateInThePast = selectedDate < currentDate;
-            if (selectedDate.valueOf() && dateInput.value && !isDateInThePast) {
-                const fieldset = document.createElement('fieldset');
-                fieldset.classList.add('timeIsUp');
-            }
-            // versuch bei abgelaufenem Datum das Fieldset rot zu färben
             let commentSpan = document.createElement('span');
             commentSpan.classList.add('comment');
             commentSpan.textContent = commentField.value;
             commentSpan.style.color = setTaskTextColor(dueDate);
             newtask.appendChild(commentSpan);
             commentField.value = "";
+            let progressBar = document.createElement('progress');
+            progressBar.max = 100;
+            progressBar.value = 0; // Standardwert für "Nicht angefangen"
+            // if(progressBar.value==0){
+            //   // progressBar.style.backgroundColor='white'
+            //   progressBar.classList.add('red')
+            // }
+            // else if(progressBar.value==50){
+            //   // progressBar.style.backgroundColor='orange'
+            //   progressBar.classList.add('orange')
+            // }
+            // else(progressBar.value==100);{
+            //   // progressBar.style.backgroundColor='green'
+            //   progressBar.classList.add('green')
+            // }
+            progressBar.style.height = '10px';
+            progressBar.style.marginTop = '25px';
+            progressBar.style.marginRight = '10px';
+            progressBar.style.backgroundColor = 'white';
+            // style color fubnktioniert nicht :/
+            newtask.appendChild(progressBar);
+            // Hinzufügen des Dropdown-Menüs zum neuen Aufgaben-Element
+            let dropdownMenu = createDropdownMenu(newtask, progressBar);
+            newtask.appendChild(dropdownMenu);
             let trash = document.createElement('i');
             trash.classList.add('fa-regular', 'fa-trash-can', 'fa-2x', 'trash', 'task');
             trash.addEventListener('click', function Delete() {
@@ -131,10 +170,7 @@ var organizer;
             alert('Bitte füllen Sie alle Felder aus');
         }
     });
-    // let trash: HTMLLIElement = document.getElementById('trash') as HTMLLIElement;
-    // trash.addEventListener('click', function () {
-    //   console.clear()
-    // })
+    // Bis hier wird alles ausgeführt ab klick auf den Erstellen Button in Zeile 126
     let garbage = document.getElementById('trash');
     garbage.addEventListener('click', function DeleteInput() {
         nameSelect.value = "";
@@ -142,6 +178,7 @@ var organizer;
         dateInput.value = "";
         commentField.value = "";
     });
+    // löscht Eingabe
     let garbage1 = document.querySelector('.garbage1');
     garbage1.addEventListener('click', function () {
         let deleteTask = document.querySelector('.task1');
@@ -157,18 +194,14 @@ var organizer;
     let garbage3 = document.querySelector('.garbage3');
     garbage3.addEventListener('click', function () {
         let deleteTask = document.querySelector('.task3');
-        deleteTask?.remove();
+        deleteTask?.remove(); // Frage- und Ausrufezeichen um Fehler possibly null zu beheben
         console.log('you deleted task 3');
     });
-    // Frage- und Ausrufezeichen um Fehler possibly null zu beheben
+    // Löschen statische Aufgaben
 })(organizer || (organizer = {}));
 ;
 // Rahmen ist irgendwie kaputt :/
 // Datum umdrehen?
-// Dropdown mit range input element (status)
-// Dropdown mit einem klick auf beim zweiten klick zu (ungerade und gerade wie bei haken todoapp)
-// Zeit abgelaufen task wird rot markiert
-// Noch 3 Tage Zeit Task grün
-// Noch 1 Tag Zeit Task Orange
 // Aufgabe kann nur gelöscht werden, wenn diese erledigt ist oder es kommt alert wenn nicht erledigte aufgabe gelöscht wird oder nachfrage diese wirklich löschen?
+// ProgressBar Farben ändern?
 //# sourceMappingURL=script.js.map
