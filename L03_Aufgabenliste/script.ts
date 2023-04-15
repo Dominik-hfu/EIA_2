@@ -7,6 +7,27 @@ Quellen: <->
 */
 
 namespace organizer {
+  
+  // Funktion zum Berechnen der Differenz zwischen zwei Daten in Tagen
+  function dateDifferenceInDays(date1: Date, date2: Date): number {
+    const oneDay = 24 * 60 * 60 * 1000; // Stunden * Minuten * Sekunden * Millisekunden
+    const diffDays = Math.round((date2.getTime() - date1.getTime()) / oneDay);
+    return diffDays;
+  }
+  
+  // Funktion zum Festlegen der Textfarbe basierend auf dem Fälligkeitsdatum
+  function setTaskTextColor(dueDate: Date): string {
+    const currentDate = new Date();
+    const daysDifference = dateDifferenceInDays(currentDate, dueDate);
+  
+    if (daysDifference >= 3) {
+      return 'green';
+    } else if (daysDifference >= 1 && daysDifference <= 2) {
+      return 'yellow';
+    } else {
+      return 'red';
+    }
+  }
 
   let todos = document.querySelector(".todo") as HTMLDivElement;
 
@@ -65,7 +86,9 @@ namespace organizer {
       let selectedName: string | null = nameSelect.options[nameSelect.selectedIndex].textContent;
       let inputText: string = inputField.value;
       let inputDate: string = dateInput.value;
-      
+
+      let dueDate = new Date(inputDate);
+
       let newtask: HTMLFieldSetElement = document.createElement('fieldset');
       newtask.classList.add('task');
       newtask.addEventListener('click', function () {
@@ -85,16 +108,19 @@ namespace organizer {
 
       let nameSpan: HTMLSpanElement = document.createElement('span');
       nameSpan.textContent = selectedName;
+      nameSpan.style.color =setTaskTextColor(dueDate)
       newtask.appendChild(nameSpan);
       nameSelect.value = '';
 
       let taskSpan: HTMLSpanElement = document.createElement('span');
       taskSpan.textContent = inputText;
+      taskSpan.style.color =setTaskTextColor(dueDate)
       newtask.appendChild(taskSpan);
       inputField.value = "";
 
       let dateSpan: HTMLSpanElement = document.createElement('span');
       dateSpan.textContent = inputDate;
+      dateSpan.style.color =setTaskTextColor(dueDate)
       newtask.appendChild(dateSpan);
       dateInput.value = "";
 
@@ -114,6 +140,7 @@ if (selectedDate.valueOf() && dateInput.value && !isDateInThePast) {
       let commentSpan: HTMLSpanElement = document.createElement('span');
       commentSpan.classList.add('comment');
       commentSpan.textContent = commentField.value;
+      commentSpan.style.color =setTaskTextColor(dueDate)
       newtask.appendChild(commentSpan);
       commentField.value = "";
 
