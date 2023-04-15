@@ -1,0 +1,104 @@
+body {
+    background-color: #6d6d6d;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;}
+
+ 
+select{font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+background-color: #949494;
+border-radius: 10px;}
+
+input{font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+background-color: #949494;
+border-radius: 10px;}
+
+input::placeholder{color: #00ffea;}
+
+button{font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+background-color: #949494;
+border-radius: 10px;}
+
+h1 {
+    text-align: center;
+    font-size: 40pt;
+}
+h2{
+    text-align: center;
+    font-size: 14pt;
+    font-style: italic;
+}
+#taskcreation {
+    text-align: center;
+    border-radius: 20px;
+    border-color:#6d6d6d;
+    border-width: 8px;
+}
+
+.createtask {
+    background-color: white;
+    opacity: 0.8;
+}
+
+.createtask:hover {
+    background-color: #00ffea;
+    opacity: 1;
+}
+
+.todo {
+    text-align: center;
+    margin-top: 50px;
+    margin-right: 20px;
+    margin-left: 20px;
+
+}
+
+.task {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    background-color: #868686;
+    border-color: #6d6d6d;
+    border-radius: 20px;
+
+}
+
+.task:hover{
+background-color: #949494;
+}
+
+#trash {
+    opacity: 0.8;
+}
+
+#trash:hover {
+    opacity: 1;
+}
+
+.fa-regular{opacity: 0.8;}
+.fa-regular:hover{
+    opacity: 1;
+    zoom: 102%;
+}
+
+
+@media only screen and (max-width: 1200px) {
+
+    [class="task"] {
+        width: 100%;
+    }
+}
+/* CSS-Regeln für die `span`-Elemente */
+.task span {
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+    border-right: 1px solid #ccc;
+}
+
+.task span:last-of-type {
+    border-right: none;
+}
