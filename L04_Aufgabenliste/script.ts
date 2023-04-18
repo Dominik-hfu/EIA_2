@@ -8,6 +8,15 @@ Quellen: <->
 
 namespace organizer {
 
+  window.addEventListener('load', handleload);
+
+  function handleload(_event: Event):void{
+    let newTask:HTMLFieldSetElement=<HTMLFieldSetElement>document.getElementById('taskcreation');
+    newTask.addEventListener('change', handleChange);
+  }
+  function handleChange(_event:Event):void{
+    console.log('huhu')
+  }
 
   function createDropdownMenu(taskElement: HTMLElement, progressBar: HTMLProgressElement) { //Parameter wichtig für Funktionsaufruf
     let dropdown = document.createElement('select');

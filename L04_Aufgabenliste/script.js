@@ -8,6 +8,14 @@ Quellen: <->
 */
 var organizer;
 (function (organizer) {
+    window.addEventListener('load', handleload);
+    function handleload(_event) {
+        let newTask = document.getElementById('taskcreation');
+        newTask.addEventListener('change', handleChange);
+    }
+    function handleChange(_event) {
+        console.log('huhu');
+    }
     function createDropdownMenu(taskElement, progressBar) {
         let dropdown = document.createElement('select');
         let optionNotStarted = document.createElement('option');
