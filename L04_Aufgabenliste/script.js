@@ -8,11 +8,91 @@ Quellen: <->
 */
 var organizer;
 (function (organizer) {
+    let taskStatus;
+    (function (taskStatus) {
+        taskStatus[taskStatus["notcompleted"] = 0] = "notcompleted";
+        taskStatus[taskStatus["inprogress"] = 1] = "inprogress";
+        taskStatus[taskStatus["done"] = 2] = "done";
+    })(taskStatus || (taskStatus = {})); // nummeriert Attribute
+    ;
+    let tasks = [
+        {
+            id: 1,
+            name: "Mark",
+            taskName: "Küche aufräumen",
+            date: "06.04.2023",
+            comment: "Spülmaschine ausräumen",
+            status: 0 // Attribute von Elementen
+        },
+        // Aufgaben sind Objekte/Elemente vom interface task
+        {
+            id: 2,
+            name: "Lisa",
+            taskName: "Müll rausbringen",
+            date: "08.04.2023",
+            comment: "Biomüll",
+            status: 0
+        },
+        {
+            id: 3,
+            name: "Daniel",
+            taskName: "Badezimmer putzen",
+            date: "07.04.2023",
+            comment: "Dusche entkalken",
+            status: 1
+        },
+    ];
+    function addTask(name, taskName, date, comment) {
+        let id = tasks.length + 1;
+        tasks.push({ id, name, taskName, date, comment, status: 0 });
+    }
+    ;
+    function deleteTask(id, taskDiv) {
+        let index = -1;
+        for (let i = 0; i < tasks.length; i++) {
+            if (tasks[i].id === id) {
+                index = i;
+                break;
+            }
+        }
+        if (index !== -1) {
+            tasks.splice(index, 1); // index= Startwert, 1= Anzahl der Elemente die gelöscht werden sollen (Hover über splice)
+        }
+        taskDiv.remove();
+    }
+    ;
     window.addEventListener('load', handleload);
     function handleload(_event) {
-        let newTask = document.getElementById('taskcreation');
-        newTask.addEventListener('change', handleChange);
+        let newTask = document.querySelector(".todo");
+        newTask.innerHTML = "";
+        tasks.forEach((task, index) => {
+            let taskDiv = document.createElement("div");
+            taskDiv.classList.add(`task${index + 1}`);
+            let fieldset = document.createElement("fieldset");
+            fieldset.classList.add("task");
+            let nameSpan = document.createElement("span");
+            nameSpan.textContent = task.name;
+            fieldset.appendChild(nameSpan);
+            let taskSpan = document.createElement("span");
+            taskSpan.textContent = task.taskName;
+            fieldset.appendChild(taskSpan);
+            let dateSpan = document.createElement("span");
+            dateSpan.textContent = task.date;
+            fieldset.appendChild(dateSpan);
+            let commentSpan = document.createElement("span");
+            commentSpan.textContent = task.comment;
+            fieldset.appendChild(commentSpan);
+            let trash = document.createElement("i");
+            trash.classList.add("fa-regular", "fa-trash-can", "fa-2x", "garbage1");
+            fieldset.appendChild(trash);
+            trash.addEventListener("click", () => {
+                deleteTask(task.id, taskDiv);
+            });
+            taskDiv.appendChild(fieldset);
+            newTask.appendChild(taskDiv);
+        });
     }
+    // Handler = handleload, ist nur dafür veranwtortlich, die erstellten aufgaben beim geladenen window anzuzeigen  
     function handleChange(_event) {
         console.log('huhu');
     }
@@ -31,8 +111,9 @@ var organizer;
         optionCompleted.value = 'completed';
         dropdown.appendChild(optionCompleted);
         //Um Select Element mit Optionen zu erstellen
-        dropdown.addEventListener('change', function () {
-            let selectedStatus = this.value; //Speichert gewählte Option von Select Element
+        dropdown.addEventListener('change', getStatus);
+        function getStatus() {
+            let selectedStatus = dropdown.value; //Speichert gewählte Option von Select Element
             taskElement.setAttribute('data-status', selectedStatus); // Parameter taskElement bekommt das Attribut Status
             switch (selectedStatus) {
                 case 'not-started':
@@ -46,7 +127,8 @@ var organizer;
                     break;
             }
             // 3 Status Varianten können existieren
-        });
+        }
+        ;
         return dropdown;
         // Gibt den Wert des Select Elementes zurück
     }
@@ -75,10 +157,12 @@ var organizer;
     } //Bedingungen für die unteschiedlichen Farben, direktes styling im Code möglich
     let todos = document.querySelector(".todo");
     let name = document.querySelector('select');
-    name.addEventListener('change', function selectname() {
+    name.addEventListener('change', selectname);
+    function selectname() {
         let selectedName = name.options[name.selectedIndex].textContent; //Gewählte Option wird selectedName gespeichert
         console.log("you choosed: " + selectedName);
-    });
+    }
+    ;
     let taskName;
     let comment;
     //global, werden später benötigt
@@ -92,8 +176,8 @@ var organizer;
         }
     });
     let date = document.querySelector("input[type='date']");
-    date.addEventListener('change', (event) => {
-        let choosedDate = event.target.value;
+    date.addEventListener('change', function (_event) {
+        let choosedDate = _event.target.value;
         console.log(`you set the deadline: ${choosedDate}`);
     });
     let commentField = document.getElementById('comment'); // Zugriff auf Input-Feld Element
@@ -113,14 +197,15 @@ var organizer;
     button.addEventListener('click', function createTask() {
         if (name.value !== "" && inputField.value != "" && date.value !== "" && commentField.value != "") {
             // Variablen zum Speichern der ausgewählten Werte
-            let selectedName = nameSelect.options[nameSelect.selectedIndex].textContent;
+            let selectedName = null;
+            selectedName = nameSelect.options[nameSelect.selectedIndex]?.textContent;
             let inputText = inputField.value;
             let inputDate = dateInput.value;
             let dueDate = new Date(inputDate);
             let newtask = document.createElement('fieldset');
             newtask.classList.add('task');
             let nameSpan = document.createElement('span');
-            nameSpan.textContent = selectedName;
+            nameSpan.textContent = selectedName; //nameSpan ist das Element, selectedName ist der Wert
             nameSpan.style.color = setTaskTextColor(dueDate);
             newtask.appendChild(nameSpan);
             nameSelect.value = '';
@@ -140,6 +225,7 @@ var organizer;
             commentSpan.style.color = setTaskTextColor(dueDate);
             newtask.appendChild(commentSpan);
             commentField.value = "";
+            addTask(selectedName, inputText, inputDate, commentField.value);
             let progressBar = document.createElement('progress');
             progressBar.max = 100;
             progressBar.value = 0; // Standardwert für "Nicht angefangen"
@@ -187,25 +273,6 @@ var organizer;
         commentField.value = "";
     });
     // löscht Eingabe
-    let garbage1 = document.querySelector('.garbage1');
-    garbage1.addEventListener('click', function () {
-        let deleteTask = document.querySelector('.task1');
-        deleteTask?.remove();
-        console.log('you deleted task 1');
-    });
-    let garbage2 = document.querySelector('.garbage2');
-    garbage2.addEventListener('click', function () {
-        let deleteTask = document.querySelector('.task2');
-        deleteTask?.remove();
-        console.log('you deleted task 2');
-    });
-    let garbage3 = document.querySelector('.garbage3');
-    garbage3.addEventListener('click', function () {
-        let deleteTask = document.querySelector('.task3');
-        deleteTask?.remove(); // Frage- und Ausrufezeichen um Fehler possibly null zu beheben
-        console.log('you deleted task 3');
-    });
-    // Löschen statische Aufgaben
 })(organizer || (organizer = {}));
 ;
 // Rahmen ist irgendwie kaputt :/

@@ -8,13 +8,112 @@ Quellen: <->
 
 namespace organizer {
 
+  enum taskStatus {
+    notcompleted,
+    inprogress,
+    done
+  }// nummeriert Attribute
+
+  interface task {
+    id: number;
+    name: string;
+    taskName: string;
+    date: string;
+    comment: string;
+    status: taskStatus;
+  };
+
+  let tasks: task[] = [
+    {
+      id: 1,
+      name: "Mark",
+      taskName: "Küche aufräumen",
+      date: "06.04.2023",
+      comment: "Spülmaschine ausräumen",
+      status: 0// Attribute von Elementen
+    },
+// Aufgaben sind Objekte/Elemente vom interface task
+    {
+      id: 2,
+      name: "Lisa",
+      taskName: "Müll rausbringen",
+      date: "08.04.2023",
+      comment: "Biomüll",
+      status: 0
+    },
+
+    {
+      id: 3,
+      name: "Daniel",
+      taskName: "Badezimmer putzen",
+      date: "07.04.2023",
+      comment: "Dusche entkalken",
+      status: 1
+
+    },];
+
+    function addTask(name:string, taskName:string, date:string, comment:string){
+      let id:number=tasks.length+1;
+      tasks.push({id,name,taskName,date,comment,status:0});
+    };
+
+    function deleteTask(id:number,taskDiv:HTMLDivElement){
+      let index=-1;
+      for(let i=0; i<tasks.length; i++){
+        if(tasks[i].id===id){
+          index=i;
+          break
+        }
+      }
+      if(index!==-1){
+        tasks.splice(index,1)// index= Startwert, 1= Anzahl der Elemente die gelöscht werden sollen (Hover über splice)
+      }
+      taskDiv.remove();
+    };
+
   window.addEventListener('load', handleload);
 
-  function handleload(_event: Event):void{
-    let newTask:HTMLFieldSetElement=<HTMLFieldSetElement>document.getElementById('taskcreation');
-    newTask.addEventListener('change', handleChange);
+  function handleload(_event: Event): void {
+
+    let newTask:HTMLDivElement=<HTMLDivElement>document.querySelector(".todo");
+    newTask.innerHTML="";
+    tasks.forEach((task,index)=>{
+
+      let taskDiv:HTMLDivElement=document.createElement("div");
+      taskDiv.classList.add(`task${index+1}`);
+      
+      let fieldset:HTMLFieldSetElement=document.createElement("fieldset") as HTMLFieldSetElement;
+      fieldset.classList.add("task");
+      
+      let nameSpan:HTMLSpanElement=document.createElement("span") as HTMLSpanElement;
+      nameSpan.textContent=task.name;
+      fieldset.appendChild(nameSpan);
+      
+      let taskSpan:HTMLSpanElement=document.createElement("span") as HTMLSpanElement;
+      taskSpan.textContent=task.taskName;
+      fieldset.appendChild(taskSpan);
+      
+      let dateSpan:HTMLSpanElement=document.createElement("span") as HTMLSpanElement;
+      dateSpan.textContent=task.date;
+      fieldset.appendChild(dateSpan);
+      
+      let commentSpan:HTMLSpanElement=document.createElement("span") as HTMLSpanElement;
+      commentSpan.textContent=task.comment;
+      fieldset.appendChild(commentSpan);
+      
+      let trash:HTMLLIElement=document.createElement("i") as HTMLLIElement;
+      trash.classList.add("fa-regular", "fa-trash-can", "fa-2x", "garbage1");
+      fieldset.appendChild(trash);
+      trash.addEventListener("click", () =>{ // Leere Klammer bzw. Formatierung so, damit Parameter der Funktion übergeben werden können 
+        deleteTask(task.id,taskDiv);
+      });
+
+      taskDiv.appendChild(fieldset);
+      newTask.appendChild(taskDiv);
+    });
   }
-  function handleChange(_event:Event):void{
+  // Handler = handleload, ist nur dafür veranwtortlich, die erstellten aufgaben beim geladenen window anzuzeigen  
+  function handleChange(_event: Event): void {
     console.log('huhu')
   }
 
@@ -35,10 +134,12 @@ namespace organizer {
     optionCompleted.textContent = 'Erledigt';
     optionCompleted.value = 'completed';
     dropdown.appendChild(optionCompleted);
-//Um Select Element mit Optionen zu erstellen
+    //Um Select Element mit Optionen zu erstellen
 
-    dropdown.addEventListener('change', function () {
-      let selectedStatus = (this as HTMLSelectElement).value; //Speichert gewählte Option von Select Element
+    dropdown.addEventListener('change', getStatus)
+
+    function getStatus() {
+      let selectedStatus = (dropdown as HTMLSelectElement).value; //Speichert gewählte Option von Select Element
       taskElement.setAttribute('data-status', selectedStatus); // Parameter taskElement bekommt das Attribut Status
 
       switch (selectedStatus) {
@@ -53,7 +154,7 @@ namespace organizer {
           break;
       }
       // 3 Status Varianten können existieren
-    });
+    };
 
     return dropdown;
     // Gibt den Wert des Select Elementes zurück
@@ -71,7 +172,7 @@ namespace organizer {
   function setTaskTextColor(dueDate: Date): string {
     let currentDate = new Date(); //aktuelles datum
     let daysDifference = dateDifferenceInDays(currentDate, dueDate); //ruft die Funktion auf und speichert das Ergebnis
-// Parameter sind aktuelles und gewähltes Datum
+    // Parameter sind aktuelles und gewähltes Datum
     if (daysDifference >= 3) {
       return 'green';
     } else if (daysDifference >= 1 && daysDifference <= 2) {
@@ -85,10 +186,12 @@ namespace organizer {
 
 
   let name: HTMLSelectElement = document.querySelector('select') as HTMLSelectElement;
-  name.addEventListener('change', function selectname() {
+  name.addEventListener('change', selectname);
+
+  function selectname() {
     let selectedName: string | null = name.options[name.selectedIndex].textContent; //Gewählte Option wird selectedName gespeichert
     console.log("you choosed: " + selectedName);
-  });
+  };
 
   let taskName: string;
   let comment: string;
@@ -108,8 +211,8 @@ namespace organizer {
   });
 
   let date: HTMLInputElement = document.querySelector("input[type='date']") as HTMLInputElement;
-  date.addEventListener('change', (event) => {
-    let choosedDate: string = (event.target as HTMLInputElement).value;
+  date.addEventListener('change', function (_event: Event) {
+    let choosedDate: string = (_event.target as HTMLInputElement).value;
     console.log(`you set the deadline: ${choosedDate}`);
   });
 
@@ -137,7 +240,8 @@ namespace organizer {
     if (name.value !== "" && inputField.value != "" && date.value !== "" && commentField.value != "") {
 
       // Variablen zum Speichern der ausgewählten Werte
-      let selectedName: string | null = nameSelect.options[nameSelect.selectedIndex].textContent;
+      let selectedName:string| null = null;
+        selectedName= nameSelect.options[nameSelect.selectedIndex]?.textContent;
       let inputText: string = inputField.value;
       let inputDate: string = dateInput.value;
 
@@ -148,7 +252,7 @@ namespace organizer {
       newtask.classList.add('task');
 
       let nameSpan: HTMLSpanElement = document.createElement('span');
-      nameSpan.textContent = selectedName;
+      nameSpan.textContent = selectedName;//nameSpan ist das Element, selectedName ist der Wert
       nameSpan.style.color = setTaskTextColor(dueDate)
       newtask.appendChild(nameSpan);
       nameSelect.value = '';
@@ -171,7 +275,7 @@ namespace organizer {
       commentSpan.style.color = setTaskTextColor(dueDate)
       newtask.appendChild(commentSpan);
       commentField.value = "";
-
+      addTask(selectedName, inputText, inputDate,commentField.value)
       let progressBar = document.createElement('progress');
       progressBar.max = 100;
       progressBar.value = 0; // Standardwert für "Nicht angefangen"
@@ -190,9 +294,9 @@ namespace organizer {
       // }
 
       progressBar.style.height = '10px';
-      progressBar.style.marginTop='25px';
-      progressBar.style.marginRight='10px';
-      progressBar.style.backgroundColor='white';
+      progressBar.style.marginTop = '25px';
+      progressBar.style.marginRight = '10px';
+      progressBar.style.backgroundColor = 'white';
       // style color fubnktioniert nicht :/
       newtask.appendChild(progressBar);
       // Hinzufügen des Dropdown-Menüs zum neuen Aufgaben-Element
@@ -206,17 +310,17 @@ namespace organizer {
         trash.remove();
 
       });
-      
+
       newtask.appendChild(trash);
       todos.prepend(newtask);
-      
+
       console.log(selectedName, taskName, date, comment);
     }
-    
+
     else {
-      
+
       alert('Bitte füllen Sie alle Felder aus');
-      
+
     }
   });
   // Bis hier wird alles ausgeführt ab klick auf den Erstellen Button in Zeile 126
@@ -233,29 +337,6 @@ namespace organizer {
   });
   // löscht Eingabe
 
-  let garbage1: HTMLLIElement = document.querySelector('.garbage1')!;
-  garbage1.addEventListener('click', function () {
-    let deleteTask = document.querySelector('.task1');
-    deleteTask?.remove();
-    console.log('you deleted task 1');
-  });
-
-  let garbage2: HTMLLIElement = document.querySelector('.garbage2')!;
-  garbage2.addEventListener('click', function () {
-    let deleteTask = document.querySelector('.task2');
-    deleteTask?.remove();
-    console.log('you deleted task 2');
-
-  });
-
-  let garbage3: HTMLLIElement = document.querySelector('.garbage3')!;
-  garbage3.addEventListener('click', function () {
-    let deleteTask = document.querySelector('.task3');
-    deleteTask?.remove();  // Frage- und Ausrufezeichen um Fehler possibly null zu beheben
-    console.log('you deleted task 3');
-
-  });
-  // Löschen statische Aufgaben
 
 };
 
