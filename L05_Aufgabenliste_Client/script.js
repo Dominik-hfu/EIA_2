@@ -13,8 +13,78 @@ var organizer;
         taskStatus[taskStatus["notcompleted"] = 0] = "notcompleted";
         taskStatus[taskStatus["inprogress"] = 1] = "inprogress";
         taskStatus[taskStatus["done"] = 2] = "done";
-    })(taskStatus || (taskStatus = {})); // nummeriert Attribute
+    })(taskStatus || (taskStatus = {})); // nummeriert Attribute/ Status
     ;
+    // Array muss deklariert aber kann auch leer sein, da Daten in json sind
+    let tasks = [
+        {
+            id: 1,
+            name: "Mark",
+            taskName: "Küche aufräumen",
+            date: "06.04.2023",
+            comment: "Spülmaschine ausräumen",
+            status: 0 // Attribute von Elementen
+        },
+        // Aufgaben 1, 2, 3 sind Objekte/Elemente vom interface task
+        {
+            id: 2,
+            name: "Lisa",
+            taskName: "Müll rausbringen",
+            date: "08.04.2023",
+            comment: "Biomüll",
+            status: 0
+        },
+        {
+            id: 3,
+            name: "Daniel",
+            taskName: "Badezimmer putzen",
+            date: "07.04.2023",
+            comment: "Dusche entkalken",
+            status: 1
+        },
+    ];
+    let json_url = "https://dominik-hfu.github.io/EIA_2/L05_Aufgabenliste_Client/tasks.json"; // JSON Datei wird über Github Pages geholt
+    async function fetchStartzustand() {
+        try {
+            const response = await fetch(json_url); // mit await wird auf das Ergebnis von json_url gewartet
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            } // wenn das Ergebnis nicht gefunden wird, kommt es zur Fehlerausgabe mit status
+            // Serverseitige Fehler
+            tasks = await response.json();
+            console.log("Start");
+            console.log(tasks);
+            // wenn es funktioniert hat, response wird in json umgewandelt
+        }
+        catch (error) {
+            console.error('Fehler beim Laden der JSON-Datei:', error);
+        } // Für Fehler bei der Verlinkung oder Datei
+    }
+    // try catch: versucht Daten zu holen und catcht den Fehler wenn es nicht funktioniert hat
+    async function sendTasksToServer() {
+        let url = "https://example.com/test"; // springt von hier direkt in catch, da es diesen Server nicht gibt
+        try {
+            let response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json", // headers beschreibt hier, dass es sich um eine json handelt
+                },
+                body: JSON.stringify(tasks), // Inhalt der gewünschten Änderung
+            });
+            if (response.ok) {
+                console.log("Tasks erfolgreich an den Server gesendet");
+                console.log(tasks);
+            }
+            else {
+                console.error("Fehler beim Senden, Server noch nicht vorhanden");
+                console.log(tasks);
+            }
+        }
+        catch {
+            console.error('Fehler beim zugriff des Servers, da noch keiner vorhanden ist');
+            console.log(tasks); //Fehlerausgabe 
+        }
+    }
     function addTask(name, taskName, date, comment) {
         let id = tasks[tasks.length - 1].id + 1;
         tasks.push({ id, name, taskName, date, comment, status: 0 });
@@ -37,6 +107,7 @@ var organizer;
     ;
     window.addEventListener('load', handleload);
     function handleload(_event) {
+        fetchStartzustand();
         let newTask = document.querySelector(".todo");
         newTask.innerHTML = "";
         tasks.forEach((task, index) => {
@@ -86,10 +157,6 @@ var organizer;
             newTask.appendChild(taskDiv);
         });
     }
-    // Handler = handleload, ist nur dafür veranwtortlich, die erstellten aufgaben beim geladenen window anzuzeigen  
-    function handleChange(_event) {
-    }
-    ;
     function createDropdownMenu(taskElement, progressBar) {
         let dropdown = document.createElement('select');
         let optionNotStarted = document.createElement('option');
@@ -257,7 +324,17 @@ var organizer;
     }
     ;
     // löscht Eingabe
+    let sendButton = document.getElementById("send");
+    let loader = document.getElementById("loader");
+    sendButton.addEventListener("click", () => {
+        loader.style.display = "inline-block";
+        sendButton.disabled = true; //button ist gedrückt und nicht klickbar
+        sendTasksToServer();
+        setTimeout(() => {
+            loader.style.display = "none";
+            sendButton.disabled = false; // button ist wieder klickbar nach 5s
+        }, 5000);
+    });
 })(organizer || (organizer = {}));
 ;
-// Aufgabe kann nur gelöscht werden, wenn diese erledigt ist oder es kommt alert wenn nicht erledigte aufgabe gelöscht wird oder nachfrage diese wirklich löschen?
 //# sourceMappingURL=script.js.map
