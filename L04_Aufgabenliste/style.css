@@ -102,3 +102,7 @@ background-color: #949494;
 .task span:last-of-type {
     border-right: none;
 }
+
+progress{
+    background-color: orange;
+}

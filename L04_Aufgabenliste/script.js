@@ -43,8 +43,9 @@ var organizer;
         },
     ];
     function addTask(name, taskName, date, comment) {
-        let id = tasks.length + 1;
+        let id = tasks[tasks.length - 1].id + 1;
         tasks.push({ id, name, taskName, date, comment, status: 0 });
+        return id;
     }
     ;
     function deleteTask(id, taskDiv) {
@@ -66,27 +67,47 @@ var organizer;
         let newTask = document.querySelector(".todo");
         newTask.innerHTML = "";
         tasks.forEach((task, index) => {
+            let dateString = task.date.replace(/\./g, "-"); // Ersetzen Sie die Punkte durch Bindestriche
+            let dateArray = dateString.split("-"); // Teilen Sie das Datum in ein Array mit Tag, Monat und Jahr
+            let formattedDate = `${dateArray[2]}-${dateArray[1]}-${dateArray[0]}`; // Formatieren Sie das Datum im yyyy-mm-dd-Format
+            let dueDate = new Date(formattedDate);
             let taskDiv = document.createElement("div");
             taskDiv.classList.add(`task${index + 1}`);
             let fieldset = document.createElement("fieldset");
             fieldset.classList.add("task");
             let nameSpan = document.createElement("span");
             nameSpan.textContent = task.name;
+            nameSpan.style.color = setTaskTextColor(dueDate);
             fieldset.appendChild(nameSpan);
             let taskSpan = document.createElement("span");
             taskSpan.textContent = task.taskName;
+            taskSpan.style.color = setTaskTextColor(dueDate);
             fieldset.appendChild(taskSpan);
             let dateSpan = document.createElement("span");
             dateSpan.textContent = task.date;
+            dateSpan.style.color = setTaskTextColor(dueDate);
             fieldset.appendChild(dateSpan);
             let commentSpan = document.createElement("span");
             commentSpan.textContent = task.comment;
+            commentSpan.style.color = setTaskTextColor(dueDate);
             fieldset.appendChild(commentSpan);
+            let progressBar = document.createElement('progress');
+            progressBar.max = 100;
+            progressBar.value = 0; // Standardwert für "Nicht angefangen"
+            progressBar.style.height = '10px';
+            progressBar.style.marginTop = '25px';
+            progressBar.style.marginRight = '10px';
+            progressBar.style.backgroundColor = 'white';
+            fieldset.appendChild(progressBar);
+            let dropdownMenu = createDropdownMenu(fieldset, progressBar);
+            fieldset.appendChild(dropdownMenu);
+            console.log(tasks);
             let trash = document.createElement("i");
             trash.classList.add("fa-regular", "fa-trash-can", "fa-2x", "garbage1");
             fieldset.appendChild(trash);
             trash.addEventListener("click", () => {
                 deleteTask(task.id, taskDiv);
+                console.log(tasks);
             });
             taskDiv.appendChild(fieldset);
             newTask.appendChild(taskDiv);
@@ -94,8 +115,8 @@ var organizer;
     }
     // Handler = handleload, ist nur dafür veranwtortlich, die erstellten aufgaben beim geladenen window anzuzeigen  
     function handleChange(_event) {
-        console.log('huhu');
     }
+    ;
     function createDropdownMenu(taskElement, progressBar) {
         let dropdown = document.createElement('select');
         let optionNotStarted = document.createElement('option');
@@ -157,44 +178,37 @@ var organizer;
     } //Bedingungen für die unteschiedlichen Farben, direktes styling im Code möglich
     let todos = document.querySelector(".todo");
     let name = document.querySelector('select');
-    name.addEventListener('change', selectname);
-    function selectname() {
-        let selectedName = name.options[name.selectedIndex].textContent; //Gewählte Option wird selectedName gespeichert
-        console.log("you choosed: " + selectedName);
-    }
-    ;
     let taskName;
     let comment;
     //global, werden später benötigt
     let inputField = document.querySelector("input[type='text']");
-    inputField.addEventListener("keyup", (event) => {
-        if (event.key === "Enter") {
-            let inputText = event.target.value;
+    inputField.addEventListener("keyup", taskField);
+    function taskField(_event) {
+        if (_event.key === "Enter") {
+            let inputText = _event.target.value;
             taskName = inputText;
-            event.target.value = "";
-            console.log(`taskdefinition: ${inputText}`);
+            _event.target.value = "";
         }
-    });
+    }
+    ;
     let date = document.querySelector("input[type='date']");
-    date.addEventListener('change', function (_event) {
-        let choosedDate = _event.target.value;
-        console.log(`you set the deadline: ${choosedDate}`);
-    });
     let commentField = document.getElementById('comment'); // Zugriff auf Input-Feld Element
-    commentField.addEventListener("keyup", (event) => {
-        if (event.key === "Enter") {
-            let inputComment = event.target.value; // Zugriff auf den eingegebenen Text im Input-Feld
+    commentField.addEventListener("keyup", commentInput);
+    function commentInput(_event) {
+        if (_event.key === "Enter") {
+            let inputComment = _event.target.value; // Zugriff auf den eingegebenen Text im Input-Feld
             comment = inputComment;
-            event.target.value = "";
-            console.log(`comment:${inputComment}`);
+            _event.target.value = "";
         }
         ;
-    });
+    }
+    ;
     // hier id, da 2 input elemente vorhanden sind und nicht beide mit der gleichen klasse getrennt von einander funktionieren
     let button = document.querySelector('.createtask');
     let nameSelect = document.getElementById("select");
     let dateInput = document.querySelector("input[type='date']");
-    button.addEventListener('click', function createTask() {
+    button.addEventListener('click', createTask);
+    function createTask() {
         if (name.value !== "" && inputField.value != "" && date.value !== "" && commentField.value != "") {
             // Variablen zum Speichern der ausgewählten Werte
             let selectedName = null;
@@ -225,58 +239,52 @@ var organizer;
             commentSpan.style.color = setTaskTextColor(dueDate);
             newtask.appendChild(commentSpan);
             commentField.value = "";
-            addTask(selectedName, inputText, inputDate, commentField.value);
+            let id = addTask(selectedName ?? "", inputText, inputDate, commentField.value); // selectedName mit ??"", d.h. wenn null, dann macht er einen leeren string
+            console.log(tasks);
             let progressBar = document.createElement('progress');
             progressBar.max = 100;
             progressBar.value = 0; // Standardwert für "Nicht angefangen"
-            // if(progressBar.value==0){
-            //   // progressBar.style.backgroundColor='white'
-            //   progressBar.classList.add('red')
-            // }
-            // else if(progressBar.value==50){
-            //   // progressBar.style.backgroundColor='orange'
-            //   progressBar.classList.add('orange')
-            // }
-            // else(progressBar.value==100);{
-            //   // progressBar.style.backgroundColor='green'
-            //   progressBar.classList.add('green')
-            // }
             progressBar.style.height = '10px';
             progressBar.style.marginTop = '25px';
             progressBar.style.marginRight = '10px';
             progressBar.style.backgroundColor = 'white';
-            // style color fubnktioniert nicht :/
             newtask.appendChild(progressBar);
-            // Hinzufügen des Dropdown-Menüs zum neuen Aufgaben-Element
             let dropdownMenu = createDropdownMenu(newtask, progressBar);
             newtask.appendChild(dropdownMenu);
+            // Hinzufügen der ProgressBar und des Dropdown-Menüs zum neuen Aufgaben-Element
+            let taskDiv = document.createElement("div");
+            taskDiv.classList.add(`task${id + 1}`);
             let trash = document.createElement('i');
             trash.classList.add('fa-regular', 'fa-trash-can', 'fa-2x', 'trash', 'task');
-            trash.addEventListener('click', function Delete() {
+            trash.addEventListener('click', Delete);
+            function Delete() {
                 newtask.remove();
                 trash.remove();
-            });
+                tasks = tasks.filter(task => task.id !== id); //filtert alle id´s außer die die gelöscht werden soll und überschreibt das array mit allen gefilterten id´s
+                console.log(tasks);
+            }
+            ;
             newtask.appendChild(trash);
+            taskDiv.appendChild(newtask);
             todos.prepend(newtask);
-            console.log(selectedName, taskName, date, comment);
         }
         else {
             alert('Bitte füllen Sie alle Felder aus');
         }
-    });
-    // Bis hier wird alles ausgeführt ab klick auf den Erstellen Button in Zeile 126
+    }
+    ;
+    // Bis hier wird alles ausgeführt ab klick auf den Erstellen Button
     let garbage = document.getElementById('trash');
-    garbage.addEventListener('click', function DeleteInput() {
+    garbage.addEventListener('click', DeleteInput);
+    function DeleteInput() {
         nameSelect.value = "";
         inputField.value = "";
         dateInput.value = "";
         commentField.value = "";
-    });
+    }
+    ;
     // löscht Eingabe
 })(organizer || (organizer = {}));
 ;
-// Rahmen ist irgendwie kaputt :/
-// Datum umdrehen?
 // Aufgabe kann nur gelöscht werden, wenn diese erledigt ist oder es kommt alert wenn nicht erledigte aufgabe gelöscht wird oder nachfrage diese wirklich löschen?
-// ProgressBar Farben ändern?
 //# sourceMappingURL=script.js.map
