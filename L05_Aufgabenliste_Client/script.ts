@@ -57,7 +57,7 @@ namespace organizer {
   
   async function fetchStartzustand() {
     try {
-      const response = await fetch(json_url);// mit await wird auf das Ergebnis von json_url gewartet
+      let response = await fetch(json_url);// mit await wird auf das Ergebnis von json_url gewartet
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
