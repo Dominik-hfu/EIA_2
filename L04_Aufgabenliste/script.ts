@@ -2,7 +2,7 @@
 Aufgabe: <L04_Aufgabenliste>
 Name: <Dominik Putz>
 Matrikel: <272244>
-Datum: <15.04.2023>
+Datum: <20.04.2023>
 Quellen: <->
 */
 
@@ -14,7 +14,7 @@ namespace organizer {
     done
   }// nummeriert Attribute
 
-  interface task {
+  interface task {// Struktur der Objekte
     id: number;
     name: string;
     taskName: string;
@@ -23,7 +23,7 @@ namespace organizer {
     status: taskStatus;
   };
 
-  let tasks: task[] = [
+  let tasks: task[] = [// Objekte
     {
       id: 1,
       name: "Mark",
@@ -32,7 +32,7 @@ namespace organizer {
       comment: "Spülmaschine ausräumen",
       status: 0// Attribute von Elementen
     },
-// Aufgaben sind Objekte/Elemente vom interface task
+    // Aufgaben sind Objekte/Elemente vom interface task
     {
       id: 2,
       name: "Lisa",
@@ -52,62 +52,62 @@ namespace organizer {
 
     },];
 
-    function addTask(name:string, taskName:string, date:string, comment:string){
-      let id:number=tasks[tasks.length-1].id+1;
-      tasks.push({id,name,taskName,date,comment,status:0});
-      return id;
-    };
+  function addTask(name: string, taskName: string, date: string, comment: string) {// task in array pushen+ neue id
+    let id: number = tasks[tasks.length - 1].id + 1;
+    tasks.push({ id, name, taskName, date, comment, status: 0 });
+    return id;
+  };
 
-    function deleteTask(id:number,taskDiv:HTMLDivElement){
-      let index=-1;
-      for(let i=0; i<tasks.length; i++){
-        if(tasks[i].id===id){
-          index=i;
-          break
-        }
+  function deleteTask(id: number, taskDiv: HTMLDivElement) {// task aus array löschen, dabei id beachten damit nicht doppelt vergeben
+    let index: number = -1;
+    for (let i = 0; i < tasks.length; i++) {
+      if (tasks[i].id === id) {
+        index = i;
+        break
       }
-      if(index!==-1){
-        tasks.splice(index,1)// index= Startwert, 1= Anzahl der Elemente die gelöscht werden sollen (Hover über splice)
-      }
-      taskDiv.remove();
-    };
+    }
+    if (index !== -1) {
+      tasks.splice(index, 1)// index= Startwert, 1= Anzahl der Elemente die gelöscht werden sollen (Hover über splice)
+    }
+    taskDiv.remove();
+  };
 
   window.addEventListener('load', handleload);
 
-  function handleload(_event: Event): void {
+  function handleload(): void {
 
-    let newTask:HTMLDivElement=<HTMLDivElement>document.querySelector(".todo");
-    newTask.innerHTML="";
-    tasks.forEach((task,index)=>{
-      let dateString = task.date.replace(/\./g, "-"); // Ersetzen Sie die Punkte durch Bindestriche
-      let dateArray = dateString.split("-"); // Teilen Sie das Datum in ein Array mit Tag, Monat und Jahr
-      let formattedDate = `${dateArray[2]}-${dateArray[1]}-${dateArray[0]}`; // Formatieren Sie das Datum im yyyy-mm-dd-Format
-      
+    let newTask: HTMLDivElement = <HTMLDivElement>document.querySelector(".todo");
+    newTask.innerHTML = "";// todo div als leeren string darstellen
+    tasks.forEach((task, index) => {//alle spans erstellen
+      let dateString = task.date.replace(/\./g, "-"); // Formatierung?
+      let dateArray = dateString.split("-"); // Datum in ein Array teilen
+      let formattedDate = `${dateArray[2]}-${dateArray[1]}-${dateArray[0]}`; // Formatieren des Datum in Tage, Monate und Jahr
+
       let dueDate = new Date(formattedDate);
-      let taskDiv:HTMLDivElement=document.createElement("div");
-      taskDiv.classList.add(`task${index+1}`);
-      
-      let fieldset:HTMLFieldSetElement=document.createElement("fieldset") as HTMLFieldSetElement;
+      let taskDiv: HTMLDivElement = document.createElement("div");
+      taskDiv.classList.add(`task${index + 1}`);
+
+      let fieldset: HTMLFieldSetElement = document.createElement("fieldset") as HTMLFieldSetElement;
       fieldset.classList.add("task");
-      
-      let nameSpan:HTMLSpanElement=document.createElement("span") as HTMLSpanElement;
-      nameSpan.textContent=task.name;
-      nameSpan.style.color=setTaskTextColor(dueDate)
+
+      let nameSpan: HTMLSpanElement = document.createElement("span") as HTMLSpanElement;
+      nameSpan.textContent = task.name;
+      nameSpan.style.color = setTaskTextColor(dueDate)
       fieldset.appendChild(nameSpan);
-      
-      let taskSpan:HTMLSpanElement=document.createElement("span") as HTMLSpanElement;
-      taskSpan.textContent=task.taskName;
-      taskSpan.style.color=setTaskTextColor(dueDate)
+
+      let taskSpan: HTMLSpanElement = document.createElement("span") as HTMLSpanElement;
+      taskSpan.textContent = task.taskName;
+      taskSpan.style.color = setTaskTextColor(dueDate)
       fieldset.appendChild(taskSpan);
-      
-      let dateSpan:HTMLSpanElement=document.createElement("span") as HTMLSpanElement;
-      dateSpan.textContent=task.date;
-      dateSpan.style.color=setTaskTextColor(dueDate)
+
+      let dateSpan: HTMLSpanElement = document.createElement("span") as HTMLSpanElement;
+      dateSpan.textContent = task.date;
+      dateSpan.style.color = setTaskTextColor(dueDate)
       fieldset.appendChild(dateSpan);
-      
-      let commentSpan:HTMLSpanElement=document.createElement("span") as HTMLSpanElement;
-      commentSpan.textContent=task.comment;
-      commentSpan.style.color=setTaskTextColor(dueDate)
+
+      let commentSpan: HTMLSpanElement = document.createElement("span") as HTMLSpanElement;
+      commentSpan.textContent = task.comment;
+      commentSpan.style.color = setTaskTextColor(dueDate)
       fieldset.appendChild(commentSpan);
 
       let progressBar = document.createElement('progress');
@@ -123,11 +123,11 @@ namespace organizer {
       let dropdownMenu = createDropdownMenu(fieldset, progressBar);
       fieldset.appendChild(dropdownMenu);
       console.log(tasks)
-      let trash:HTMLLIElement=document.createElement("i") as HTMLLIElement;
+      let trash: HTMLLIElement = document.createElement("i") as HTMLLIElement;
       trash.classList.add("fa-regular", "fa-trash-can", "fa-2x", "garbage1");
       fieldset.appendChild(trash);
-      trash.addEventListener("click", () =>{ // Leere Klammer bzw. Formatierung so, damit Parameter der Funktion übergeben werden können 
-        deleteTask(task.id,taskDiv);
+      trash.addEventListener("click", () => { // Leere Klammer bzw. Formatierung so, damit Parameter der Funktion übergeben werden können 
+        deleteTask(task.id, taskDiv);
         console.log(tasks)
       });
 
@@ -135,10 +135,7 @@ namespace organizer {
       newTask.appendChild(taskDiv);
     });
   }
-  // Handler = handleload, ist nur dafür veranwtortlich, die erstellten aufgaben beim geladenen window anzuzeigen  
-  function handleChange(_event: Event): void {
-    
-  };
+  //Alles Elemente (span, progressbar, dropdown, trash) erstellen
 
   function createDropdownMenu(taskElement: HTMLElement, progressBar: HTMLProgressElement) { //Parameter wichtig für Funktionsaufruf
     let dropdown = document.createElement('select');
@@ -205,63 +202,40 @@ namespace organizer {
     }
   } //Bedingungen für die unteschiedlichen Farben, direktes styling im Code möglich
 
-  let todos = document.querySelector(".todo") as HTMLDivElement;
+  let todos = document.querySelector(".todo") as HTMLDivElement;// um fieldset newtask dem div appenden zu können
 
-  let name: HTMLSelectElement = document.querySelector('select') as HTMLSelectElement;
-
-
-  let taskName: string;
-  let comment: string;
-  //global, werden später benötigt
+  let name: HTMLSelectElement = document.querySelector('select') as HTMLSelectElement; // um html select element value auslesen zu können
 
   let inputField: HTMLInputElement = document.querySelector("input[type='text']") as HTMLInputElement;
-
-  inputField.addEventListener("keyup", taskField) ;
-  
-  function taskField(_event:KeyboardEvent){
-    if (_event.key === "Enter") {
-      let inputText: string = (_event.target as HTMLInputElement).value;
-      taskName = inputText;
-
-      (_event.target as HTMLInputElement).value = "";
-    }
-  };
+  inputField.addEventListener("keyup", function(){});
 
   let date: HTMLInputElement = document.querySelector("input[type='date']") as HTMLInputElement;
 
   let commentField: HTMLInputElement = document.getElementById('comment') as HTMLInputElement; // Zugriff auf Input-Feld Element
-
-  commentField.addEventListener("keyup", commentInput) 
-  
-  function commentInput(_event:KeyboardEvent){ // Hinzufügen des Eventlisteners für "keyup" - Ereignis
-    if (_event.key === "Enter") {
-      let inputComment: string = (_event.target as HTMLInputElement).value; // Zugriff auf den eingegebenen Text im Input-Feld
-      comment = inputComment;
-      (_event.target as HTMLInputElement).value = "";
-    };
-  };
-  // hier id, da 2 input elemente vorhanden sind und nicht beide mit der gleichen klasse getrennt von einander funktionieren
+  commentField.addEventListener("keyup",function(){});
 
   let button: HTMLButtonElement = document.querySelector('.createtask') as HTMLButtonElement;
 
   let nameSelect: HTMLSelectElement = document.getElementById("select") as HTMLSelectElement;
 
   let dateInput: HTMLInputElement = document.querySelector("input[type='date']") as HTMLInputElement;
+//inputfields werden hier abgehört bzw. variablen zugeordnet
 
-  button.addEventListener('click', createTask); 
-  
-  function createTask(){
+  button.addEventListener('click', createTask);
+
+  function createTask() {
 
     if (name.value !== "" && inputField.value != "" && date.value !== "" && commentField.value != "") {
 
-      // Variablen zum Speichern der ausgewählten Werte
-      let selectedName:string| null = null;
-        selectedName= nameSelect.options[nameSelect.selectedIndex]?.textContent;
+      let selectedName: string | null = null;
+      selectedName = nameSelect.options[nameSelect.selectedIndex]?.textContent;
+      
       let inputText: string = inputField.value;
       let inputDate: string = dateInput.value;
-
+      
       let dueDate = new Date(inputDate);
-
+      // Variablen zum Speichern der ausgewählten Werte
+      
       let newtask: HTMLFieldSetElement = document.createElement('fieldset');
       newtask.classList.add('task');
 
@@ -290,35 +264,37 @@ namespace organizer {
       newtask.appendChild(commentSpan);
       commentField.value = "";
 
-      let id= addTask(selectedName??"", inputText, inputDate,commentField.value)// selectedName mit ??"", d.h. wenn null, dann macht er einen leeren string
-      console.log(tasks)
+      let id = addTask(selectedName ?? "", inputText, inputDate, commentField.value)// selectedName mit ??"", d.h. wenn null, dann macht er einen leeren string
+      console.log(tasks);
+      //wird in array gepusht
+
       let progressBar = document.createElement('progress');
       progressBar.max = 100;
       progressBar.value = 0; // Standardwert für "Nicht angefangen"
-      
+
       progressBar.style.height = '10px';
       progressBar.style.marginTop = '25px';
       progressBar.style.marginRight = '10px';
       progressBar.style.backgroundColor = 'white';
 
       newtask.appendChild(progressBar);
-      
+
       let dropdownMenu = createDropdownMenu(newtask, progressBar);
       newtask.appendChild(dropdownMenu);
       // Hinzufügen der ProgressBar und des Dropdown-Menüs zum neuen Aufgaben-Element
-      let taskDiv:HTMLDivElement=document.createElement("div");
-      taskDiv.classList.add(`task${id+1}`);
-      
+      let taskDiv: HTMLDivElement = document.createElement("div");
+      taskDiv.classList.add(`task${id + 1}`);
+
       let trash: HTMLLIElement = document.createElement('i') as HTMLLIElement;
       trash.classList.add('fa-regular', 'fa-trash-can', 'fa-2x', 'trash', 'task');
       trash.addEventListener('click', Delete);
-      
+
       function Delete() {
         newtask.remove();
         trash.remove();
-        tasks=tasks.filter(task => task.id !== id);//filtert alle id´s außer die die gelöscht werden soll und überschreibt das array mit allen gefilterten id´s
+        tasks = tasks.filter(task => task.id !== id);//filtert alle id´s außer die die gelöscht werden soll und überschreibt das array mit allen gefilterten id´s
         console.log(tasks)
-        
+
       };
       newtask.appendChild(trash);
       taskDiv.appendChild(newtask);
@@ -336,7 +312,7 @@ namespace organizer {
 
   let garbage: HTMLLIElement = document.getElementById('trash') as HTMLLIElement;
   garbage.addEventListener('click', DeleteInput);
-  
+
   function DeleteInput() {
 
     nameSelect.value = "";
@@ -350,5 +326,3 @@ namespace organizer {
 
 
 };
-
-// Aufgabe kann nur gelöscht werden, wenn diese erledigt ist oder es kommt alert wenn nicht erledigte aufgabe gelöscht wird oder nachfrage diese wirklich löschen?

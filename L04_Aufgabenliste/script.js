@@ -3,7 +3,7 @@
 Aufgabe: <L04_Aufgabenliste>
 Name: <Dominik Putz>
 Matrikel: <272244>
-Datum: <15.04.2023>
+Datum: <20.04.2023>
 Quellen: <->
 */
 var organizer;
@@ -63,13 +63,13 @@ var organizer;
     }
     ;
     window.addEventListener('load', handleload);
-    function handleload(_event) {
+    function handleload() {
         let newTask = document.querySelector(".todo");
-        newTask.innerHTML = "";
+        newTask.innerHTML = ""; // todo div als leeren string darstellen
         tasks.forEach((task, index) => {
-            let dateString = task.date.replace(/\./g, "-"); // Ersetzen Sie die Punkte durch Bindestriche
-            let dateArray = dateString.split("-"); // Teilen Sie das Datum in ein Array mit Tag, Monat und Jahr
-            let formattedDate = `${dateArray[2]}-${dateArray[1]}-${dateArray[0]}`; // Formatieren Sie das Datum im yyyy-mm-dd-Format
+            let dateString = task.date.replace(/\./g, "-"); // Formatierung?
+            let dateArray = dateString.split("-"); // Datum in ein Array teilen
+            let formattedDate = `${dateArray[2]}-${dateArray[1]}-${dateArray[0]}`; // Formatieren des Datum in Tage, Monate und Jahr
             let dueDate = new Date(formattedDate);
             let taskDiv = document.createElement("div");
             taskDiv.classList.add(`task${index + 1}`);
@@ -113,10 +113,7 @@ var organizer;
             newTask.appendChild(taskDiv);
         });
     }
-    // Handler = handleload, ist nur dafür veranwtortlich, die erstellten aufgaben beim geladenen window anzuzeigen  
-    function handleChange(_event) {
-    }
-    ;
+    //Alles Elemente (span, progressbar, dropdown, trash) erstellen
     function createDropdownMenu(taskElement, progressBar) {
         let dropdown = document.createElement('select');
         let optionNotStarted = document.createElement('option');
@@ -176,46 +173,26 @@ var organizer;
             return 'red';
         }
     } //Bedingungen für die unteschiedlichen Farben, direktes styling im Code möglich
-    let todos = document.querySelector(".todo");
-    let name = document.querySelector('select');
-    let taskName;
-    let comment;
-    //global, werden später benötigt
+    let todos = document.querySelector(".todo"); // um fieldset newtask dem div appenden zu können
+    let name = document.querySelector('select'); // um html select element value auslesen zu können
     let inputField = document.querySelector("input[type='text']");
-    inputField.addEventListener("keyup", taskField);
-    function taskField(_event) {
-        if (_event.key === "Enter") {
-            let inputText = _event.target.value;
-            taskName = inputText;
-            _event.target.value = "";
-        }
-    }
-    ;
+    inputField.addEventListener("keyup", function () { });
     let date = document.querySelector("input[type='date']");
     let commentField = document.getElementById('comment'); // Zugriff auf Input-Feld Element
-    commentField.addEventListener("keyup", commentInput);
-    function commentInput(_event) {
-        if (_event.key === "Enter") {
-            let inputComment = _event.target.value; // Zugriff auf den eingegebenen Text im Input-Feld
-            comment = inputComment;
-            _event.target.value = "";
-        }
-        ;
-    }
-    ;
-    // hier id, da 2 input elemente vorhanden sind und nicht beide mit der gleichen klasse getrennt von einander funktionieren
+    commentField.addEventListener("keyup", function () { });
     let button = document.querySelector('.createtask');
     let nameSelect = document.getElementById("select");
     let dateInput = document.querySelector("input[type='date']");
+    //inputfields werden hier abgehört bzw. variablen zugeordnet
     button.addEventListener('click', createTask);
     function createTask() {
         if (name.value !== "" && inputField.value != "" && date.value !== "" && commentField.value != "") {
-            // Variablen zum Speichern der ausgewählten Werte
             let selectedName = null;
             selectedName = nameSelect.options[nameSelect.selectedIndex]?.textContent;
             let inputText = inputField.value;
             let inputDate = dateInput.value;
             let dueDate = new Date(inputDate);
+            // Variablen zum Speichern der ausgewählten Werte
             let newtask = document.createElement('fieldset');
             newtask.classList.add('task');
             let nameSpan = document.createElement('span');
@@ -241,6 +218,7 @@ var organizer;
             commentField.value = "";
             let id = addTask(selectedName ?? "", inputText, inputDate, commentField.value); // selectedName mit ??"", d.h. wenn null, dann macht er einen leeren string
             console.log(tasks);
+            //wird in array gepusht
             let progressBar = document.createElement('progress');
             progressBar.max = 100;
             progressBar.value = 0; // Standardwert für "Nicht angefangen"
@@ -286,5 +264,4 @@ var organizer;
     // löscht Eingabe
 })(organizer || (organizer = {}));
 ;
-// Aufgabe kann nur gelöscht werden, wenn diese erledigt ist oder es kommt alert wenn nicht erledigte aufgabe gelöscht wird oder nachfrage diese wirklich löschen?
 //# sourceMappingURL=script.js.map

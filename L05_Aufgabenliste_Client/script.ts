@@ -132,9 +132,9 @@ namespace organizer {
     let newTask:HTMLDivElement=<HTMLDivElement>document.querySelector(".todo");
     newTask.innerHTML="";
     tasks.forEach((task,index)=>{
-      let dateString = task.date.replace(/\./g, "-"); // Ersetzen Sie die Punkte durch Bindestriche
-      let dateArray = dateString.split("-"); // Teilen Sie das Datum in ein Array mit Tag, Monat und Jahr
-      let formattedDate = `${dateArray[2]}-${dateArray[1]}-${dateArray[0]}`; // Formatieren Sie das Datum im yyyy-mm-dd-Format
+      let dateString = task.date.replace(/\./, "-"); // Formatierung 
+      let dateArray = dateString.split("-"); // Split in Array
+      let formattedDate = `${dateArray[2]}-${dateArray[1]}-${dateArray[0]}`; // Formatieren des Datum im yyyy-mm-dd-Format
       
       let dueDate = new Date(formattedDate);
       let taskDiv:HTMLDivElement=document.createElement("div");
@@ -258,45 +258,20 @@ namespace organizer {
 
   let name: HTMLSelectElement = document.querySelector('select') as HTMLSelectElement;
 
-
-  let taskName: string;
-  let comment: string;
-  //global, werden später benötigt
-
   let inputField: HTMLInputElement = document.querySelector("input[type='text']") as HTMLInputElement;
-
-  inputField.addEventListener("keyup", taskField) ;
-  
-  function taskField(_event:KeyboardEvent){
-    if (_event.key === "Enter") {
-      let inputText: string = (_event.target as HTMLInputElement).value;
-      taskName = inputText;
-
-      (_event.target as HTMLInputElement).value = "";
-    }
-  };
-
+  inputField.addEventListener("keyup", function(){});
+ 
   let date: HTMLInputElement = document.querySelector("input[type='date']") as HTMLInputElement;
 
   let commentField: HTMLInputElement = document.getElementById('comment') as HTMLInputElement; // Zugriff auf Input-Feld Element
-
-  commentField.addEventListener("keyup", commentInput) 
+  commentField.addEventListener("keyup", function(){}); 
   
-  function commentInput(_event:KeyboardEvent){ // Hinzufügen des Eventlisteners für "keyup" - Ereignis
-    if (_event.key === "Enter") {
-      let inputComment: string = (_event.target as HTMLInputElement).value; // Zugriff auf den eingegebenen Text im Input-Feld
-      comment = inputComment;
-      (_event.target as HTMLInputElement).value = "";
-    };
-  };
-  // hier id, da 2 input elemente vorhanden sind und nicht beide mit der gleichen klasse getrennt von einander funktionieren
-
-  let button: HTMLButtonElement = document.querySelector('.createtask') as HTMLButtonElement;
-
   let nameSelect: HTMLSelectElement = document.getElementById("select") as HTMLSelectElement;
 
   let dateInput: HTMLInputElement = document.querySelector("input[type='date']") as HTMLInputElement;
 
+
+  let button: HTMLButtonElement = document.querySelector('.createtask') as HTMLButtonElement;
   button.addEventListener('click', createTask); 
   
   function createTask(){
@@ -306,10 +281,12 @@ namespace organizer {
       // Variablen zum Speichern der ausgewählten Werte
       let selectedName:string| null = null;
         selectedName= nameSelect.options[nameSelect.selectedIndex]?.textContent;
+
       let inputText: string = inputField.value;
       let inputDate: string = dateInput.value;
 
       let dueDate = new Date(inputDate);
+      // Variablen zum Speichern der ausgewählten Werte
 
       let newtask: HTMLFieldSetElement = document.createElement('fieldset');
       newtask.classList.add('task');
@@ -340,7 +317,9 @@ namespace organizer {
       commentField.value = "";
 
       let id= addTask(selectedName??"", inputText, inputDate,commentField.value)// selectedName mit ??"", d.h. wenn null, dann macht er einen leeren string
-      console.log(tasks)
+      console.log(tasks);
+      // wird in arry gepusht
+
       let progressBar = document.createElement('progress');
       progressBar.max = 100;
       progressBar.value = 0; // Standardwert für "Nicht angefangen"
