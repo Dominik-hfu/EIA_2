@@ -46,7 +46,7 @@ var organizer;
     let json_url = "https://dominik-hfu.github.io/EIA_2/L05_Aufgabenliste_Client/tasks.json"; // JSON Datei wird über Github Pages geholt
     async function fetchStartzustand() {
         try {
-            const response = await fetch(json_url); // mit await wird auf das Ergebnis von json_url gewartet
+            let response = await fetch(json_url); // mit await wird auf das Ergebnis von json_url gewartet
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             } // wenn das Ergebnis nicht gefunden wird, kommt es zur Fehlerausgabe mit status
