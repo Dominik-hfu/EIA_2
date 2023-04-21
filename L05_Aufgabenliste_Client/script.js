@@ -114,26 +114,26 @@ var organizer;
             let dateString = task.date.replace(/\./, "-"); // Formatierung 
             let dateArray = dateString.split("-"); // Split in Array
             let formattedDate = `${dateArray[2]}-${dateArray[1]}-${dateArray[0]}`; // Formatieren des Datum im yyyy-mm-dd-Format
-            let dueDate = new Date(formattedDate);
+            let choosenDate = new Date(formattedDate);
             let taskDiv = document.createElement("div");
             taskDiv.classList.add(`task${index + 1}`);
             let fieldset = document.createElement("fieldset");
             fieldset.classList.add("task");
             let nameSpan = document.createElement("span");
             nameSpan.textContent = task.name;
-            nameSpan.style.color = setTaskTextColor(dueDate);
+            nameSpan.style.color = setTaskTextColor(choosenDate);
             fieldset.appendChild(nameSpan);
             let taskSpan = document.createElement("span");
             taskSpan.textContent = task.taskName;
-            taskSpan.style.color = setTaskTextColor(dueDate);
+            taskSpan.style.color = setTaskTextColor(choosenDate);
             fieldset.appendChild(taskSpan);
             let dateSpan = document.createElement("span");
             dateSpan.textContent = task.date;
-            dateSpan.style.color = setTaskTextColor(dueDate);
+            dateSpan.style.color = setTaskTextColor(choosenDate);
             fieldset.appendChild(dateSpan);
             let commentSpan = document.createElement("span");
             commentSpan.textContent = task.comment;
-            commentSpan.style.color = setTaskTextColor(dueDate);
+            commentSpan.style.color = setTaskTextColor(choosenDate);
             fieldset.appendChild(commentSpan);
             let progressBar = document.createElement('progress');
             progressBar.max = 100;
@@ -202,9 +202,9 @@ var organizer;
         return diffDays; //gibt die differenz ziwschen dem gewählten und dem aktuellen Datum zurück
     }
     // Funktion zum Festlegen der Textfarbe basierend auf dem Fälligkeitsdatum, Aufruf und Ausführen der Funktion das erst Mal in Zeile 141
-    function setTaskTextColor(dueDate) {
+    function setTaskTextColor(choosenDate) {
         let currentDate = new Date(); //aktuelles datum
-        let daysDifference = dateDifferenceInDays(currentDate, dueDate); //ruft die Funktion auf und speichert das Ergebnis
+        let daysDifference = dateDifferenceInDays(currentDate, choosenDate); //ruft die Funktion auf und speichert das Ergebnis
         // Parameter sind aktuelles und gewähltes Datum
         if (daysDifference >= 3) {
             return 'green';
@@ -217,51 +217,42 @@ var organizer;
         }
     } //Bedingungen für die unteschiedlichen Farben, direktes styling im Code möglich
     let todos = document.querySelector(".todo");
-    let name = document.querySelector('select');
-    let inputField = document.querySelector("input[type='text']");
-    inputField.addEventListener("keyup", function () { });
-    let date = document.querySelector("input[type='date']");
-    let commentField = document.getElementById('comment'); // Zugriff auf Input-Feld Element
-    commentField.addEventListener("keyup", function () { });
     let nameSelect = document.getElementById("select");
+    let taskField = document.querySelector("input[type='text']");
     let dateInput = document.querySelector("input[type='date']");
+    let choosenDate = new Date(dateInput.value);
+    let commentField = document.getElementById('comment');
+    // Zugriff auf Inputfield-/ Select Elemente/ Variablen zum speichern der gewählten Werte
     let button = document.querySelector('.createtask');
     button.addEventListener('click', createTask);
     function createTask() {
-        if (name.value !== "" && inputField.value != "" && date.value !== "" && commentField.value != "") {
-            // Variablen zum Speichern der ausgewählten Werte
-            let selectedName = null;
-            selectedName = nameSelect.options[nameSelect.selectedIndex]?.textContent;
-            let inputText = inputField.value;
-            let inputDate = dateInput.value;
-            let dueDate = new Date(inputDate);
-            // Variablen zum Speichern der ausgewählten Werte
+        if (nameSelect.value !== "" && taskField.value != "" && dateInput.value !== "" && commentField.value != "") {
             let newtask = document.createElement('fieldset');
             newtask.classList.add('task');
             let nameSpan = document.createElement('span');
-            nameSpan.textContent = selectedName; //nameSpan ist das Element, selectedName ist der Wert
-            nameSpan.style.color = setTaskTextColor(dueDate);
+            nameSpan.textContent = nameSelect.value; //nameSpan ist das Element, selectedName ist der Wert
+            nameSpan.style.color = setTaskTextColor(choosenDate);
             newtask.appendChild(nameSpan);
             nameSelect.value = '';
             let taskSpan = document.createElement('span');
-            taskSpan.textContent = inputText;
-            taskSpan.style.color = setTaskTextColor(dueDate);
+            taskSpan.textContent = taskField.value;
+            taskSpan.style.color = setTaskTextColor(choosenDate);
             newtask.appendChild(taskSpan);
-            inputField.value = "";
+            taskField.value = "";
             let dateSpan = document.createElement('span');
-            dateSpan.textContent = inputDate;
-            dateSpan.style.color = setTaskTextColor(dueDate);
+            dateSpan.textContent = dateInput.value;
+            dateSpan.style.color = setTaskTextColor(choosenDate);
             newtask.appendChild(dateSpan);
             dateInput.value = "";
             let commentSpan = document.createElement('span');
             commentSpan.classList.add('comment');
             commentSpan.textContent = commentField.value;
-            commentSpan.style.color = setTaskTextColor(dueDate);
+            commentSpan.style.color = setTaskTextColor(choosenDate);
             newtask.appendChild(commentSpan);
             commentField.value = "";
-            let id = addTask(selectedName ?? "", inputText, inputDate, commentField.value); // selectedName mit ??"", d.h. wenn null, dann macht er einen leeren string
+            let id = addTask(nameSelect.value, taskField.value, dateInput.value, commentField.value);
+            // wird in array gepusht
             console.log(tasks);
-            // wird in arry gepusht
             let progressBar = document.createElement('progress');
             progressBar.max = 100;
             progressBar.value = 0; // Standardwert für "Nicht angefangen"
@@ -299,7 +290,7 @@ var organizer;
     garbage.addEventListener('click', DeleteInput);
     function DeleteInput() {
         nameSelect.value = "";
-        inputField.value = "";
+        taskField.value = "";
         dateInput.value = "";
         commentField.value = "";
     }
