@@ -1,9 +1,9 @@
 "use strict";
 /*
-Aufgabe: <L04_Aufgabenliste>
+Aufgabe: <L06_DatabaseServer>
 Name: <Dominik Putz>
 Matrikel: <272244>
-Datum: <15.04.2023>
+Datum: <27.04.2023>
 Quellen: <->
 */
 var organizer;
@@ -43,7 +43,8 @@ var organizer;
             status: 1
         },
     ];
-    let URL = "https://webuser.hs-furtwangen.de/~putzdomi/Database/"; // JSON Datei wird über Server geholt
+    let URL = "https://webuser.hs-furtwangen.de/~putzdomi/Database/"; // JSON Datei wird über Server geholt gibt diese aber noch nicht dort!!!
+    // let URL="https://github.com/Dominik-hfu/EIA_2/blob/main/L05_Aufgabenliste_Client/tasks.json"
     //   interface FormDataJSON {
     //     [key: string]: FormDataEntryValue | FormDataEntryValue[];
     //   }
@@ -56,10 +57,17 @@ var organizer;
     //     };
     let query = new URLSearchParams();
     query.set("command", "create");
-    query.set("collection", "Orders");
+    query.set("collection", "tasks");
     // query.set("data", JSON.stringify(URL));
-    // command=update&collection=NameOfCollection&id=IdOfTheDocument&data={KeyValuePairs}
-    // let command:string= '?command=insert&collection=Students&data={"name":"Doe","firstname":"John","age":21,"passed":true}'
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(tasks)
+    };
+    fetch(URL, requestOptions)
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error(error));
     async function fetchStartzustand() {
         try {
             let response = await fetch(URL + "?" + query); // mit await wird auf das Ergebnis von URL gewartet

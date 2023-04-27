@@ -1,8 +1,8 @@
 /*
-Aufgabe: <L04_Aufgabenliste>
+Aufgabe: <L06_DatabaseServer>
 Name: <Dominik Putz>
 Matrikel: <272244>
-Datum: <15.04.2023>
+Datum: <27.04.2023>
 Quellen: <->
 */
 
@@ -53,7 +53,9 @@ namespace organizer {
     },];
 
 
-  let URL="https://webuser.hs-furtwangen.de/~putzdomi/Database/" // JSON Datei wird über Server geholt
+  let URL="https://webuser.hs-furtwangen.de/~putzdomi/Database/" // JSON Datei wird über Server geholt gibt diese aber noch nicht dort!!!
+
+  // let URL="https://github.com/Dominik-hfu/EIA_2/blob/main/L05_Aufgabenliste_Client/tasks.json"
 
 
 
@@ -77,14 +79,21 @@ namespace organizer {
 
     let query: URLSearchParams = new URLSearchParams();
 query.set("command", "create");
-query.set("collection", "Orders");
+query.set("collection", "tasks");
+
 // query.set("data", JSON.stringify(URL));
-// command=update&collection=NameOfCollection&id=IdOfTheDocument&data={KeyValuePairs}
 
 
+const requestOptions: RequestInit = {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(tasks)
+};
 
-
-// let command:string= '?command=insert&collection=Students&data={"name":"Doe","firstname":"John","age":21,"passed":true}'
+fetch(URL, requestOptions)
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error(error));
 
     
   
