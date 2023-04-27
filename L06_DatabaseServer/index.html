@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <script src="https://kit.fontawesome.com/12379d6260.js" crossorigin="anonymous"></script>
+    <title>L03_Aufgabenliste</title>
+</head>
+
+<body>
+    <h1>Organizer</h1>
+    <h2>manage the mess</h2>
+    
+    <fieldset id="taskcreation">
+        <select name="Select" id="select">
+            <option disabled selected value="">Bitte Namen auswählen</option>
+            <option value="option1">Daniel</option>
+            <option value="option2">Mark</option>
+            <option value="option3">Lisa</option>
+        </select>
+        <input id="input" type="text" name="Text" placeholder="neue Aufgabe" required />
+        <input class="date" type="date" name="deadline" />
+        <input id="comment" type="text" name="Text" placeholder="Kommentar" required />
+        <button class="createtask">Erstellen</button>
+        <i id="trash" class="fa-regular fa-trash-can fa-3x"></i>
+    </fieldset>
+    
+    <div class="todo"></div>
+
+    <button id="send" type="submit">Send
+    </button>
+    
+    <div id="loader" class="loader"></div>
+    
+        </body>
+
+</html>
