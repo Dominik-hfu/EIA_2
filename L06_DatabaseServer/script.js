@@ -55,6 +55,108 @@ var organizer;
     //       let values: FormDataEntryValue[] = formData.getAll(key);
     //       json[key] = values.length > 1 ? values : values[0];
     //     };
+    async function createData(queryUrl, payload) {
+        try {
+            const response = await fetch(queryUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload),
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const data = await response.json();
+            console.log(data);
+            return true;
+        }
+        catch (error) {
+            console.error(`Failed to create data: ${error}`);
+            return false;
+        }
+    }
+    async function insertTasks(collection, dataArray) {
+        const serverUrl = "https://webuser.hs-furtwangen.de/~putzdomi/Database/"; // Ersetzen Sie dies durch die URL Ihres Servers
+        // Erstellen Sie die Query-Parameter
+        const queryParams = new URLSearchParams({
+            command: "insert",
+            collection,
+            data: JSON.stringify(dataArray)
+        });
+        let test = `${serverUrl}?${queryParams.toString()}`;
+        console.log(test);
+        // Senden Sie die Anfrage
+        try {
+            const response = await fetch(`${serverUrl}?${queryParams.toString()}`, {
+                method: "POST",
+            });
+            if (!response.ok) {
+                throw new Error(`Server returned status ${response.status}`);
+            }
+            const result = await response.json();
+            console.log("Data inserted successfully:", result);
+            return true;
+        }
+        catch (error) {
+            console.error("Error inserting data:", error);
+            return false;
+        }
+    }
+    async function findCollection(collection) {
+        const serverUrl = "https://webuser.hs-furtwangen.de/~putzdomi/Database/";
+        // Erstellen Sie die Query-Parameter
+        const queryParams = new URLSearchParams({
+            command: "find",
+            collection
+        });
+        // Senden Sie die Anfrage
+        try {
+            const response = await fetch(`${serverUrl}?${queryParams.toString()}`, {
+                method: "GET",
+            });
+            console.log(`${serverUrl}?${queryParams.toString()}`);
+            if (!response.ok) {
+                throw new Error(`Server returned status ${response.status}`);
+            }
+            const result = await response.json();
+            // Überprüfen Sie, ob die Sammlung gefunden wurde
+            if (result.status == 'success') {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        catch (error) {
+            console.error("Error finding collection:", error);
+            return false;
+        }
+    }
+    // Verwendung der Funktion
+    // Beispiel-URL, ersetzen Sie sie durch die tatsächliche URL Ihres Servers
+    const queryUrl = "https://webuser.hs-furtwangen.de/~putzdomi/Database/?command=create&collection=tasks";
+    // Beispiel-Daten, die an den Server gesendet werden sollen
+    const payload = {
+        name: 'John Doe',
+        age: 30,
+    };
+    async function checkStart() {
+        const collectionExists = await findCollection('tasks');
+        if (collectionExists == true) {
+            console.log("Alles schon erstellt");
+        }
+        else {
+            const create = await createData(queryUrl, payload);
+            console.log(create);
+            for (let i = 0; i < 3; i++) {
+                let task = tasks[i];
+                const insert = await insertTasks('tasks', task);
+                console.log(insert);
+            }
+        }
+    }
+    // insertData(queryUrl, payload);
     let query = new URLSearchParams();
     query.set("command", "create");
     query.set("collection", "tasks");
@@ -87,7 +189,6 @@ var organizer;
     }
     // try catch: versucht Daten zu holen und catcht den Fehler wenn es nicht funktioniert hat
     async function sendTasksToServer() {
-        // let url:string="https://webuser.hs-furtwangen.de/~putzdomi/Database/";// springt von hier direkt in catch, da es diesen Server nicht gibt
         try {
             let response = await fetch(URL, {
                 method: "POST",
@@ -132,7 +233,8 @@ var organizer;
     ;
     window.addEventListener('load', handleload);
     function handleload(_event) {
-        fetchStartzustand();
+        // fetchStartzustand();
+        checkStart();
         let newTask = document.querySelector(".todo");
         newTask.innerHTML = "";
         tasks.forEach((task, index) => {
@@ -250,7 +352,7 @@ var organizer;
     // Zugriff auf Inputfield-/ Select Elemente/ Variablen zum speichern der gewählten Werte
     let button = document.querySelector('.createtask');
     button.addEventListener('click', createTask);
-    function createTask() {
+    async function createTask() {
         if (nameSelect.value !== "" && taskField.value != "" && dateInput.value !== "" && commentField.value != "") {
             let newtask = document.createElement('fieldset');
             newtask.classList.add('task');
@@ -299,11 +401,17 @@ var organizer;
                 trash.remove();
                 tasks = tasks.filter(task => task.id !== id); //filtert alle id´s außer die die gelöscht werden soll und überschreibt das array mit allen gefilterten id´s
                 console.log(tasks);
+                const deleteTask = gettaskbyid(tasks, id);
+                const ;
+                delete ;
+                await delteinserver();
             }
             ;
             newtask.appendChild(trash);
             taskDiv.appendChild(newtask);
             todos.prepend(newtask);
+            let searchedtask = getTaskbyId(tasks, id);
+            const insert = await insertTasks('tasks', searchedtask);
         }
         else {
             alert('Bitte füllen Sie alle Felder aus');
