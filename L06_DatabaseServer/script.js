@@ -3,7 +3,7 @@
 Aufgabe: <L06_DatabaseServer>
 Name: <Dominik Putz>
 Matrikel: <272244>
-Datum: <27.04.2023>
+Datum: <28.04.2023>
 Quellen: <->
 */
 var organizer;
@@ -40,36 +40,82 @@ var organizer;
             taskName: "Badezimmer putzen",
             date: "07.04.2023",
             comment: "Dusche entkalken",
-            status: 1
+            status: 0
         },
     ];
-    let URL = "https://webuser.hs-furtwangen.de/~putzdomi/Database/"; // JSON Datei wird über Server geholt gibt diese aber noch nicht dort!!!
-    // let URL="https://github.com/Dominik-hfu/EIA_2/blob/main/L05_Aufgabenliste_Client/tasks.json"
-    //   interface FormDataJSON {
-    //     [key: string]: FormDataEntryValue | FormDataEntryValue[];
-    //   }
-    //   let formData: FormData = new FormData(form);
-    //   let json: FormDataJSON = {};
-    //   for (let key of formData.keys())
-    //     if (!json[key]) {
-    //       let values: FormDataEntryValue[] = formData.getAll(key);
-    //       json[key] = values.length > 1 ? values : values[0];
-    //     };
-    async function createData(queryUrl, payload) {
+    let URL = "https://webuser.hs-furtwangen.de/~putzdomi/Database/"; // JSON Datei wird über den Server geholt, muss dort aber erst hochgeladen werden
+    async function findServerID(collection, taskID) {
+        let queryParamsFind = new URLSearchParams({
+            command: "find",
+            collection,
+            data: JSON.stringify({ _id: taskID })
+        });
         try {
-            const response = await fetch(queryUrl, {
+            let response = await fetch(`${URL}?${queryParamsFind.toString()}`, {
+                method: "GET", // Ändere den Inhalt auf dem Server
+            });
+            if (!response.ok) {
+                throw new Error(`Server returned status ${response.status}`);
+            }
+            let result = await response.json();
+            let idByServer = Object.keys(result.data)[0];
+            console.log("Data inserted successfully:", result);
+            return idByServer;
+        }
+        catch (error) {
+            console.error("Error inserting data:", error);
+            return undefined;
+        }
+    }
+    async function deleteData(deletedID, collection) {
+        const queryParams = new URLSearchParams({
+            command: "delete",
+            collection,
+            id: deletedID
+        });
+        try {
+            let response = await fetch(`${URL}?${queryParams.toString()}`, {
+                method: "GET",
+            });
+            if (!response.ok) {
+                throw new Error(`Server returned status ${response.status}`);
+            }
+            let result = await response.json();
+            // Überprüfen Sie, ob der Löschvorgang erfolgreich war
+            if (result && result.deletedCount > 0) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        catch (error) {
+            console.error("Error deleting data:", error);
+            return false;
+        }
+    }
+    function getTaskById(tasks, id) {
+        let task = tasks.find(task => task.id === id);
+        console.log(task);
+        return tasks.find(task => task.id === id);
+    }
+    // Asynchrone Funktion, um Daten an den Server zu senden 
+    async function createData(createURL, payload) {
+        try {
+            let response = await fetch(createURL, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json', // Headers Typ gibt an in welchem Format die Datei zurückgegeben werden soll
                 },
-                body: JSON.stringify(payload),
+                body: JSON.stringify(payload), // Im Body wird der eigentlich Inhalt gespeichert und hier als string zurück gegeben
             });
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
-            const data = await response.json();
+            let data = await response.json();
             console.log(data);
             return true;
+            // Wenn das Ergebnis ok ist, warte auf die Daten und geben diese in der Konsole aus, return true (Boolean ist der Rückgabe- Funktionstyp)
         }
         catch (error) {
             console.error(`Failed to create data: ${error}`);
@@ -77,24 +123,21 @@ var organizer;
         }
     }
     async function insertTasks(collection, dataArray) {
-        const serverUrl = "https://webuser.hs-furtwangen.de/~putzdomi/Database/"; // Ersetzen Sie dies durch die URL Ihres Servers
-        // Erstellen Sie die Query-Parameter
-        const queryParams = new URLSearchParams({
+        let queryParams = new URLSearchParams({
             command: "insert",
             collection,
             data: JSON.stringify(dataArray)
         });
-        let test = `${serverUrl}?${queryParams.toString()}`;
+        let test = `${URL}?${queryParams.toString()}`;
         console.log(test);
-        // Senden Sie die Anfrage
         try {
-            const response = await fetch(`${serverUrl}?${queryParams.toString()}`, {
-                method: "POST",
+            let response = await fetch(`${URL}?${queryParams.toString()}`, {
+                method: "POST", // Ändere den Inhalt auf dem Server
             });
             if (!response.ok) {
                 throw new Error(`Server returned status ${response.status}`);
             }
-            const result = await response.json();
+            let result = await response.json();
             console.log("Data inserted successfully:", result);
             return true;
         }
@@ -103,23 +146,24 @@ var organizer;
             return false;
         }
     }
+    // Asynchrone Funktion verändert den Inhalt der collection, mit den Aufgaben
     async function findCollection(collection) {
-        const serverUrl = "https://webuser.hs-furtwangen.de/~putzdomi/Database/";
+        let serverUrl = "https://webuser.hs-furtwangen.de/~putzdomi/Database/";
         // Erstellen Sie die Query-Parameter
-        const queryParams = new URLSearchParams({
+        let queryParams = new URLSearchParams({
             command: "find",
             collection
         });
         // Senden Sie die Anfrage
         try {
-            const response = await fetch(`${serverUrl}?${queryParams.toString()}`, {
+            let response = await fetch(`${serverUrl}?${queryParams.toString()}`, {
                 method: "GET",
             });
             console.log(`${serverUrl}?${queryParams.toString()}`);
             if (!response.ok) {
                 throw new Error(`Server returned status ${response.status}`);
             }
-            const result = await response.json();
+            let result = await response.json();
             // Überprüfen Sie, ob die Sammlung gefunden wurde
             if (result.status == 'success') {
                 return true;
@@ -133,82 +177,21 @@ var organizer;
             return false;
         }
     }
-    // Verwendung der Funktion
-    // Beispiel-URL, ersetzen Sie sie durch die tatsächliche URL Ihres Servers
-    const queryUrl = "https://webuser.hs-furtwangen.de/~putzdomi/Database/?command=create&collection=tasks";
-    // Beispiel-Daten, die an den Server gesendet werden sollen
-    const payload = {
-        name: 'John Doe',
-        age: 30,
-    };
+    let createURL = "https://webuser.hs-furtwangen.de/~putzdomi/Database/?command=create&collection=tasks";
+    let payload = {};
     async function checkStart() {
-        const collectionExists = await findCollection('tasks');
+        let collectionExists = await findCollection('tasks');
         if (collectionExists == true) {
             console.log("Alles schon erstellt");
         }
         else {
-            const create = await createData(queryUrl, payload);
+            let create = await createData(createURL, payload);
             console.log(create);
             for (let i = 0; i < 3; i++) {
                 let task = tasks[i];
-                const insert = await insertTasks('tasks', task);
+                let insert = await insertTasks('tasks', task);
                 console.log(insert);
             }
-        }
-    }
-    // insertData(queryUrl, payload);
-    let query = new URLSearchParams();
-    query.set("command", "create");
-    query.set("collection", "tasks");
-    // query.set("data", JSON.stringify(URL));
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(tasks)
-    };
-    fetch(URL, requestOptions)
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(error => console.error(error));
-    async function fetchStartzustand() {
-        try {
-            let response = await fetch(URL + "?" + query); // mit await wird auf das Ergebnis von URL gewartet
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            } // wenn das Ergebnis nicht gefunden wird, kommt es zur Fehlerausgabe mit status
-            // Serverseitige Fehler
-            tasks = await response.json();
-            console.log("Start");
-            console.log(tasks);
-            console.log("hat geklappt");
-            // wenn es funktioniert hat, response wird in json umgewandelt
-        }
-        catch (error) {
-            console.error('Fehler beim Laden der JSON-Datei:', error);
-        } // Für Fehler bei der Verlinkung oder Datei
-    }
-    // try catch: versucht Daten zu holen und catcht den Fehler wenn es nicht funktioniert hat
-    async function sendTasksToServer() {
-        try {
-            let response = await fetch(URL, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json", // headers beschreibt hier, dass es sich um eine json handelt
-                },
-                body: JSON.stringify(tasks), // Inhalt der gewünschten Änderung
-            });
-            if (response.ok) {
-                console.log("Tasks erfolgreich an den Server gesendet");
-                console.log(tasks);
-            }
-            else {
-                console.error("Fehler beim Senden, Server noch nicht vorhanden");
-                console.log(tasks);
-            }
-        }
-        catch {
-            console.error('Fehler beim zugriff des Servers, da noch keiner vorhanden ist');
-            console.log(tasks); //Fehlerausgabe 
         }
     }
     function addTask(name, taskName, date, comment) {
@@ -235,6 +218,7 @@ var organizer;
     function handleload(_event) {
         // fetchStartzustand();
         checkStart();
+        getTaskById(tasks, 1);
         let newTask = document.querySelector(".todo");
         newTask.innerHTML = "";
         tasks.forEach((task, index) => {
@@ -357,28 +341,34 @@ var organizer;
             let newtask = document.createElement('fieldset');
             newtask.classList.add('task');
             let nameSpan = document.createElement('span');
-            nameSpan.textContent = nameSelect.value; //nameSpan ist das Element, selectedName ist der Wert
+            nameSpan.textContent = nameSelect.options[nameSelect.selectedIndex].innerText; //nameSpan ist das Element, selectedName ist der Wert
             nameSpan.style.color = setTaskTextColor(choosenDate);
             newtask.appendChild(nameSpan);
-            nameSelect.value = '';
             let taskSpan = document.createElement('span');
             taskSpan.textContent = taskField.value;
             taskSpan.style.color = setTaskTextColor(choosenDate);
             newtask.appendChild(taskSpan);
-            taskField.value = "";
             let dateSpan = document.createElement('span');
             dateSpan.textContent = dateInput.value;
             dateSpan.style.color = setTaskTextColor(choosenDate);
             newtask.appendChild(dateSpan);
-            dateInput.value = "";
             let commentSpan = document.createElement('span');
             commentSpan.classList.add('comment');
             commentSpan.textContent = commentField.value;
             commentSpan.style.color = setTaskTextColor(choosenDate);
             newtask.appendChild(commentSpan);
-            commentField.value = "";
-            let id = addTask(nameSelect.value, taskField.value, dateInput.value, commentField.value);
+            let id = addTask(nameSelect.options[nameSelect.selectedIndex].innerText, taskField.value, dateInput.value, commentField.value);
             // wird in array gepusht
+            let searchedtest = {
+                id: id,
+                name: nameSelect.options[nameSelect.selectedIndex].innerText,
+                taskName: taskField.value,
+                date: dateInput.value,
+                comment: commentField.value,
+                status: 0
+            };
+            let newone = await insertTasks('tasks', searchedtest);
+            console.log(newone);
             console.log(tasks);
             let progressBar = document.createElement('progress');
             progressBar.max = 100;
@@ -396,22 +386,22 @@ var organizer;
             let trash = document.createElement('i');
             trash.classList.add('fa-regular', 'fa-trash-can', 'fa-2x', 'trash', 'task');
             trash.addEventListener('click', Delete);
-            function Delete() {
+            async function Delete() {
                 newtask.remove();
                 trash.remove();
                 tasks = tasks.filter(task => task.id !== id); //filtert alle id´s außer die die gelöscht werden soll und überschreibt das array mit allen gefilterten id´s
                 console.log(tasks);
-                const deleteTask = gettaskbyid(tasks, id);
-                const ;
-                delete ;
-                await delteinserver();
+                let serverID = await findServerID("tasks", id);
+                console.log(serverID);
+                if (serverID != undefined) {
+                    let deleted = await deleteData(serverID, "tasks");
+                    console.log(deleted);
+                }
             }
             ;
             newtask.appendChild(trash);
             taskDiv.appendChild(newtask);
             todos.prepend(newtask);
-            let searchedtask = getTaskbyId(tasks, id);
-            const insert = await insertTasks('tasks', searchedtask);
         }
         else {
             alert('Bitte füllen Sie alle Felder aus');
@@ -429,17 +419,7 @@ var organizer;
     }
     ;
     // löscht Eingabe
-    let sendButton = document.getElementById("send");
-    let loader = document.getElementById("loader");
-    sendButton.addEventListener("click", () => {
-        loader.style.display = "inline-block";
-        sendButton.disabled = true; //button ist gedrückt und nicht klickbar
-        sendTasksToServer();
-        setTimeout(() => {
-            loader.style.display = "none";
-            sendButton.disabled = false; // button ist wieder klickbar nach 5s
-        }, 5000);
-    });
 })(organizer || (organizer = {}));
 ;
+// Payload ??
 //# sourceMappingURL=script.js.map

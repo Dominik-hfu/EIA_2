@@ -2,7 +2,7 @@
 Aufgabe: <L06_DatabaseServer>
 Name: <Dominik Putz>
 Matrikel: <272244>
-Datum: <27.04.2023>
+Datum: <28.04.2023>
 Quellen: <->
 */
 
@@ -22,7 +22,7 @@ namespace organizer {
     comment: string;
     status: taskStatus;
   };
-// Array muss deklariert aber kann auch leer sein, da Daten in json sind
+  // Array muss deklariert aber kann auch leer sein, da Daten in json sind
   let tasks: task[] = [
     {
       id: 1,
@@ -32,7 +32,7 @@ namespace organizer {
       comment: "Spülmaschine ausräumen",
       status: 0// Attribute von Elementen
     },
-// Aufgaben 1, 2, 3 sind Objekte/Elemente vom interface task
+    // Aufgaben 1, 2, 3 sind Objekte/Elemente vom interface task
     {
       id: 2,
       name: "Lisa",
@@ -48,286 +48,248 @@ namespace organizer {
       taskName: "Badezimmer putzen",
       date: "07.04.2023",
       comment: "Dusche entkalken",
-      status: 1
-    
+      status: 0
+
     },];
 
+  let URL = "https://webuser.hs-furtwangen.de/~putzdomi/Database/" // JSON Datei wird über den Server geholt, muss dort aber erst hochgeladen werden
 
+  async function findServerID(collection: string, taskID: number): Promise<string|undefined> {
 
-  let URL="https://webuser.hs-furtwangen.de/~putzdomi/Database/" // JSON Datei wird über Server geholt gibt diese aber noch nicht dort!!!
-
-  // let URL="https://github.com/Dominik-hfu/EIA_2/blob/main/L05_Aufgabenliste_Client/tasks.json"
-
-
-
-
-
-
-//   interface FormDataJSON {
-//     [key: string]: FormDataEntryValue | FormDataEntryValue[];
-//   }
-  
-//   let formData: FormData = new FormData(form);
-//   let json: FormDataJSON = {};
-  
-//   for (let key of formData.keys())
-//     if (!json[key]) {
-//       let values: FormDataEntryValue[] = formData.getAll(key);
-//       json[key] = values.length > 1 ? values : values[0];
-//     };
-
-async function createData(queryUrl: string, payload: object): Promise<boolean> {
-  try {
-    const response = await fetch(queryUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
+    let queryParamsFind = new URLSearchParams({
+      command: "find",
+      collection,
+      data: JSON.stringify({ _id: taskID })
     });
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
+    try {
+      let response = await fetch(`${URL}?${queryParamsFind.toString()}`, {
+        method: "GET",// Ändere den Inhalt auf dem Server
+      });
 
-    const data = await response.json();
-    console.log(data);
-    return true
-  } catch (error) {
-    console.error(`Failed to create data: ${error}`);
-    return false
+      if (!response.ok) {
+        throw new Error(`Server returned status ${response.status}`);
+      }
+
+      let result = await response.json();
+      let idByServer = Object.keys(result.data)[0]
+
+
+      console.log("Data inserted successfully:", result);
+      return idByServer
+    } catch (error) {
+      console.error("Error inserting data:", error);
+      return undefined
+
+    }
   }
-}
-async function insertTasks(collection: string, dataArray: object): Promise<boolean> {
-  const serverUrl = "https://webuser.hs-furtwangen.de/~putzdomi/Database/"; // Ersetzen Sie dies durch die URL Ihres Servers
 
-  // Erstellen Sie die Query-Parameter
-  const queryParams = new URLSearchParams({
-    command: "insert",
-    collection,
-    data: JSON.stringify(dataArray)
-  });
-  let test = `${serverUrl}?${queryParams.toString()}`
-  console.log(test)
-  // Senden Sie die Anfrage
-  try {
-    const response = await fetch(`${serverUrl}?${queryParams.toString()}`, {
-      method: "POST",
+  async function deleteData(deletedID: string, collection: string):Promise<boolean> {
+
+
+    const queryParams = new URLSearchParams({
+      command: "delete",
+      collection,
+      id: deletedID
     });
 
-    if (!response.ok) {
-      throw new Error(`Server returned status ${response.status}`);
-    }
+    try {
+      let response = await fetch(`${URL}?${queryParams.toString()}`, {
+        method: "GET",
+      });
 
-    const result = await response.json();
-    console.log("Data inserted successfully:", result);
-    return true
-  } catch (error) {
-    console.error("Error inserting data:", error);
-    return false
-  }
-}
+      if (!response.ok) {
+        throw new Error(`Server returned status ${response.status}`);
+      }
 
-async function findCollection(collection: string): Promise<boolean> {
-  const serverUrl = "https://webuser.hs-furtwangen.de/~putzdomi/Database/"; 
+      let result = await response.json();
 
-  // Erstellen Sie die Query-Parameter
-  const queryParams = new URLSearchParams({
-    command: "find",
-    collection
-  });
-  
-  
-  // Senden Sie die Anfrage
-  try {
-    const response = await fetch(`${serverUrl}?${queryParams.toString()}`, {
-      method: "GET",
-    });
-    console.log(`${serverUrl}?${queryParams.toString()}`)
-    if (!response.ok) {
-      throw new Error(`Server returned status ${response.status}`);
-    }
-
-    const result = await response.json();
-
-    // Überprüfen Sie, ob die Sammlung gefunden wurde
-    if (result.status=='success') {
-      return true;
-    } else {
+      // Überprüfen Sie, ob der Löschvorgang erfolgreich war
+      if (result && result.deletedCount > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error("Error deleting data:", error);
       return false;
     }
-  } catch (error) {
-    console.error("Error finding collection:", error);
-    return false;
   }
-}
 
-// Verwendung der Funktion
-
-
-
-
-
-
-// Beispiel-URL, ersetzen Sie sie durch die tatsächliche URL Ihres Servers
-const queryUrl = "https://webuser.hs-furtwangen.de/~putzdomi/Database/?command=create&collection=tasks"
-
-// Beispiel-Daten, die an den Server gesendet werden sollen
-const payload = {
-  name: 'John Doe',
-  age: 30,
-};
-
-
-async function checkStart() {
-  const collectionExists = await findCollection('tasks')
-
-  if(collectionExists==true){
-    console.log("Alles schon erstellt")
-
+  function getTaskById(tasks: task[], id: number): object | undefined {
+    let task = tasks.find(task => task.id === id);
+    console.log(task)
+    return tasks.find(task => task.id === id);
   }
-  else{
-    const create=await createData(queryUrl,payload)
-    console.log(create)
-    for (let i=0;i<3;i++){
 
-      let task=tasks[i]
-      const insert = await insertTasks('tasks',task)
-      console.log(insert)
-    }
-    
-  }
-  
-}
-// insertData(queryUrl, payload);
-
-    let query: URLSearchParams = new URLSearchParams();
-query.set("command", "create");
-query.set("collection", "tasks");
-
-// query.set("data", JSON.stringify(URL));
-
-
-const requestOptions: RequestInit = {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(tasks)
-};
-
-fetch(URL, requestOptions)
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.error(error));
-
-    
-  
-  async function fetchStartzustand() {
+  // Asynchrone Funktion, um Daten an den Server zu senden 
+  async function createData(createURL: string, payload: object): Promise<boolean> {
     try {
-      let response = await fetch(URL+"?" + query);// mit await wird auf das Ergebnis von URL gewartet
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }// wenn das Ergebnis nicht gefunden wird, kommt es zur Fehlerausgabe mit status
-      // Serverseitige Fehler
-      
-      tasks = await response.json();
-      console.log("Start")
-      console.log(tasks);
-      console.log("hat geklappt")
-      // wenn es funktioniert hat, response wird in json umgewandelt
-
-  
-    } catch (error) {
-      console.error('Fehler beim Laden der JSON-Datei:', error);
-    }// Für Fehler bei der Verlinkung oder Datei
-  }
-// try catch: versucht Daten zu holen und catcht den Fehler wenn es nicht funktioniert hat
-
-  async function sendTasksToServer():Promise<void> {
-
-    try{
-        let response= await fetch(URL, {
-        method:"POST", //POST heißt ändere etwas beim Server
+      let response = await fetch(createURL, { // Fetch sendet HTTP Anfrage an die angegebene URL
+        method: 'POST', // POST= Methode für das Sende von Daten/ GET= Methode um Datem vom Server abzurufen
         headers: {
-          "Content-Type":"application/json",// headers beschreibt hier, dass es sich um eine json handelt
-  
+          'Content-Type': 'application/json',// Headers Typ gibt an in welchem Format die Datei zurückgegeben werden soll
         },
-      
-        body:JSON.stringify(tasks), // Inhalt der gewünschten Änderung
-  
-      })
-      if(response.ok){
-        console.log("Tasks erfolgreich an den Server gesendet")
-        console.log(tasks)
+        body: JSON.stringify(payload),// Im Body wird der eigentlich Inhalt gespeichert und hier als string zurück gegeben
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      else
-      {console.error("Fehler beim Senden, Server noch nicht vorhanden")
-      console.log(tasks)}
 
-    }
-    catch{
-      console.error('Fehler beim zugriff des Servers, da noch keiner vorhanden ist');
-      console.log(tasks)//Fehlerausgabe 
-    }
 
+      let data = await response.json();
+      console.log(data);
+      return true
+      // Wenn das Ergebnis ok ist, warte auf die Daten und geben diese in der Konsole aus, return true (Boolean ist der Rückgabe- Funktionstyp)
+    } catch (error) {
+      console.error(`Failed to create data: ${error}`);
+      return false
+    }
+  }
+  async function insertTasks(collection: string, dataArray: object): Promise<boolean> {
+
+    let queryParams = new URLSearchParams({
+      command: "insert",
+      collection,
+      data: JSON.stringify(dataArray)
+    });
+    let test = `${URL}?${queryParams.toString()}`
+    console.log(test)
+
+    try {
+      let response = await fetch(`${URL}?${queryParams.toString()}`, {
+        method: "POST",// Ändere den Inhalt auf dem Server
+      });
+
+      if (!response.ok) {
+        throw new Error(`Server returned status ${response.status}`);
+      }
+
+      let result = await response.json();
+      console.log("Data inserted successfully:", result);
+      return true
+    } catch (error) {
+      console.error("Error inserting data:", error);
+      return false
+    }
+  }
+  // Asynchrone Funktion verändert den Inhalt der collection, mit den Aufgaben
+
+  async function findCollection(collection: string): Promise<boolean> {
+    let serverUrl = "https://webuser.hs-furtwangen.de/~putzdomi/Database/";
+
+    // Erstellen Sie die Query-Parameter
+    let queryParams = new URLSearchParams({
+      command: "find",
+      collection
+    });
+
+
+    // Senden Sie die Anfrage
+    try {
+      let response = await fetch(`${serverUrl}?${queryParams.toString()}`, {
+        method: "GET",
+      });
+      console.log(`${serverUrl}?${queryParams.toString()}`)
+      if (!response.ok) {
+        throw new Error(`Server returned status ${response.status}`);
+      }
+
+      let result = await response.json();
+
+      // Überprüfen Sie, ob die Sammlung gefunden wurde
+      if (result.status == 'success') {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error("Error finding collection:", error);
+      return false;
+    }
   }
 
-    function addTask(name:string, taskName:string, date:string, comment:string){
-      let id:number=tasks[tasks.length-1].id+1;
-      tasks.push({id,name,taskName,date,comment,status:0});
-      return id;
-    };
 
-    function deleteTask(id:number,taskDiv:HTMLDivElement){
-      let index=-1;
-      for(let i=0; i<tasks.length; i++){
-        if(tasks[i].id===id){
-          index=i;
-          break
-        }
+  let createURL = "https://webuser.hs-furtwangen.de/~putzdomi/Database/?command=create&collection=tasks"
+
+  let payload = {};
+
+  async function checkStart() {
+    let collectionExists = await findCollection('tasks')
+
+    if (collectionExists == true) {
+      console.log("Alles schon erstellt")
+
+    }
+    else {
+      let create = await createData(createURL, payload)
+      console.log(create)
+      for (let i = 0; i < 3; i++) {
+
+        let task = tasks[i]
+        let insert = await insertTasks('tasks', task)
+        console.log(insert)
       }
-      if(index!==-1){
-        tasks.splice(index,1)// index= Startwert, 1= Anzahl der Elemente die gelöscht werden sollen (Hover über splice)
+    }
+  }
+  function addTask(name: string, taskName: string, date: string, comment: string) {
+    let id: number = tasks[tasks.length - 1].id + 1;
+    tasks.push({ id, name, taskName, date, comment, status: 0 });
+    return id;
+  };
+
+  function deleteTask(id: number, taskDiv: HTMLDivElement) {
+    let index = -1;
+    for (let i = 0; i < tasks.length; i++) {
+      if (tasks[i].id === id) {
+        index = i;
+        break
       }
-      taskDiv.remove();
-    };
+    }
+    if (index !== -1) {
+      tasks.splice(index, 1)// index= Startwert, 1= Anzahl der Elemente die gelöscht werden sollen (Hover über splice)
+    }
+    taskDiv.remove();
+  };
 
   window.addEventListener('load', handleload);
 
   function handleload(_event: Event): void {
     // fetchStartzustand();
     checkStart();
-    let newTask:HTMLDivElement=<HTMLDivElement>document.querySelector(".todo");
-    newTask.innerHTML="";
-    tasks.forEach((task,index)=>{
+    getTaskById(tasks, 1);
+    let newTask: HTMLDivElement = <HTMLDivElement>document.querySelector(".todo");
+    newTask.innerHTML = "";
+    tasks.forEach((task, index) => {
       let dateString = task.date.replace(/\./, "-"); // Formatierung 
       let dateArray = dateString.split("-"); // Split in Array
       let formattedDate = `${dateArray[2]}-${dateArray[1]}-${dateArray[0]}`; // Formatieren des Datum im yyyy-mm-dd-Format
-      
+
       let choosenDate = new Date(formattedDate);
-      let taskDiv:HTMLDivElement=document.createElement("div");
-      taskDiv.classList.add(`task${index+1}`);
-      
-      let fieldset:HTMLFieldSetElement=document.createElement("fieldset") as HTMLFieldSetElement;
+      let taskDiv: HTMLDivElement = document.createElement("div");
+      taskDiv.classList.add(`task${index + 1}`);
+
+      let fieldset: HTMLFieldSetElement = document.createElement("fieldset") as HTMLFieldSetElement;
       fieldset.classList.add("task");
-      
-      let nameSpan:HTMLSpanElement=document.createElement("span") as HTMLSpanElement;
-      nameSpan.textContent=task.name;
-      nameSpan.style.color=setTaskTextColor(choosenDate)
+
+      let nameSpan: HTMLSpanElement = document.createElement("span") as HTMLSpanElement;
+      nameSpan.textContent = task.name;
+      nameSpan.style.color = setTaskTextColor(choosenDate)
       fieldset.appendChild(nameSpan);
-      
-      let taskSpan:HTMLSpanElement=document.createElement("span") as HTMLSpanElement;
-      taskSpan.textContent=task.taskName;
-      taskSpan.style.color=setTaskTextColor(choosenDate)
+
+      let taskSpan: HTMLSpanElement = document.createElement("span") as HTMLSpanElement;
+      taskSpan.textContent = task.taskName;
+      taskSpan.style.color = setTaskTextColor(choosenDate)
       fieldset.appendChild(taskSpan);
-      
-      let dateSpan:HTMLSpanElement=document.createElement("span") as HTMLSpanElement;
-      dateSpan.textContent=task.date;
-      dateSpan.style.color=setTaskTextColor(choosenDate)
+
+      let dateSpan: HTMLSpanElement = document.createElement("span") as HTMLSpanElement;
+      dateSpan.textContent = task.date;
+      dateSpan.style.color = setTaskTextColor(choosenDate)
       fieldset.appendChild(dateSpan);
-      
-      let commentSpan:HTMLSpanElement=document.createElement("span") as HTMLSpanElement;
-      commentSpan.textContent=task.comment;
-      commentSpan.style.color=setTaskTextColor(choosenDate)
+
+      let commentSpan: HTMLSpanElement = document.createElement("span") as HTMLSpanElement;
+      commentSpan.textContent = task.comment;
+      commentSpan.style.color = setTaskTextColor(choosenDate)
       fieldset.appendChild(commentSpan);
 
       let progressBar = document.createElement('progress');
@@ -343,11 +305,11 @@ fetch(URL, requestOptions)
       let dropdownMenu = createDropdownMenu(fieldset, progressBar);
       fieldset.appendChild(dropdownMenu);
       console.log(tasks)
-      let trash:HTMLLIElement=document.createElement("i") as HTMLLIElement;
+      let trash: HTMLLIElement = document.createElement("i") as HTMLLIElement;
       trash.classList.add("fa-regular", "fa-trash-can", "fa-2x", "garbage1");
       fieldset.appendChild(trash);
-      trash.addEventListener("click", () =>{ // Leere Klammer bzw. Formatierung so, damit Parameter der Funktion übergeben werden können 
-        deleteTask(task.id,taskDiv);
+      trash.addEventListener("click", () => { // Leere Klammer bzw. Formatierung so, damit Parameter der Funktion übergeben werden können 
+        deleteTask(task.id, taskDiv);
         console.log(tasks)
       });
 
@@ -431,9 +393,9 @@ fetch(URL, requestOptions)
   // Zugriff auf Inputfield-/ Select Elemente/ Variablen zum speichern der gewählten Werte
 
   let button: HTMLButtonElement = document.querySelector('.createtask') as HTMLButtonElement;
-  button.addEventListener('click', createTask); 
-  
-  async function createTask(){
+  button.addEventListener('click', createTask);
+
+  async function createTask() {
 
     if (nameSelect.value !== "" && taskField.value != "" && dateInput.value !== "" && commentField.value != "") {
 
@@ -441,70 +403,82 @@ fetch(URL, requestOptions)
       newtask.classList.add('task');
 
       let nameSpan: HTMLSpanElement = document.createElement('span');
-      nameSpan.textContent = nameSelect.value;//nameSpan ist das Element, selectedName ist der Wert
+      nameSpan.textContent = nameSelect.options[nameSelect.selectedIndex].innerText;//nameSpan ist das Element, selectedName ist der Wert
       nameSpan.style.color = setTaskTextColor(choosenDate)
       newtask.appendChild(nameSpan);
-      nameSelect.value = '';
 
       let taskSpan: HTMLSpanElement = document.createElement('span');
       taskSpan.textContent = taskField.value;
       taskSpan.style.color = setTaskTextColor(choosenDate)
       newtask.appendChild(taskSpan);
-      taskField.value = "";
 
       let dateSpan: HTMLSpanElement = document.createElement('span');
       dateSpan.textContent = dateInput.value;
       dateSpan.style.color = setTaskTextColor(choosenDate)
       newtask.appendChild(dateSpan);
-      dateInput.value = "";
+
 
       let commentSpan: HTMLSpanElement = document.createElement('span');
       commentSpan.classList.add('comment');
       commentSpan.textContent = commentField.value;
       commentSpan.style.color = setTaskTextColor(choosenDate)
       newtask.appendChild(commentSpan);
-      commentField.value = "";
 
-      let id= addTask(nameSelect.value, taskField.value, dateInput.value,commentField.value);
+
+      let id = addTask(nameSelect.options[nameSelect.selectedIndex].innerText, taskField.value, dateInput.value, commentField.value);
       // wird in array gepusht
+
+      let searchedtest = {
+        id: id,
+        name: nameSelect.options[nameSelect.selectedIndex].innerText,
+        taskName: taskField.value,
+        date: dateInput.value,
+        comment: commentField.value,
+        status: 0
+
+      }
+      let newone = await insertTasks('tasks', searchedtest);
+      console.log(newone);
       console.log(tasks);
 
       let progressBar = document.createElement('progress');
       progressBar.max = 100;
       progressBar.value = 0; // Standardwert für "Nicht angefangen"
-      
+
       progressBar.style.height = '10px';
       progressBar.style.marginTop = '25px';
       progressBar.style.marginRight = '10px';
       progressBar.style.backgroundColor = 'white';
 
       newtask.appendChild(progressBar);
-      
+
       let dropdownMenu = createDropdownMenu(newtask, progressBar);
       newtask.appendChild(dropdownMenu);
       // Hinzufügen der ProgressBar und des Dropdown-Menüs zum neuen Aufgaben-Element
-      let taskDiv:HTMLDivElement=document.createElement("div");
-      taskDiv.classList.add(`task${id+1}`);
-      
+      let taskDiv: HTMLDivElement = document.createElement("div");
+      taskDiv.classList.add(`task${id + 1}`);
+
       let trash: HTMLLIElement = document.createElement('i') as HTMLLIElement;
       trash.classList.add('fa-regular', 'fa-trash-can', 'fa-2x', 'trash', 'task');
       trash.addEventListener('click', Delete);
-      
-      function Delete() {
+     async function Delete() {
         newtask.remove();
         trash.remove();
-        tasks=tasks.filter(task => task.id !== id);//filtert alle id´s außer die die gelöscht werden soll und überschreibt das array mit allen gefilterten id´s
+        tasks = tasks.filter(task => task.id !== id);//filtert alle id´s außer die die gelöscht werden soll und überschreibt das array mit allen gefilterten id´s
         console.log(tasks)
-        const deleteTask=gettaskbyid(tasks,id)
-        const delete= await delteinserver()
+        let serverID=await findServerID("tasks",id)
+        console.log(serverID);
+        if(serverID!=undefined){
+
+          let deleted= await deleteData(serverID,"tasks")
+          console.log(deleted);
         
+        }
+
       };
       newtask.appendChild(trash);
       taskDiv.appendChild(newtask);
       todos.prepend(newtask);
-
-      let searchedtask=getTaskbyId(tasks,id)
-      const insert =await insertTasks('tasks',searchedtask)
     }
 
     else {
@@ -517,31 +491,15 @@ fetch(URL, requestOptions)
 
   let garbage: HTMLLIElement = document.getElementById('trash') as HTMLLIElement;
   garbage.addEventListener('click', DeleteInput);
-  
+
   function DeleteInput() {
 
     nameSelect.value = "";
     taskField.value = "";
     dateInput.value = "";
     commentField.value = "";
-
-
   };
+
   // löscht Eingabe
-
-  let sendButton:HTMLButtonElement=document.getElementById("send") as HTMLButtonElement;
-
-  let loader = document.getElementById("loader") as HTMLDivElement;
-
-  sendButton.addEventListener("click", ()=>{
-    loader.style.display="inline-block";
-    sendButton.disabled=true;//button ist gedrückt und nicht klickbar
-    sendTasksToServer();
-    setTimeout(()=>{
-      loader.style.display="none";
-      sendButton.disabled=false;// button ist wieder klickbar nach 5s
-    },5000)
-  });
-
-
 };
+// Payload ??
