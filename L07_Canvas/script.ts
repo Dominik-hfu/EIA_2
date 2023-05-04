@@ -2,35 +2,35 @@ namespace Art {
 
     window.addEventListener("load", handleload);
     let crc2: CanvasRenderingContext2D;
+    let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.querySelector("canvas");
+    // let randomPosition:number=Math.floor(Math.random()*canvas.height)
 
     function handleload(_event: Event): void {
-        let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.querySelector("canvas");
-        if (!canvas)
-            return;
+
         crc2 = <CanvasRenderingContext2D>canvas.getContext("2d");
 
         background();
         circleStyle();
         triangleStyle();
+        // lineStyle();
     }
 
-    function createRandomColor():string{
+    function createRandomColor(): string {
         
         let color = Math.floor(Math.random() * 360);
         let saturation = Math.floor(Math.random() * 100);
         let lightness = Math.floor(Math.random() * 100);
-        let alpha = Math.random();
-    
-        let randomColor = `hsl(${color}, ${saturation}%, ${lightness}%, ${alpha})`;
-
+        let alpha = 0.5;
+        
+        let randomColor = `hsla(${color}, ${saturation}%, ${lightness}%, ${alpha})`;
+        
         return randomColor
-    }
-
+    };
+    
 
     function background() {
-            crc2.save();
-        let gradient: CanvasGradient = crc2.createLinearGradient(100, 0, 0, 130);
 
+        let gradient: CanvasGradient = crc2.createLinearGradient(100, 0, 0, 130);
         gradient.addColorStop(0, createRandomColor());
         gradient.addColorStop(.5, createRandomColor());
         gradient.addColorStop(1, createRandomColor());
@@ -39,77 +39,73 @@ namespace Art {
         crc2.fillStyle = gradient;
         crc2.fillRect(0, 0, crc2.canvas.width, crc2.canvas.height);
         crc2.closePath();
-        crc2.restore();
 
     }
 
     function circleStyle() {
 
-        let path: Path2D = new Path2D();
-        path.arc(200, 200, 200, 0, 2 * Math.PI);
-        crc2.stroke(path);
+        for (let i = 0; i < 20; i++) {
 
-        path = new Path2D();
-        path.arc(400, 200, 200, 0, 2 * Math.PI);
-        crc2.stroke(path);
+            let randomX = Math.random() * canvas.width;
+            let randomY = Math.random() * canvas.height;
+            let randomR = Math.random() * 20;
 
-        for(let i=0;i<10;i++){
+            let gradient: CanvasGradient = crc2.createRadialGradient(randomX, randomY, randomR + 10, randomX, randomY, randomR);
+            gradient.addColorStop(0, createRandomColor());
+            gradient.addColorStop(1, createRandomColor());
 
             crc2.beginPath();
-            crc2.arc(200, 250, 50, 0, 2 * Math.PI);
-            crc2.stroke();
+            crc2.arc(randomX, randomY, randomR, 0, 2 * Math.PI);
+            crc2.fillStyle = gradient;
+            crc2.strokeStyle = "transparent"
+            crc2.fill();
+            crc2.closePath();
+
         }
 
     }
 
-    function triangleStyle(){
-        crc2.beginPath();
-        crc2.moveTo(5,5);
-        crc2.lineTo(200,5);
-        crc2.lineTo(100,100);
-        crc2.lineTo(5,5);
-        crc2.stroke();
-        crc2.closePath();
+    function triangleStyle() {
+
+        for (let i = 0; i < 20; i++) {
+
+            let randomX = Math.random() * canvas.width;
+            let randomY = Math.random() * canvas.height;
+            let gradient: CanvasGradient = crc2.createLinearGradient(randomX - 50, randomY - 50, randomX + 50, randomY + 50);
+            gradient.addColorStop(0, createRandomColor());
+            gradient.addColorStop(0.5, createRandomColor());
+            gradient.addColorStop(1, createRandomColor());
+
+            crc2.beginPath();
+            crc2.moveTo(randomX, randomY);
+            crc2.lineTo(randomX, randomY);
+            crc2.lineTo(650, 600);
+            crc2.lineTo(500, 400);
+            crc2.fillStyle = gradient;
+            crc2.strokeStyle = "transparent"
+            crc2.fill();
+            crc2.closePath();
+        }
     }
 
+    // function lineStyle() {
+
+    //     let randomX = Math.random() * canvas.width;
+    //     let randomY = Math.random() * canvas.height;
+
+    //     // for(let i=0; i<10;i++){
+            
+    //                 crc2.beginPath();
+    //                 crc2.moveTo(randomX, randomY);
+    //                 crc2.lineTo(randomX,randomY);
+    //                 crc2.lineTo(800, randomY);
+    //                 // crc2.lineTo(800, 800);
+    //                 crc2.strokeStyle="red";
+    //                 crc2.stroke();
+    //                 crc2.closePath();
+
+    //     // }
+
+    // } //Linie sieht doof aus 
+
 }
-
-
-    // state?
-    // translate(), rotate(), scale()
-    // save? restore? unterschied getTransform(), setTransform(), zugriff?
-    // Schleifen nutzen
-
-// crc2.fillStyle = "#FF0000";
-
-// crc2.beginPath();
-// crc2.arc(100, 100, 20, 0, 1.5 * Math.PI);
-// crc2.closePath();
-// crc2.stroke();
-// crc2.closePath()
-
-// ellipse
-
-// moveTo(...)
-// lineTo(...)
-    // let pattern: CanvasRenderingContext2D = <CanvasRenderingContext2D>document.createElement('canvas').getContext('2d');
-// pattern.canvas.width = 40;
-// pattern.canvas.height = 20;
-
-// pattern.fillStyle = '#fec';
-// pattern.fillRect(0, 0, pattern.canvas.width, pattern.canvas.height);
-// pattern.moveTo(0, 10);
-// pattern.lineTo(10, 10);
-// pattern.lineTo(20, 0);
-// pattern.lineTo(30, 0);
-// pattern.lineTo(40, 10);
-// pattern.lineTo(30, 20);
-// pattern.lineTo(20, 20);
-// pattern.lineTo(10, 10);
-// pattern.stroke();
-
-// crc2.fillStyle = <CanvasRenderingContext2D>crc2.createPattern(pattern.canvas, 'repeat');
-// crc2.fillRect(0, 0, canvas.width, canvas.height);
-
-// crc2.save();
-// crc2.restore();
