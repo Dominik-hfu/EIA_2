@@ -22,21 +22,380 @@ namespace Alpen {
         sun();
         cloud({ x: 100, y: 100 })
         mountain();
-        ellipse();
         kiosk();
+        ellipse();
+        climber();
+        parachutist();
+        windpimmel();
+        bumblebee();
     };
+
+
+    function bumblebee(){
+
+        for(let bees=0;bees<5;bees++){
+
+        let maxXBee:number= 800;
+        let maxYBee:number= 540;
+
+        let minXBee:number= 100;
+        let minYBee:number= 250;
+
+        let randomXBee:number=Math.floor(Math.random() * (maxXBee - minXBee + 1)) + minXBee;
+        let randomYBee:number=Math.floor(Math.random() * (maxYBee - minYBee + 1)) + minYBee;
+
+        //Körper
+        crc2.beginPath();
+        crc2.moveTo(randomXBee,randomYBee);
+        crc2.ellipse(randomXBee-60, randomYBee, 60, 30, 0, 0, 2*Math.PI);
+        crc2.stroke();
+        crc2.fillStyle="HSL(60,90%,50%)";
+        crc2.fill();
+        crc2.closePath();
+        //Beine
+        crc2.beginPath();
+        crc2.moveTo(randomXBee-90,randomYBee+26);
+        crc2.lineTo(randomXBee-80,randomYBee+35);
+        crc2.stroke();
+        crc2.closePath();
+        
+        crc2.beginPath();
+        crc2.moveTo(randomXBee-80,randomYBee+28);
+        crc2.lineTo(randomXBee-70,randomYBee+35);
+        crc2.stroke();
+        crc2.closePath();
+        
+        crc2.beginPath();
+        crc2.moveTo(randomXBee-50,randomYBee+29);
+        crc2.lineTo(randomXBee-42,randomYBee+35);
+        crc2.stroke();
+        crc2.closePath();
+
+        crc2.beginPath();
+        crc2.moveTo(randomXBee-40,randomYBee+28);
+        crc2.lineTo(randomXBee-30,randomYBee+35);
+        crc2.stroke();
+        crc2.closePath();
+        //Streifen
+        crc2.beginPath();
+        crc2.moveTo(randomXBee-65,randomYBee+29);
+        crc2.bezierCurveTo(randomXBee-35,randomYBee-5, randomXBee-45, randomYBee-8, randomXBee-65, randomYBee-30);
+        crc2.stroke();
+        crc2.closePath();
+
+        crc2.beginPath();
+        crc2.moveTo(randomXBee-55,randomYBee+29);
+        crc2.bezierCurveTo(randomXBee-25,randomYBee-5, randomXBee-35, randomYBee-8, randomXBee-55, randomYBee-30);
+        crc2.stroke();
+        crc2.closePath();
+
+        crc2.beginPath();
+        crc2.moveTo(randomXBee-35,randomYBee+27);
+        crc2.bezierCurveTo(randomXBee-5,randomYBee-5, randomXBee-15, randomYBee-8, randomXBee-35, randomYBee-27);
+        crc2.stroke();
+        crc2.closePath();
+
+        crc2.beginPath();
+        crc2.moveTo(randomXBee-25,randomYBee+24);
+        crc2.bezierCurveTo(randomXBee+5,randomYBee-5, randomXBee-5, randomYBee-8, randomXBee-25, randomYBee-24);
+        crc2.stroke();
+        // crc2.fillStyle="black";
+        // crc2.fill();
+        crc2.closePath();
+            //fill???
+
+        //Augen
+        crc2.beginPath();
+        crc2.moveTo(randomXBee-90,randomYBee);
+        crc2.arc(randomXBee-100,randomYBee,10,0,2*Math.PI);
+        crc2.stroke();
+        crc2.fillStyle="white";
+        crc2.fill();
+        crc2.closePath();
+        
+        crc2.beginPath();
+        crc2.moveTo(randomXBee-75,randomYBee);
+        crc2.arc(randomXBee-82,randomYBee,8,0,2*Math.PI);
+        crc2.stroke();
+        crc2.fillStyle="white";
+        crc2.fill();
+        crc2.closePath();
+        
+        crc2.beginPath();
+        crc2.moveTo(randomXBee-90,randomYBee);
+        crc2.arc(randomXBee-95,randomYBee,5,0,2*Math.PI);
+        crc2.fillStyle="black";
+        crc2.fill();
+        crc2.stroke();
+        crc2.closePath();
+        
+        crc2.beginPath();
+        crc2.moveTo(randomXBee-80,randomYBee);
+        crc2.arc(randomXBee-85,randomYBee,5,0,2*Math.PI);
+        crc2.fillStyle="black";
+        crc2.fill();
+        crc2.stroke();
+        crc2.closePath();
+
+        //Flügel
+        crc2.beginPath();
+        crc2.moveTo(randomXBee-65,randomYBee-30);
+        crc2.bezierCurveTo(randomXBee-70,randomYBee-80, randomXBee-80, randomYBee-24, randomXBee-65, randomYBee-30);
+        crc2.stroke();
+        crc2.fillStyle="lightgrey";
+        crc2.fill();
+        crc2.closePath();
+
+        crc2.beginPath();
+        crc2.moveTo(randomXBee-65,randomYBee-30);
+        crc2.bezierCurveTo(randomXBee-60,randomYBee-80, randomXBee-50, randomYBee-24, randomXBee-55, randomYBee-30);
+        crc2.stroke();
+        crc2.fillStyle="lightgrey";
+        crc2.fill();
+        crc2.closePath();
+
+        }
+
+    };
+
+    function windpimmel(){
+
+        
+        crc2.beginPath();
+        crc2.moveTo(650,551);
+        crc2.bezierCurveTo(670,560, 690, 544, 710, 542);
+        crc2.stroke();
+        crc2.closePath();
+        
+        crc2.moveTo(710,542);
+        crc2.bezierCurveTo(710, 527, 670, 545, 650, 531);
+        crc2.lineTo(650,551);
+        crc2.fillStyle="hsl(348,83%,47%)";
+        crc2.stroke();
+        crc2.fill();
+        crc2.closePath();   
+        
+        crc2.beginPath();
+        crc2.moveTo(650,600);
+        crc2.lineTo(650,550);
+        crc2.stroke();
+        crc2.closePath();
+        crc2.beginPath();
+        crc2.ellipse(650, 541, 5, 10, 0, 0, 2*Math.PI);
+        crc2.fillStyle="hsl(348,83%,47%)";
+        crc2.fill();
+        crc2.stroke();
+        crc2.closePath();
+    };
+
+    function parachutist(){
+
+        for(let guys:number=0; guys<11; guys++){
+
+            let minX:number= 200;
+            let maxX:number= 1000;
+            let randomX:number=Math.floor(Math.random() * (maxX - minX + 1)) + minX;
+            
+            let minY:number= 100;
+            let maxY:number= 500;
+            let randomY:number=Math.floor(Math.random() * (maxY - minY + 1)) + minY;
+
+
+            let parachutist:[]=[]
+            let isUnique:boolean;
+            
+            do {
+              isUnique = true;
+              randomX = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
+              randomY = Math.floor(Math.random() * (maxY - minY + 1)) + minY;
+            
+              for (let i = 0; i < parachutist.length; i++) {
+                let existingClimber = parachutist[i];
+                let distance = Math.sqrt((existingClimber.x - randomX)**2 + (existingClimber.y - randomY)**2);
+                if (distance < 20) {
+                  isUnique = false;
+                  break;
+                }
+              }
+            } while (!isUnique);
+            
+            parachutist.push({x: randomX, y: randomY});
+            
+            // Seile
+            crc2.beginPath();
+            crc2.moveTo(randomX-3,randomY+10);
+            crc2.lineTo(randomX-25,randomY-20);
+            crc2.stroke();
+            crc2.closePath();
+            
+            crc2.beginPath();
+            crc2.moveTo(randomX+3,randomY+10);
+            crc2.lineTo(randomX+25,randomY-20);
+            crc2.stroke();
+            crc2.closePath();
+            
+            crc2.beginPath();
+            crc2.moveTo(randomX+3,randomY+10);
+            crc2.lineTo(randomX+10,randomY-20);
+            crc2.stroke();
+            crc2.closePath();
+            
+            crc2.beginPath();
+            crc2.moveTo(randomX-3,randomY+10);
+            crc2.lineTo(randomX-10,randomY-20);
+            crc2.stroke();
+            crc2.closePath();
+            
+            //Schirm
+
+            crc2.beginPath();
+            crc2.moveTo(randomX-25,randomY-20)
+            crc2.bezierCurveTo(randomX-10, randomY-20, randomX +10, randomY-20, randomX +25, randomY-20);
+            crc2.fill();
+            crc2.fillStyle="HSL(39,100%,50%)";
+            crc2.stroke();
+            crc2.closePath();
+            
+            crc2.beginPath();
+            crc2.arc(randomX,randomY-20,25,Math.PI,2*Math.PI)
+            crc2.lineTo(randomX-25,randomY-20);
+            crc2.fill();
+            crc2.stroke();
+            crc2.closePath();
+            
+            crc2.beginPath();
+            crc2.moveTo(randomX, randomY);
+            crc2.arc(randomX, randomY, 8, 0, 2*Math.PI);
+            crc2.stroke();
+            crc2.fillStyle="white";
+            crc2.fill();
+            crc2.closePath();
+            
+            crc2.beginPath();
+            crc2.moveTo(randomX,randomY+8);
+            crc2.lineTo(randomX, randomY+20)
+            crc2.moveTo(randomX, randomY + 20);
+            crc2.lineTo(randomX - 10, randomY + 30);
+            crc2.moveTo(randomX, randomY + 20);
+            crc2.lineTo(randomX + 10, randomY + 30);
+            crc2.stroke();
+            crc2.closePath();
+        
+            crc2.beginPath();
+            crc2.moveTo(randomX,randomY+15);
+            crc2.lineTo(randomX - 20, randomY);
+            crc2.moveTo(randomX, randomY + 15);
+            crc2.lineTo(randomX + 20, randomY);
+            crc2.stroke();
+            crc2.closePath();
+        
+        
+    }
+    };
+
+
+function climber(){
+
+    for(let guys:number=0; guys<5; guys++){
+    let minX:number= 5;
+let maxX:number= 100;
+let randomX:number=Math.floor(Math.random() * (maxX - minX + 1)) + minX;
+let climbers:[]=[]
+let isUnique:boolean;
+
+do {
+  isUnique = true;
+  randomX = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
+  randomY = Math.floor(Math.random() * (maxY - minY + 1)) + minY;
+
+  for (let i = 0; i < climbers.length; i++) {
+    let existingClimber = climbers[i];
+    let distance = Math.sqrt((existingClimber.x - randomX)**2 + (existingClimber.y - randomY)**2);
+    if (distance < 20) {
+      isUnique = false;
+      break;
+    }
+  }
+} while (!isUnique);
+
+climbers.push({x: randomX, y: randomY});
+// funktioniert trotz Fehler??
+
+    crc2.beginPath();
+    crc2.moveTo(randomX, randomY);
+    crc2.arc(randomX, randomY, 8, 0, 2*Math.PI);
+    crc2.stroke();
+    crc2.fillStyle="white";
+    crc2.fill();
+    crc2.closePath();
+
+    crc2.beginPath();
+    crc2.moveTo(randomX,randomY+8);
+    crc2.lineTo(randomX, randomY+20)
+    crc2.moveTo(randomX, randomY + 20);
+    crc2.lineTo(randomX - 10, randomY + 30);
+    crc2.moveTo(randomX, randomY + 20);
+    crc2.lineTo(randomX + 10, randomY + 30);
+    crc2.stroke();
+    crc2.closePath();
+
+    crc2.beginPath();
+    crc2.moveTo(randomX,randomY+15);
+    crc2.lineTo(randomX - 20, randomY);
+    crc2.moveTo(randomX, randomY + 15);
+    crc2.lineTo(randomX + 20, randomY);
+    crc2.stroke();
+    crc2.closePath();
+
+
+    }
+};
+
 
     function kiosk(){
 
         crc2.beginPath();
-        crc2.moveTo(700,650);
-        crc2.lineTo(800,800);
-        crc2.lineTo(850,650);
-        crc2.lineTo(850,500);
-        crc2.lineTo(800,520);
+        crc2.moveTo(720,650);
+        crc2.lineTo(820,680);
+        crc2.lineTo(870,650);
+        crc2.lineTo(870,580);
+        crc2.lineTo(840,520);
+        crc2.lineTo(720,580);
+        crc2.lineTo(720,650);
 
         crc2.strokeStyle="black";
-        crc2.fillStyle="white";
+        crc2.stroke();
+        crc2.fillStyle="hsl(348,83%,47%)";
+        crc2.fill();
+        crc2.closePath();
+
+        crc2.beginPath();
+        crc2.moveTo(820,680);
+        crc2.lineTo(820,610);
+        crc2.lineTo(870,580);
+
+        crc2.strokeStyle="black";
+        crc2.stroke();
+        crc2.fillStyle="hsl(348,83%,47%)";
+        crc2.fill();
+        crc2.closePath();
+        
+        crc2.beginPath();
+        crc2.moveTo(820,610);
+        crc2.lineTo(790,545);
+        
+        crc2.strokeStyle="black";
+        crc2.stroke();
+        crc2.closePath();
+
+        crc2.beginPath();
+        crc2.moveTo(820,610);
+        crc2.lineTo(720,580);
+        crc2.lineTo(700,610);
+        crc2.lineTo(800,640);
+        crc2.lineTo(820,610);
+        
+        crc2.fillStyle="HSL(360,0%,80%)";
         crc2.fill();
         crc2.closePath();
 
@@ -62,33 +421,27 @@ namespace Alpen {
 
     let startAngle:number = 0;
     let endAngle:number = 2 * Math.PI;
-
-    for(let circle=0; circle<6;circle++){
-
-        let radiusChange = 4 * circle; // jede Ellipse bekommt einen kleineren Radius
-    
-        crc2.beginPath();
-        crc2.ellipse(centerX, centerY, randomXRadius+20-radiusChange, randomYRadius-radiusChange, 0, startAngle, endAngle);
-        crc2.stroke();
-        crc2.fillStyle = "whitesmoke";
-        crc2.fill();
-        crc2.closePath();
         
         crc2.beginPath();
-        crc2.ellipse(centerX, centerY, randomXRadius-radiusChange, randomYRadius-radiusChange, 0, startAngle, endAngle);
+        crc2.ellipse(centerX, centerY, randomXRadius, randomYRadius, 0, startAngle, endAngle);
         crc2.stroke();
-        crc2.fillStyle = "red";
+        crc2.fillStyle = "HSL(84,100%,65%)";
         crc2.fill();
         crc2.closePath();
-    }    
+      
         
 };
 
+let minX:number= 200;
+let maxX:number= 400;
+let randomX:number=Math.floor(Math.random() * (maxX - minX + 1)) + minX;
+
+let minY:number= 400;
+let maxY:number= 600;
+let randomY:number=Math.floor(Math.random() * (maxY - minY + 1)) + minY;
+
 function mountain(){
-        
-        let minX:number= 200;
-        let maxX:number= 400;
-        let randomX:number=Math.floor(Math.random() * (maxX - minX + 1)) + minX;
+    
 
         let gradient: CanvasGradient = crc2.createLinearGradient(0, 100, 0, crc2.canvas.height);
         gradient.addColorStop(0, "HSL(360,0%,100%)");
