@@ -26,9 +26,10 @@ namespace Alpen {
         ellipse();
         climber();
         parachutist();
-        windpimmel();
+        windsack();
         bumblebee();
     };
+    //Funktionsaufrufe über windowload
 
 
     function bumblebee(){
@@ -42,7 +43,7 @@ namespace Alpen {
         let minYBee:number= 250;
 
         let randomXBee:number=Math.floor(Math.random() * (maxXBee - minXBee + 1)) + minXBee;
-        let randomYBee:number=Math.floor(Math.random() * (maxYBee - minYBee + 1)) + minYBee;
+        let randomYBee:number=Math.floor(Math.random() * (maxYBee - minYBee + 1)) + minYBee;//Bee Position
 
         //Körper
         crc2.beginPath();
@@ -158,7 +159,7 @@ namespace Alpen {
 
     };
 
-    function windpimmel(){
+    function windsack(){
 
         
         crc2.beginPath();
@@ -199,27 +200,6 @@ namespace Alpen {
             let minY:number= 100;
             let maxY:number= 500;
             let randomY:number=Math.floor(Math.random() * (maxY - minY + 1)) + minY;
-
-
-            let parachutist:[]=[]
-            let isUnique:boolean;
-            
-            do {
-              isUnique = true;
-              randomX = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
-              randomY = Math.floor(Math.random() * (maxY - minY + 1)) + minY;
-            
-              for (let i = 0; i < parachutist.length; i++) {
-                let existingClimber = parachutist[i];
-                let distance = Math.sqrt((existingClimber.x - randomX)**2 + (existingClimber.y - randomY)**2);
-                if (distance < 20) {
-                  isUnique = false;
-                  break;
-                }
-              }
-            } while (!isUnique);
-            
-            parachutist.push({x: randomX, y: randomY});
             
             // Seile
             crc2.beginPath();
@@ -300,7 +280,7 @@ function climber(){
     let minX:number= 5;
 let maxX:number= 100;
 let randomX:number=Math.floor(Math.random() * (maxX - minX + 1)) + minX;
-let climbers:[]=[]
+let climbers:[]=[];
 let isUnique:boolean;
 
 do {
@@ -320,6 +300,7 @@ do {
 
 climbers.push({x: randomX, y: randomY});
 // funktioniert trotz Fehler??
+// Schleife verhindert das Überlappen der Climber
 
     crc2.beginPath();
     crc2.moveTo(randomX, randomY);
@@ -347,13 +328,12 @@ climbers.push({x: randomX, y: randomY});
     crc2.stroke();
     crc2.closePath();
 
-
     }
 };
 
-
     function kiosk(){
 
+        //Gebäude
         crc2.beginPath();
         crc2.moveTo(720,650);
         crc2.lineTo(820,680);
@@ -388,6 +368,8 @@ climbers.push({x: randomX, y: randomY});
         crc2.stroke();
         crc2.closePath();
 
+        //Markise
+
         crc2.beginPath();
         crc2.moveTo(820,610);
         crc2.lineTo(720,580);
@@ -406,11 +388,11 @@ climbers.push({x: randomX, y: randomY});
         let centerX:number = 550; // x-Koordinate des Mittelpunkts der Ellipse
         let centerY:number = 650; // y-Koordinate des Mittelpunkts der Ellipse
         
-        let minRadiusX:number = 120; // Halbachse der Ellipse in x-Richtung
-        let maxRadiusX:number = 140; // Halbachse der Ellipse in x-Richtung
+        let minRadiusX:number = 120; // Halbachse in X-Richtung
+        let maxRadiusX:number = 140; 
         
-        let minRadiusY:number = 10;  // Halbachse der Ellipse in y-Richtung
-        let maxRadiusY:number = 30;  // Halbachse der Ellipse in y-Richtung
+        let minRadiusY:number = 10;  // Halbachse in Y-Richtung
+        let maxRadiusY:number = 30;  
         
         let randomXRadius:number=Math.floor(Math.random() * (maxRadiusX - minRadiusX + 1)) + minRadiusX;
         let randomYRadius:number=Math.floor(Math.random() * (maxRadiusY - minRadiusY + 1)) + minRadiusY;
@@ -456,9 +438,7 @@ function mountain(){
         crc2.fill();
         crc2.closePath();
 
-
 };
-
 
     function cloud(position: { x: number, y: number }) {
         let minSize= { x: 100, y: 100 };
