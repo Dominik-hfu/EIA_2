@@ -2,7 +2,7 @@ namespace OldMcDonald {
 
     window.addEventListener("load", handleload);
     export let crc2: CanvasRenderingContext2D;
-    let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.querySelector("canvas");
+    export let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.querySelector("canvas");
 
     let minX:number=400;
     let maxX:number=600;
@@ -28,15 +28,16 @@ namespace OldMcDonald {
         cloud({x:400,y:120});
         cloud({x:800,y:110});
         
-    let dog:Animal=new Animal("dog",randomPosition,[50,30],"brown", "Bello", "Knochen", 2, "wuff");
+    let dog:Animal=new Animal("dog",randomPosition,[50,30],"brown", "Bello", "Knochen", 30, "wuff");
     dog.color="black";//randomColor
     dog.draw(); //muss in Funktion stehen
+    // dog.sing();
 
     let cow:Animal=new Animal("cow",randomPosition,[80,50],"white", "Herbert", "Gras", 5, "muuh");
     cow.color="white";
     cow.draw();
 
-    let pig:Animal=new Animal("pig",randomPosition,[40,20],"pink", "Jens", "Getreide", 10, "grunz");
+    let pig:Animal=new Animal("pig",randomPosition,[40,20],"pink", "Jens", "Getreide", 30, "grunz");
     pig.color="pink";
     pig.draw();
 
@@ -48,7 +49,8 @@ namespace OldMcDonald {
     donkey.color="grey";
     donkey.draw();
     //size??
-    
+    let farm:Farm=new Farm([dog,cow,pig,chicken,donkey]);
+    farm.simulateDay();
 
     // myDog.bark(); // Ausgabe: Woof woof!
     // myDog.sing("La la la"); // Ausgabe: I'm singing: La la la

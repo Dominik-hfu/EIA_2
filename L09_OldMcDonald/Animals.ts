@@ -24,14 +24,56 @@ namespace OldMcDonald {
             this.foodAmount = _foodAmount;
             this.sound = _sound;
         }
+        
 
+       async sing(): Promise <void> {
 
-        sing(song: string): void {
-            console.log(`I'm singing: ${song}`);
+        let lines :string[]= [
+          `Old MacDonald had a farm, E-I-E-I-O!`,
+          `And on his farm he had a ${this.type}, E-I-E-I-O!`,
+          `With a ${this.sound}-${this.sound} here and a ${this.sound}-${this.sound} there,`,
+          `here a ${this.sound}, there a ${this.sound}, everywhere a ${this.sound}-${this.sound}...`
+        ]    
+        let delay:number=1000;
+        for(let line of lines){
+
+          let output:string=`${this.name} sings: ${line}`
+
+          await new Promise<void>((resolve) => setTimeout(resolve,delay))
+
+    crc2.fillStyle = "white";
+    crc2.fillRect(this.position_x-200, this.position_y - 200, 600, 30);
+  
+
+    // Draw the new text
+    crc2.fillStyle = "black";
+    crc2.font='20px Arial';
+    crc2.fillText(output, this.position_x-180, this.position_y-180,crc2.measureText(line).width);
+ 
+        }
+          
         }
 
-        eat(food: string): void {
-            console.log(`I'm eating ${food}`);
+        eat(foodsupply: FoodSupply): void {
+          if (foodsupply[this.food] >= this.foodAmount) {
+            foodsupply[this.food] -= this.foodAmount;
+            let output =`${this.name} the ${this.type} ate ${this.foodAmount} ${this.food}.${this.food} is ${foodsupply[this.food]} left`
+            crc2.fillStyle = "white";
+            crc2.fillRect(this.position_x-200, this.position_y - 200, 600, 30);
+            // Draw the new text
+            crc2.fillStyle = "black";
+            crc2.font='20px Arial';
+            crc2.fillText(output, this.position_x-180, this.position_y-180,crc2.measureText(output).width);
+            
+          } else {
+            let output =`Not enough ${this.food} for ${this.name} the ${this.type}! Please order ${this.food}`
+            crc2.fillStyle = "white";
+            crc2.fillRect(this.position_x-200, this.position_y - 200, 600, 30);
+            // Draw the new text
+            crc2.fillStyle = "black";
+            crc2.font='20px Arial';
+            crc2.fillText(output, this.position_x-180, this.position_y-180,crc2.measureText(output).width);
+          }  
         }
 
         draw(): void {
@@ -43,6 +85,9 @@ namespace OldMcDonald {
             crc2.beginPath();
             crc2.fillStyle = this.color;
             crc2.ellipse(this.position_x, this.position_y, 70, 20, 0, 0, 2 * Math.PI);
+            crc2.fill();
+            crc2.fillText("hallo", this.position_x,this.position_y-50,100);
+            crc2.stroke();
             crc2.fill();
             //Beine
             crc2.moveTo(this.position_x - 40, this.position_y + 15);
@@ -65,7 +110,7 @@ namespace OldMcDonald {
 
             crc2.beginPath();
             crc2.moveTo(this.position_x + 40, this.position_y + 15);
-            crc2.lineTo(this.position_x + 50, this.position_y + 2   5);
+            crc2.lineTo(this.position_x + 50, this.position_y + 25);
             crc2.stroke();
             crc2.closePath();
 
@@ -210,9 +255,6 @@ namespace OldMcDonald {
 
             break;
 
-
-
-
             case "pig":
 
             let positionXPig:number=this.position_x-300;
@@ -298,10 +340,7 @@ namespace OldMcDonald {
           crc2.stroke();
           crc2.closePath();
 
-
             break;
-
-
 
             case "chicken":
 
@@ -376,11 +415,7 @@ namespace OldMcDonald {
           crc2.stroke();
           crc2.closePath();
 
-
             break;
-
-
-
 
             case "donkey":
 

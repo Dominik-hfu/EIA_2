@@ -2,7 +2,7 @@
 var OldMcDonald;
 (function (OldMcDonald) {
     window.addEventListener("load", handleload);
-    let canvas = document.querySelector("canvas");
+    OldMcDonald.canvas = document.querySelector("canvas");
     let minX = 400;
     let maxX = 600;
     let minY = 550;
@@ -11,7 +11,7 @@ var OldMcDonald;
     let randomPositionY = Math.floor(Math.random() * (maxY - minY + 1)) + minY;
     let randomPosition = [randomPositionX, randomPositionY];
     function handleload(_event) {
-        OldMcDonald.crc2 = canvas.getContext("2d");
+        OldMcDonald.crc2 = OldMcDonald.canvas.getContext("2d");
         background();
         sun();
         house();
@@ -19,13 +19,14 @@ var OldMcDonald;
         cloud({ x: 100, y: 100 });
         cloud({ x: 400, y: 120 });
         cloud({ x: 800, y: 110 });
-        let dog = new OldMcDonald.Animal("dog", randomPosition, [50, 30], "brown", "Bello", "Knochen", 2, "wuff");
+        let dog = new OldMcDonald.Animal("dog", randomPosition, [50, 30], "brown", "Bello", "Knochen", 30, "wuff");
         dog.color = "black"; //randomColor
         dog.draw(); //muss in Funktion stehen
+        // dog.sing();
         let cow = new OldMcDonald.Animal("cow", randomPosition, [80, 50], "white", "Herbert", "Gras", 5, "muuh");
         cow.color = "white";
         cow.draw();
-        let pig = new OldMcDonald.Animal("pig", randomPosition, [40, 20], "pink", "Jens", "Getreide", 10, "grunz");
+        let pig = new OldMcDonald.Animal("pig", randomPosition, [40, 20], "pink", "Jens", "Getreide", 30, "grunz");
         pig.color = "pink";
         pig.draw();
         let chicken = new OldMcDonald.Animal("chicken", randomPosition, [10, 10], "yellow", "Chicko", "Körner", 10, "kikeriki");
@@ -35,6 +36,8 @@ var OldMcDonald;
         donkey.color = "grey";
         donkey.draw();
         //size??
+        let farm = new OldMcDonald.Farm([dog, cow, pig, chicken, donkey]);
+        farm.simulateDay();
         // myDog.bark(); // Ausgabe: Woof woof!
         // myDog.sing("La la la"); // Ausgabe: I'm singing: La la la
         // myDog.eat("bone"); // Ausgabe: I'm eating bone
@@ -42,7 +45,7 @@ var OldMcDonald;
     ;
     function tree() {
         for (let i = 0; i < 12; i++) {
-            const x = Math.random() * canvas.width; // Zufällige X-Koordinate innerhalb des Canvas-Bereichs
+            const x = Math.random() * OldMcDonald.canvas.width; // Zufällige X-Koordinate innerhalb des Canvas-Bereichs
             // Zeichne den braunen Stamm
             OldMcDonald.crc2.fillStyle = 'brown';
             OldMcDonald.crc2.fillRect(x + 70, 300, 40, 100);
