@@ -1,8 +1,19 @@
 namespace OldMcDonald {
 
     window.addEventListener("load", handleload);
-    let crc2: CanvasRenderingContext2D;
+    export let crc2: CanvasRenderingContext2D;
     let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.querySelector("canvas");
+
+    let minX:number=10;
+    let maxX:number=900;
+    let minY:number=10;
+    let maxY:number=700;
+
+    let randomPositionX:number=Math.floor(Math.random() * (maxX - minX + 1)) + minX;
+    let randomPositionY:number=Math.floor(Math.random() * (maxY - minY + 1)) + minY;
+
+    let randomPosition:number[]=[randomPositionX,randomPositionY]
+
 
     function handleload(_event: Event): void {
 
@@ -14,31 +25,20 @@ namespace OldMcDonald {
         cloud({x:100,y:100});
         // drawField();
         
+    let dog:Animal=new Animal("dog",randomPosition,[50,30],"brown", "bello", "Knochen", 2, "wuff");
+    dog.color="black";//randomColor
+    dog.draw(); //muss in Funktion stehen
+    
+    // let dog1:Dog=new Dog(20,20,"brown","black");
+    // dog1.draw();
+    
+    // let myDog = new Dog(30,30,"brown","black");
+    // myDog.bark(); // Ausgabe: Woof woof!
+    // myDog.sing("La la la"); // Ausgabe: I'm singing: La la la
+    // myDog.eat("bone"); // Ausgabe: I'm eating bone
+
+
     };
-
-
-// function drawField(){
-
-//     let pattern: CanvasRenderingContext2D =<CanvasRenderingContext2D> document.createElement('canvas').getContext('2d');
-// pattern.canvas.width = 40;
-// pattern.canvas.height = 20;
-
-// pattern.fillStyle = '#fec';
-// pattern.fillRect(0, 0, pattern.canvas.width, pattern.canvas.height);
-// pattern.moveTo(0, 10);
-// pattern.lineTo(10, 10);
-// pattern.lineTo(20, 0);
-// pattern.lineTo(30, 0);
-// pattern.lineTo(40, 10);
-// pattern.lineTo(30, 20);
-// pattern.lineTo(20, 20);
-// pattern.lineTo(10, 10);
-// pattern.stroke();
-
-// crc2.fillStyle = <CanvasRenderingContext2D>crc2.createPattern(pattern.canvas, 'repeat');
-// crc2.fillRect(0, 0, canvas.width, canvas.height);
-// };
-      
 
 
 
