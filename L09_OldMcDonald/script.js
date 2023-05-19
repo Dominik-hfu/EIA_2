@@ -3,9 +3,9 @@ var OldMcDonald;
 (function (OldMcDonald) {
     window.addEventListener("load", handleload);
     let canvas = document.querySelector("canvas");
-    let minX = 10;
-    let maxX = 900;
-    let minY = 10;
+    let minX = 400;
+    let maxX = 600;
+    let minY = 550;
     let maxY = 700;
     let randomPositionX = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
     let randomPositionY = Math.floor(Math.random() * (maxY - minY + 1)) + minY;
@@ -14,17 +14,59 @@ var OldMcDonald;
         OldMcDonald.crc2 = canvas.getContext("2d");
         background();
         sun();
+        house();
+        tree();
         cloud({ x: 100, y: 100 });
-        // drawField();
-        let dog = new OldMcDonald.Animal("dog", randomPosition, [50, 30], "brown", "bello", "Knochen", 2, "wuff");
+        cloud({ x: 400, y: 120 });
+        cloud({ x: 800, y: 110 });
+        let dog = new OldMcDonald.Animal("dog", randomPosition, [50, 30], "brown", "Bello", "Knochen", 2, "wuff");
         dog.color = "black"; //randomColor
         dog.draw(); //muss in Funktion stehen
-        // let dog1:Dog=new Dog(20,20,"brown","black");
-        // dog1.draw();
-        // let myDog = new Dog(30,30,"brown","black");
+        let cow = new OldMcDonald.Animal("cow", randomPosition, [80, 50], "white", "Herbert", "Gras", 5, "muuh");
+        cow.color = "white";
+        cow.draw();
+        let pig = new OldMcDonald.Animal("pig", randomPosition, [40, 20], "pink", "Jens", "Getreide", 10, "grunz");
+        pig.color = "pink";
+        pig.draw();
+        let chicken = new OldMcDonald.Animal("chicken", randomPosition, [10, 10], "yellow", "Chicko", "Körner", 10, "kikeriki");
+        chicken.color = "yellow";
+        chicken.draw();
+        let donkey = new OldMcDonald.Animal("donkey", randomPosition, [60, 40], "grey", "Bernhard", "Hafer", 4, "iaa");
+        donkey.color = "grey";
+        donkey.draw();
+        //size??
         // myDog.bark(); // Ausgabe: Woof woof!
         // myDog.sing("La la la"); // Ausgabe: I'm singing: La la la
         // myDog.eat("bone"); // Ausgabe: I'm eating bone
+    }
+    ;
+    function tree() {
+        for (let i = 0; i < 12; i++) {
+            const x = Math.random() * canvas.width; // Zufällige X-Koordinate innerhalb des Canvas-Bereichs
+            // Zeichne den braunen Stamm
+            OldMcDonald.crc2.fillStyle = 'brown';
+            OldMcDonald.crc2.fillRect(x + 70, 300, 40, 100);
+            // Zeichne die grüne Krone
+            OldMcDonald.crc2.fillStyle = 'green';
+            OldMcDonald.crc2.beginPath();
+            OldMcDonald.crc2.moveTo(x, 300);
+            OldMcDonald.crc2.lineTo(x + 200, 300);
+            OldMcDonald.crc2.lineTo(x + 100, 150);
+            OldMcDonald.crc2.closePath();
+            OldMcDonald.crc2.fill();
+        }
+    }
+    function house() {
+        OldMcDonald.crc2.fillStyle = 'red';
+        OldMcDonald.crc2.fillRect(400, 200, 200, 150);
+        // Zeichne das weiße Dach
+        OldMcDonald.crc2.fillStyle = 'white';
+        OldMcDonald.crc2.beginPath();
+        OldMcDonald.crc2.moveTo(400, 200);
+        OldMcDonald.crc2.lineTo(600, 200);
+        OldMcDonald.crc2.lineTo(500, 100);
+        OldMcDonald.crc2.closePath();
+        OldMcDonald.crc2.fill();
     }
     ;
     function cloud(position) {
@@ -82,8 +124,8 @@ var OldMcDonald;
     function background() {
         let gradient = OldMcDonald.crc2.createLinearGradient(0, 0, 0, OldMcDonald.crc2.canvas.height);
         gradient.addColorStop(0, "#51d9ed");
-        gradient.addColorStop(.25, "HSL(220, 80%, 80%)");
-        gradient.addColorStop(.5, "HSL(129,60%,37%)");
+        gradient.addColorStop(.2, "HSL(220, 80%, 80%)");
+        gradient.addColorStop(.4, "HSL(129,60%,37%)");
         gradient.addColorStop(1, "HSL(30, 100%, 30%)");
         OldMcDonald.crc2.beginPath();
         OldMcDonald.crc2.fillStyle = gradient;
