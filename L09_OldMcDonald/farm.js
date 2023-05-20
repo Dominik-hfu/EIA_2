@@ -52,7 +52,7 @@ var OldMcDonald;
                 let delay = 3000;
                 await new Promise((resolve) => setTimeout(resolve, delay));
                 animal.eat(this.food);
-            } //Tiere essen nacheinander 3s
+            } //Tiere essen und singen nacheinander 3s
             this.checkFoodSupply(this.animals[0]); //fängt bei null ein
         }
     }
