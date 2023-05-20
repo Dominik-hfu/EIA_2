@@ -12,6 +12,7 @@ var OldMcDonald;
         food;
         foodAmount;
         sound;
+        //Eigenschaften der Tiere werden in der Klasse definiert
         constructor(_type, _position, _size, _color, _name, _food, _foodAmount, _sound) {
             this.type = _type;
             this.position_x = _position[0];
@@ -23,7 +24,7 @@ var OldMcDonald;
             this.food = _food;
             this.foodAmount = _foodAmount;
             this.sound = _sound;
-        }
+        } // Constructor baut quasi die Tiere
         async sing() {
             let lines = [
                 `Old MacDonald had a farm, E-I-E-I-O!`,
@@ -31,25 +32,26 @@ var OldMcDonald;
                 `With a ${this.sound}-${this.sound} here and a ${this.sound}-${this.sound} there,`,
                 `here a ${this.sound}, there a ${this.sound}, everywhere a ${this.sound}-${this.sound}...`
             ];
-            let delay = 1000;
+            let delay = 3000; //3s
             for (let line of lines) {
                 let output = `${this.name} sings: ${line}`;
                 await new Promise((resolve) => setTimeout(resolve, delay));
+                //Resolve=Entschluss
                 OldMcDonald.crc2.fillStyle = "white";
                 OldMcDonald.crc2.fillRect(this.position_x - 200, this.position_y - 200, 600, 30);
-                // Draw the new text
                 OldMcDonald.crc2.fillStyle = "black";
                 OldMcDonald.crc2.font = '20px Arial';
                 OldMcDonald.crc2.fillText(output, this.position_x - 180, this.position_y - 180, OldMcDonald.crc2.measureText(line).width);
+                //Lied Anzeige
             }
         }
         eat(foodsupply) {
             if (foodsupply[this.food] >= this.foodAmount) {
                 foodsupply[this.food] -= this.foodAmount;
-                let output = `${this.name} the ${this.type} ate ${this.foodAmount} ${this.food}.${this.food} is ${foodsupply[this.food]} left`;
+                let output = `${this.name} the ${this.type} ate ${this.foodAmount} ${this.food}.${foodsupply[this.food]} ${this.food} are left`;
                 OldMcDonald.crc2.fillStyle = "white";
                 OldMcDonald.crc2.fillRect(this.position_x - 200, this.position_y - 200, 600, 30);
-                // Draw the new text
+                //Tier ist, Bestand wird subtrahiert
                 OldMcDonald.crc2.fillStyle = "black";
                 OldMcDonald.crc2.font = '20px Arial';
                 OldMcDonald.crc2.fillText(output, this.position_x - 180, this.position_y - 180, OldMcDonald.crc2.measureText(output).width);
@@ -58,7 +60,7 @@ var OldMcDonald;
                 let output = `Not enough ${this.food} for ${this.name} the ${this.type}! Please order ${this.food}`;
                 OldMcDonald.crc2.fillStyle = "white";
                 OldMcDonald.crc2.fillRect(this.position_x - 200, this.position_y - 200, 600, 30);
-                // Draw the new text
+                //Nicht genug Bestand, Hinweis auf Bestellung
                 OldMcDonald.crc2.fillStyle = "black";
                 OldMcDonald.crc2.font = '20px Arial';
                 OldMcDonald.crc2.fillText(output, this.position_x - 180, this.position_y - 180, OldMcDonald.crc2.measureText(output).width);
@@ -66,13 +68,15 @@ var OldMcDonald;
         }
         draw() {
             switch (this.type) {
+                //Switch case für den Abgleich welches Tier an dern Reihe ist
                 case "dog":
                     //Körper
                     OldMcDonald.crc2.beginPath();
                     OldMcDonald.crc2.fillStyle = this.color;
                     OldMcDonald.crc2.ellipse(this.position_x, this.position_y, 70, 20, 0, 0, 2 * Math.PI);
                     OldMcDonald.crc2.fill();
-                    OldMcDonald.crc2.fillText("hallo", this.position_x, this.position_y - 50, 100);
+                    OldMcDonald.crc2.font = '20px Arial';
+                    OldMcDonald.crc2.fillText("Bello", this.position_x, this.position_y - 50, 100);
                     OldMcDonald.crc2.stroke();
                     OldMcDonald.crc2.fill();
                     //Beine
@@ -96,12 +100,35 @@ var OldMcDonald;
                     OldMcDonald.crc2.lineTo(this.position_x + 50, this.position_y + 25);
                     OldMcDonald.crc2.stroke();
                     OldMcDonald.crc2.closePath();
+                    //Ohren
+                    OldMcDonald.crc2.beginPath();
+                    OldMcDonald.crc2.moveTo(this.position_x - 110, this.position_y - 40);
+                    OldMcDonald.crc2.lineTo(this.position_x - 95, this.position_y - 90);
+                    OldMcDonald.crc2.lineTo(this.position_x - 80, this.position_y - 40);
+                    OldMcDonald.crc2.fillStyle = this.color;
+                    OldMcDonald.crc2.fill();
+                    OldMcDonald.crc2.closePath();
+                    OldMcDonald.crc2.beginPath();
+                    OldMcDonald.crc2.moveTo(this.position_x - 90, this.position_y - 40);
+                    OldMcDonald.crc2.lineTo(this.position_x - 75, this.position_y - 90);
+                    OldMcDonald.crc2.lineTo(this.position_x - 60, this.position_y - 40);
+                    OldMcDonald.crc2.fillStyle = this.color;
+                    OldMcDonald.crc2.fill();
+                    OldMcDonald.crc2.closePath();
                     //Kopf
                     OldMcDonald.crc2.beginPath();
                     OldMcDonald.crc2.moveTo(this.position_x - 90, this.position_y - 40);
                     OldMcDonald.crc2.arc(this.position_x - 80, this.position_y - 20, 30, 0, 2 * Math.PI);
                     // crc2.stroke();
                     OldMcDonald.crc2.fillStyle = "white";
+                    OldMcDonald.crc2.fill();
+                    OldMcDonald.crc2.closePath();
+                    //Mund
+                    OldMcDonald.crc2.beginPath();
+                    OldMcDonald.crc2.moveTo(this.position_x - 100, this.position_y - 15);
+                    OldMcDonald.crc2.arc(this.position_x - 100, this.position_y - 15, 10, 0, 2 * Math.PI);
+                    OldMcDonald.crc2.stroke();
+                    OldMcDonald.crc2.strokeStyle = "black";
                     OldMcDonald.crc2.fill();
                     OldMcDonald.crc2.closePath();
                     //Auge
@@ -144,12 +171,37 @@ var OldMcDonald;
                     break;
                 case "cow":
                     //Körper
-                    let positionXCow = this.position_x + 350;
+                    let positionXCow = this.position_x + 400;
                     let positionYCow = this.position_y;
                     OldMcDonald.crc2.beginPath();
                     OldMcDonald.crc2.fillStyle = this.color;
                     OldMcDonald.crc2.ellipse(positionXCow, positionYCow, 70, 50, 0, 0, 2 * Math.PI);
+                    OldMcDonald.crc2.font = '20px Arial';
+                    OldMcDonald.crc2.fillText("Herbert", positionXCow - 20, positionYCow - 70, 100);
                     OldMcDonald.crc2.fill();
+                    OldMcDonald.crc2.closePath();
+                    //Flecken
+                    OldMcDonald.crc2.beginPath();
+                    OldMcDonald.crc2.moveTo(positionXCow - 25, positionYCow - 10);
+                    OldMcDonald.crc2.arc(positionXCow - 25, positionYCow - 10, 20, 0, 2 * Math.PI);
+                    // crc2.stroke();
+                    OldMcDonald.crc2.fillStyle = "black";
+                    OldMcDonald.crc2.fill();
+                    OldMcDonald.crc2.closePath();
+                    OldMcDonald.crc2.beginPath();
+                    OldMcDonald.crc2.moveTo(positionXCow + 25, positionYCow - 20);
+                    OldMcDonald.crc2.arc(positionXCow + 25, positionYCow - 20, 20, 0, 2 * Math.PI);
+                    OldMcDonald.crc2.stroke();
+                    OldMcDonald.crc2.fillStyle = "black";
+                    OldMcDonald.crc2.fill();
+                    OldMcDonald.crc2.closePath();
+                    OldMcDonald.crc2.beginPath();
+                    OldMcDonald.crc2.moveTo(positionXCow + 10, positionYCow + 20);
+                    OldMcDonald.crc2.arc(positionXCow + 10, positionYCow + 20, 20, 0, 2 * Math.PI);
+                    OldMcDonald.crc2.stroke();
+                    OldMcDonald.crc2.fillStyle = "black";
+                    OldMcDonald.crc2.fill();
+                    OldMcDonald.crc2.closePath();
                     //Beine
                     OldMcDonald.crc2.moveTo(positionXCow - 40, positionYCow + 40);
                     OldMcDonald.crc2.lineTo(positionXCow - 30, positionYCow + 60);
@@ -177,6 +229,13 @@ var OldMcDonald;
                     OldMcDonald.crc2.arc(positionXCow - 80, positionYCow - 20, 30, 0, 2 * Math.PI);
                     // crc2.stroke();
                     OldMcDonald.crc2.fillStyle = "white";
+                    OldMcDonald.crc2.fill();
+                    OldMcDonald.crc2.closePath();
+                    OldMcDonald.crc2.beginPath();
+                    OldMcDonald.crc2.moveTo(positionXCow - 90, positionYCow - 15);
+                    OldMcDonald.crc2.arc(positionXCow - 90, positionYCow - 15, 15, 0, 2 * Math.PI);
+                    OldMcDonald.crc2.stroke();
+                    OldMcDonald.crc2.strokeStyle = "black";
                     OldMcDonald.crc2.fill();
                     OldMcDonald.crc2.closePath();
                     //Auge
@@ -218,13 +277,26 @@ var OldMcDonald;
                     OldMcDonald.crc2.closePath();
                     break;
                 case "pig":
-                    let positionXPig = this.position_x - 300;
+                    let positionXPig = this.position_x - 400;
                     let positionYPig = this.position_y;
                     //Körper
                     OldMcDonald.crc2.beginPath();
                     OldMcDonald.crc2.fillStyle = this.color;
                     OldMcDonald.crc2.ellipse(positionXPig, positionYPig, 70, 60, 0, 0, 2 * Math.PI);
+                    // crc2.stroke();
+                    OldMcDonald.crc2.font = '20px Arial';
+                    OldMcDonald.crc2.fillText("Jens", positionXPig - 10, positionYPig - 80, 100);
                     OldMcDonald.crc2.fill();
+                    OldMcDonald.crc2.closePath();
+                    OldMcDonald.crc2.fill();
+                    //Schwanz
+                    OldMcDonald.crc2.beginPath();
+                    OldMcDonald.crc2.moveTo(positionXPig + 85, positionYPig - 20);
+                    OldMcDonald.crc2.arc(positionXPig + 75, positionYPig - 20, 10, 0, 2 * Math.PI);
+                    OldMcDonald.crc2.fillStyle = "pink";
+                    // crc2.strokeStyle="transparent";
+                    OldMcDonald.crc2.fill();
+                    OldMcDonald.crc2.closePath();
                     //Beine
                     OldMcDonald.crc2.moveTo(positionXPig - 40, positionYPig + 50);
                     OldMcDonald.crc2.lineTo(positionXPig - 30, positionYPig + 60);
@@ -250,9 +322,15 @@ var OldMcDonald;
                     OldMcDonald.crc2.beginPath();
                     OldMcDonald.crc2.moveTo(positionXPig - 90, positionYPig - 40);
                     OldMcDonald.crc2.arc(positionXPig - 80, positionYPig - 20, 30, 0, 2 * Math.PI);
-                    // crc2.stroke();
                     OldMcDonald.crc2.fillStyle = "white";
                     OldMcDonald.crc2.fill();
+                    OldMcDonald.crc2.closePath();
+                    OldMcDonald.crc2.beginPath();
+                    OldMcDonald.crc2.moveTo(positionXPig - 75, positionYPig - 15);
+                    OldMcDonald.crc2.arc(positionXPig - 85, positionYPig - 15, 10, 0, 2 * Math.PI);
+                    // crc2.fillStyle="pink";
+                    OldMcDonald.crc2.strokeStyle = "black";
+                    OldMcDonald.crc2.stroke();
                     OldMcDonald.crc2.closePath();
                     //Auge
                     OldMcDonald.crc2.beginPath();
@@ -299,6 +377,10 @@ var OldMcDonald;
                     OldMcDonald.crc2.beginPath();
                     OldMcDonald.crc2.fillStyle = this.color;
                     OldMcDonald.crc2.ellipse(positionXChicken, positionYChicken, 30, 70, 0, 0, 2 * Math.PI);
+                    OldMcDonald.crc2.font = '20px Arial';
+                    OldMcDonald.crc2.fillText("Chicko", positionXChicken - 30, positionYChicken - 130, 100);
+                    OldMcDonald.crc2.fill();
+                    OldMcDonald.crc2.closePath();
                     OldMcDonald.crc2.fill();
                     //Beine
                     OldMcDonald.crc2.beginPath();
@@ -311,6 +393,12 @@ var OldMcDonald;
                     OldMcDonald.crc2.lineTo(positionXChicken - 20, positionYChicken + 70);
                     OldMcDonald.crc2.stroke();
                     OldMcDonald.crc2.closePath();
+                    //Arme
+                    OldMcDonald.crc2.beginPath();
+                    OldMcDonald.crc2.fillStyle = this.color;
+                    OldMcDonald.crc2.ellipse(positionXChicken + 40, positionYChicken - 10, 10, 30, 20, 0, 2 * Math.PI);
+                    OldMcDonald.crc2.ellipse(positionXChicken - 40, positionYChicken - 10, 10, 30, -20, 0, 2 * Math.PI);
+                    OldMcDonald.crc2.fill();
                     //Kopf
                     OldMcDonald.crc2.beginPath();
                     OldMcDonald.crc2.moveTo(positionXChicken, positionYChicken);
@@ -318,6 +406,20 @@ var OldMcDonald;
                     OldMcDonald.crc2.fillStyle = "white";
                     OldMcDonald.crc2.fill();
                     OldMcDonald.crc2.closePath();
+                    //Mund 
+                    OldMcDonald.crc2.beginPath();
+                    OldMcDonald.crc2.moveTo(positionXChicken, positionYChicken - 35);
+                    OldMcDonald.crc2.arc(positionXChicken, positionYChicken - 35, 10, 0, 2 * Math.PI);
+                    OldMcDonald.crc2.stroke();
+                    OldMcDonald.crc2.strokeStyle = "black";
+                    OldMcDonald.crc2.fill();
+                    OldMcDonald.crc2.closePath();
+                    //Kamm
+                    OldMcDonald.crc2.beginPath();
+                    OldMcDonald.crc2.fillStyle = "red";
+                    OldMcDonald.crc2.ellipse(positionXChicken, positionYChicken - 100, 5, 20, 0, 0, 2 * Math.PI);
+                    OldMcDonald.crc2.ellipse(positionXChicken + 10, positionYChicken - 95, 5, 20, 10, 0, 2 * Math.PI);
+                    OldMcDonald.crc2.fill();
                     //Auge
                     OldMcDonald.crc2.beginPath();
                     OldMcDonald.crc2.moveTo(positionXChicken - 8, positionYChicken);
@@ -362,28 +464,47 @@ var OldMcDonald;
                     //Körper
                     OldMcDonald.crc2.beginPath();
                     OldMcDonald.crc2.fillStyle = this.color;
-                    OldMcDonald.crc2.ellipse(positionXDonkey, positionYDonkey, 70, 30, 0, 0, 2 * Math.PI);
+                    OldMcDonald.crc2.ellipse(positionXDonkey, positionYDonkey, 70, 40, 0, 0, 2 * Math.PI);
+                    OldMcDonald.crc2.font = '20px Arial';
+                    OldMcDonald.crc2.fillText("Bernhard", positionXDonkey - 30, positionYDonkey - 60, 100);
+                    OldMcDonald.crc2.fill();
+                    OldMcDonald.crc2.closePath();
                     OldMcDonald.crc2.fill();
                     //Beine
-                    OldMcDonald.crc2.moveTo(positionXDonkey - 40, positionYDonkey + 25);
-                    OldMcDonald.crc2.lineTo(positionXDonkey - 30, positionYDonkey + 40);
+                    OldMcDonald.crc2.moveTo(positionXDonkey - 40, positionYDonkey + 35);
+                    OldMcDonald.crc2.lineTo(positionXDonkey - 30, positionYDonkey + 50);
                     OldMcDonald.crc2.strokeStyle = "black";
                     OldMcDonald.crc2.stroke();
                     OldMcDonald.crc2.closePath();
                     OldMcDonald.crc2.beginPath();
-                    OldMcDonald.crc2.moveTo(positionXDonkey - 20, positionYDonkey + 28);
-                    OldMcDonald.crc2.lineTo(positionXDonkey - 10, positionYDonkey + 40);
+                    OldMcDonald.crc2.moveTo(positionXDonkey - 20, positionYDonkey + 38);
+                    OldMcDonald.crc2.lineTo(positionXDonkey - 10, positionYDonkey + 50);
                     OldMcDonald.crc2.stroke();
                     OldMcDonald.crc2.closePath();
                     OldMcDonald.crc2.beginPath();
-                    OldMcDonald.crc2.moveTo(positionXDonkey + 20, positionYDonkey + 30);
-                    OldMcDonald.crc2.lineTo(positionXDonkey + 30, positionYDonkey + 40);
+                    OldMcDonald.crc2.moveTo(positionXDonkey + 20, positionYDonkey + 40);
+                    OldMcDonald.crc2.lineTo(positionXDonkey + 30, positionYDonkey + 50);
                     OldMcDonald.crc2.stroke();
                     OldMcDonald.crc2.closePath();
                     OldMcDonald.crc2.beginPath();
-                    OldMcDonald.crc2.moveTo(positionXDonkey + 40, positionYDonkey + 25);
-                    OldMcDonald.crc2.lineTo(positionXDonkey + 50, positionYDonkey + 35);
+                    OldMcDonald.crc2.moveTo(positionXDonkey + 40, positionYDonkey + 35);
+                    OldMcDonald.crc2.lineTo(positionXDonkey + 50, positionYDonkey + 45);
                     OldMcDonald.crc2.stroke();
+                    OldMcDonald.crc2.closePath();
+                    //Ohren
+                    OldMcDonald.crc2.beginPath();
+                    OldMcDonald.crc2.moveTo(positionXDonkey - 110, positionYDonkey - 40);
+                    OldMcDonald.crc2.lineTo(positionXDonkey - 95, positionYDonkey - 90);
+                    OldMcDonald.crc2.lineTo(positionXDonkey - 80, positionYDonkey - 40);
+                    OldMcDonald.crc2.fillStyle = this.color;
+                    OldMcDonald.crc2.fill();
+                    OldMcDonald.crc2.closePath();
+                    OldMcDonald.crc2.beginPath();
+                    OldMcDonald.crc2.moveTo(positionXDonkey - 90, positionYDonkey - 40);
+                    OldMcDonald.crc2.lineTo(positionXDonkey - 75, positionYDonkey - 90);
+                    OldMcDonald.crc2.lineTo(positionXDonkey - 60, positionYDonkey - 40);
+                    OldMcDonald.crc2.fillStyle = this.color;
+                    OldMcDonald.crc2.fill();
                     OldMcDonald.crc2.closePath();
                     //Kopf
                     OldMcDonald.crc2.beginPath();
@@ -391,6 +512,14 @@ var OldMcDonald;
                     OldMcDonald.crc2.arc(positionXDonkey - 80, positionYDonkey - 20, 30, 0, 2 * Math.PI);
                     // crc2.stroke();
                     OldMcDonald.crc2.fillStyle = "white";
+                    OldMcDonald.crc2.fill();
+                    OldMcDonald.crc2.closePath();
+                    //Mund
+                    OldMcDonald.crc2.beginPath();
+                    OldMcDonald.crc2.moveTo(positionXDonkey - 100, positionYDonkey - 15);
+                    OldMcDonald.crc2.arc(positionXDonkey - 100, positionYDonkey - 15, 10, 0, 2 * Math.PI);
+                    OldMcDonald.crc2.stroke();
+                    OldMcDonald.crc2.strokeStyle = "black";
                     OldMcDonald.crc2.fill();
                     OldMcDonald.crc2.closePath();
                     //Auge

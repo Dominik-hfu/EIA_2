@@ -27,46 +27,43 @@ namespace OldMcDonald {
         cloud({x:100,y:100});
         cloud({x:400,y:120});
         cloud({x:800,y:110});
-        
-    let dog:Animal=new Animal("dog",randomPosition,[50,30],"brown", "Bello", "Knochen", 30, "wuff");
+        //Funktionsaufrufe
+
+    let dog:Animal=new Animal("dog",randomPosition,[50,30],"brown", "Bello", "bone", 30, "wuff");
     dog.color="black";//randomColor
     dog.draw(); //muss in Funktion stehen
     // dog.sing();
 
-    let cow:Animal=new Animal("cow",randomPosition,[80,50],"white", "Herbert", "Gras", 5, "muuh");
+    let cow:Animal=new Animal("cow",randomPosition,[80,50],"white", "Herbert", "grass", 5, "muuh");
     cow.color="white";
     cow.draw();
 
-    let pig:Animal=new Animal("pig",randomPosition,[40,20],"pink", "Jens", "Getreide", 30, "grunz");
+    let pig:Animal=new Animal("pig",randomPosition,[40,20],"pink", "Jens", "cereals", 30, "grunz");
     pig.color="pink";
     pig.draw();
 
-    let chicken:Animal=new Animal("chicken",randomPosition,[10,10],"yellow", "Chicko", "Körner", 10, "kikeriki");
+    let chicken:Animal=new Animal("chicken",randomPosition,[10,10],"yellow", "Chicko", "grains", 10, "kikeriki");
     chicken.color="yellow";
     chicken.draw();
 
-    let donkey:Animal=new Animal("donkey",randomPosition,[60,40],"grey", "Bernhard", "Hafer",4 , "iaa");
+    let donkey:Animal=new Animal("donkey",randomPosition,[60,40],"grey", "Bernhard", "oats",4 , "iaa");
     donkey.color="grey";
     donkey.draw();
     //size??
     let farm:Farm=new Farm([dog,cow,pig,chicken,donkey]);
     farm.simulateDay();
 
-    // myDog.bark(); // Ausgabe: Woof woof!
-    // myDog.sing("La la la"); // Ausgabe: I'm singing: La la la
-    // myDog.eat("bone"); // Ausgabe: I'm eating bone
-
+    //Draw und Day Function Aufruf
+    //New ruft Constructor auf
 
     };
     function tree() {
         for (let i = 0; i < 12; i++) {
           const x = Math.random() * canvas.width; // Zufällige X-Koordinate innerhalb des Canvas-Bereichs
       
-          // Zeichne den braunen Stamm
           crc2.fillStyle = 'brown';
           crc2.fillRect(x + 70, 300, 40, 100);
       
-          // Zeichne die grüne Krone
           crc2.fillStyle = 'green';
           crc2.beginPath();
           crc2.moveTo(x, 300);
@@ -82,7 +79,6 @@ namespace OldMcDonald {
         crc2.fillStyle = 'red';
         crc2.fillRect(400, 200, 200, 150);
       
-        // Zeichne das weiße Dach
         crc2.fillStyle = 'white';
         crc2.beginPath();
         crc2.moveTo(400, 200);
@@ -90,10 +86,7 @@ namespace OldMcDonald {
         crc2.lineTo(500, 100);
         crc2.closePath();
         crc2.fill();
-      
-      
     };
-
 
     function cloud(position: { x: number, y: number }) {
         
@@ -124,13 +117,9 @@ namespace OldMcDonald {
             crc2.fillStyle = cloudGradient;
             crc2.fill(particle);
             crc2.restore();
-
         }
         crc2.restore();
-
     }
-
-
 
     function sun() {
 
@@ -161,11 +150,7 @@ namespace OldMcDonald {
         crc2.fillStyle = gradient;
         crc2.stroke();
         crc2.closePath();
-
     };
-
-
-
 
     function background() {
 
@@ -179,9 +164,5 @@ namespace OldMcDonald {
         crc2.fillStyle = gradient;
         crc2.fillRect(0, 0, crc2.canvas.width, crc2.canvas.height);
         crc2.closePath();
-
     };
-
-
-
 }
