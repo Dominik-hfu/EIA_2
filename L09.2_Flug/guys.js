@@ -15,17 +15,17 @@ var AlpenFlug;
             this.speed = _speed;
             // this.speed.random(100,200); bei Jirka
         }
-        draw() {
+        drawPeople() {
             // crc2.save();
             // crc2.translate(this.position.x, this.position.y);//Koordinatensystem hier hin
             // crc2.scale(this.sizeX, this.sizeY);
             // crc2.stroke(parachutistPaths[this.type]);
             // crc2.restore();
             let minX = 200;
-            let maxX = 1000;
+            let maxX = 700;
             let randomX = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
-            let minY = 100;
-            let maxY = 500;
+            let minY = 600;
+            let maxY = 700;
             let randomY = Math.floor(Math.random() * (maxY - minY + 1)) + minY;
             AlpenFlug.crc2.beginPath();
             AlpenFlug.crc2.moveTo(randomX, randomY);
@@ -137,7 +137,65 @@ var AlpenFlug;
         }
     }
     AlpenFlug.Parachutist = Parachutist;
-    //class climber (rucksack)
-    //class walker
+    let minY = 400;
+    let maxY = 600;
+    let randomY = Math.floor(Math.random() * (maxY - minY + 1)) + minY;
+    class Climber extends People {
+        drawClimber() {
+            let minX = 5;
+            let maxX = 100;
+            let randomX = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
+            let climbers = [];
+            let isUnique;
+            do {
+                isUnique = true;
+                randomX = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
+                randomY = Math.floor(Math.random() * (maxY - minY + 1)) + minY;
+                for (let i = 0; i < climbers.length; i++) {
+                    let existingClimber = climbers[i];
+                    let distance = Math.sqrt((existingClimber - randomX) ** 2 + (existingClimber - randomY) ** 2);
+                    if (distance < 20) {
+                        isUnique = false;
+                        break;
+                    }
+                }
+            } while (!isUnique);
+            AlpenFlug.crc2.beginPath();
+            AlpenFlug.crc2.moveTo(randomX, randomY);
+            AlpenFlug.crc2.arc(randomX, randomY, 8, 0, 2 * Math.PI);
+            AlpenFlug.crc2.stroke();
+            AlpenFlug.crc2.fillStyle = "white";
+            AlpenFlug.crc2.fill();
+            AlpenFlug.crc2.closePath();
+            AlpenFlug.crc2.beginPath();
+            AlpenFlug.crc2.moveTo(randomX, randomY + 8);
+            AlpenFlug.crc2.lineTo(randomX, randomY + 20);
+            AlpenFlug.crc2.moveTo(randomX, randomY + 20);
+            AlpenFlug.crc2.lineTo(randomX - 10, randomY + 30);
+            AlpenFlug.crc2.moveTo(randomX, randomY + 20);
+            AlpenFlug.crc2.lineTo(randomX + 10, randomY + 30);
+            AlpenFlug.crc2.stroke();
+            AlpenFlug.crc2.closePath();
+            AlpenFlug.crc2.beginPath();
+            AlpenFlug.crc2.moveTo(randomX, randomY + 15);
+            AlpenFlug.crc2.lineTo(randomX - 20, randomY);
+            AlpenFlug.crc2.moveTo(randomX, randomY + 15);
+            AlpenFlug.crc2.lineTo(randomX + 20, randomY);
+            AlpenFlug.crc2.stroke();
+            AlpenFlug.crc2.closePath();
+            //Rucksack
+            AlpenFlug.crc2.beginPath();
+            AlpenFlug.crc2.moveTo(randomX, randomY + 10);
+            AlpenFlug.crc2.lineTo(randomX + 8, randomY + 10);
+            AlpenFlug.crc2.lineTo(randomX + 8, randomY + 20);
+            AlpenFlug.crc2.lineTo(randomX - 8, randomY + 20);
+            AlpenFlug.crc2.lineTo(randomX - 8, randomY + 10);
+            AlpenFlug.crc2.fillStyle = "red";
+            AlpenFlug.crc2.fill();
+            AlpenFlug.crc2.closePath();
+        }
+        ;
+    }
+    AlpenFlug.Climber = Climber;
 })(AlpenFlug || (AlpenFlug = {}));
 //# sourceMappingURL=guys.js.map

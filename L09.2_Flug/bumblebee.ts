@@ -19,15 +19,13 @@ namespace AlpenFlug{
 
     }
 
-    draw():void{
+    drawBumblebee():void{
 
         // crc2.save();
         // crc2.translate(this.position.x, this.position.y);//Koordinatensystem hier hin
         // crc2.scale(this.sizeX, this.sizeY);
         // crc2.stroke(parachutistPaths[this.type]);
         // crc2.restore();
-
-        for(let bees=0;bees<5;bees++){
 
             let maxXBee:number= 800;
             let maxYBee:number= 540;
@@ -148,7 +146,7 @@ namespace AlpenFlug{
             crc2.fill();
             crc2.closePath();
     
-            }
+            
 
     };
 

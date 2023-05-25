@@ -11,13 +11,6 @@ var AlpenFlug;
     window.addEventListener("load", handleload);
     let canvas = document.querySelector("canvas");
     let back;
-    let min_X = 400;
-    let max_X = 600;
-    let min_Y = 550;
-    let max_Y = 700;
-    let randomPositionX = Math.floor(Math.random() * (max_X - min_X + 1)) + min_X;
-    let randomPositionY = Math.floor(Math.random() * (max_Y - min_Y + 1)) + min_Y;
-    let randomPosition = [randomPositionX, randomPositionY];
     function handleload(_event) {
         AlpenFlug.crc2 = canvas.getContext("2d");
         background();
@@ -29,26 +22,41 @@ var AlpenFlug;
         ellipse();
         windsack();
         back = AlpenFlug.crc2.getImageData(0, 0, canvas.width, canvas.height);
-        let parachutlist = [];
+        let parachutelist = [];
         for (let i = 0; i < 10; i++) {
-            parachutlist[i] = new AlpenFlug.Parachutist(new AlpenFlug.Vector(0, 0), [1, 1], "blue", new AlpenFlug.Vector(2, 2));
+            parachutelist[i] = new AlpenFlug.Parachutist(new AlpenFlug.Vector(0, 0), [1, 1], "blue", new AlpenFlug.Vector(2, 2));
+        }
+        let climberList = [];
+        for (let i = 0; i < 4; i++) {
+            climberList[i] = new AlpenFlug.Climber(new AlpenFlug.Vector(0, 0), [1, 1], "red", new AlpenFlug.Vector(5, 5));
+        }
+        let peopleList = [];
+        for (let i = 0; i < 4; i++) {
+            peopleList[i] = new AlpenFlug.People(new AlpenFlug.Vector(0, 0), [1, 1], "green", new AlpenFlug.Vector(5, 5));
+        }
+        let bumblebeeList = [];
+        for (let i = 0; i < 4; i++) {
+            bumblebeeList[i] = new AlpenFlug.Bumblebee(new AlpenFlug.Vector(0, 0), [1, 1], "yellow", new AlpenFlug.Vector(5, 5));
         }
         window.setInterval(() => {
             AlpenFlug.crc2.putImageData(back, 0, 0);
-            for (let parachutist of parachutlist) {
+            for (let parachutist of parachutelist) {
                 parachutist.movement(0.1);
                 parachutist.drawParachutes();
             }
-        }, 500); //alle 20ms wird update ausgeführt
-        // let climber:People=new Climber(new Vector(randomPosition[0],randomPosition[1]),[50,30],"yellow",new Vector(1,2));//Jirkas code?
-        // climber.color="yellow";//randomColor
-        // climber.draw();
-        // let walker:People=new People(new Vector(randomPosition[0],randomPosition[1]),[50,30],"yellow",new Vector(1,2));//);//Jirkas code?
-        // walker.color="yellow";//randomColor
-        // walker.draw();
-        // let bumblebee:Bumblebee=new Bumblebee(new Vector(randomPosition[0],randomPosition[1]),[50,30],"yellow",new Vector(1,2));//Jirkas code?
-        // bumblebee.color="yellow";//randomColor
-        // bumblebee.draw();
+            for (let climber of climberList) {
+                climber.movement(0.1);
+                climber.drawClimber();
+            }
+            for (let people of peopleList) {
+                people.movement(0.1);
+                people.drawPeople();
+            }
+            for (let bumblebee of bumblebeeList) {
+                bumblebee.movement(0.1);
+                bumblebee.drawBumblebee();
+            }
+        }, 500); //alle 500ms wird aktualisiert
     }
     ;
     //img data hier um hintergrund zu speichern
@@ -83,31 +91,6 @@ var AlpenFlug;
         AlpenFlug.crc2.closePath();
     }
     ;
-    // function climber(){
-    //     for(let guys:number=0; guys<5; guys++){
-    //     let minX:number= 5;
-    // let maxX:number= 100;
-    // let randomX:number=Math.floor(Math.random() * (maxX - minX + 1)) + minX;
-    // let climbers:[]=[];
-    // let isUnique:boolean;
-    // do {
-    //   isUnique = true;
-    //   randomX = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
-    //   randomY = Math.floor(Math.random() * (maxY - minY + 1)) + minY;
-    //   for (let i = 0; i < climbers.length; i++) {
-    //     let existingClimber = climbers[i];
-    //     let distance = Math.sqrt((existingClimber.x - randomX)**2 + (existingClimber.y - randomY)**2);
-    //     if (distance < 20) {
-    //       isUnique = false;
-    //       break;
-    //     }
-    //   }
-    // } while (!isUnique);
-    // climbers.push({x: randomX, y: randomY});
-    // // funktioniert trotz Fehler??
-    // // Schleife verhindert das Überlappen der Climber
-    // }
-    // };
     function kiosk() {
         //Gebäude
         AlpenFlug.crc2.beginPath();
@@ -172,13 +155,10 @@ var AlpenFlug;
         AlpenFlug.crc2.closePath();
     }
     ;
-    let minX = 200;
-    let maxX = 400;
-    let randomX = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
-    let minY = 400;
-    let maxY = 600;
-    let randomY = Math.floor(Math.random() * (maxY - minY + 1)) + minY;
     function mountain() {
+        let minX = 200;
+        let maxX = 400;
+        let randomX = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
         let gradient = AlpenFlug.crc2.createLinearGradient(0, 100, 0, AlpenFlug.crc2.canvas.height);
         gradient.addColorStop(0, "HSL(360,0%,100%)");
         gradient.addColorStop(1, "HSL(360,0%,20%)");

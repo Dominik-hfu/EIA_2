@@ -8,24 +8,12 @@ Quellen: <->
 
 
 namespace AlpenFlug {
-    
+
     window.addEventListener("load", handleload);
     export let crc2: CanvasRenderingContext2D;
     let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.querySelector("canvas");
-    
-    let back:ImageData;
-    
-    let min_X:number=400;
-    let max_X:number=600;
-    let min_Y:number=550;
-    let max_Y:number=700;
 
-    let randomPositionX:number=Math.floor(Math.random() * (max_X - min_X + 1)) + min_X;
-    let randomPositionY:number=Math.floor(Math.random() * (max_Y - min_Y + 1)) + min_Y;
-
-    let randomPosition:number[]=[randomPositionX,randomPositionY]
-
-
+    let back: ImageData;
 
     function handleload(_event: Event): void {
 
@@ -39,223 +27,197 @@ namespace AlpenFlug {
         kiosk();
         ellipse();
         windsack();
-    
-        back=crc2.getImageData(0,0,canvas.width,canvas.height);
 
-        let parachutlist: Parachutist[]=[] 
-        for(let i=0;i<10;i++){
-            parachutlist[i]=new Parachutist(new Vector (0,0),[1,1],"blue", new Vector(2,2));
+        back = crc2.getImageData(0, 0, canvas.width, canvas.height);
+
+        let parachutelist: Parachutist[] = [];
+        for (let i = 0; i < 10; i++) {
+            parachutelist[i] = new Parachutist(new Vector(0, 0), [1, 1], "blue", new Vector(2, 2));
         }
 
-        window.setInterval(()=>{
+        let climberList: Climber[] = [];
+        for (let i = 0; i < 4; i++) {
+            climberList[i] = new Climber(new Vector(0, 0), [1, 1], "red", new Vector(5, 5))
+        }
 
-            crc2.putImageData(back,0,0);
-            for(let parachutist of parachutlist){
+        let peopleList: People[] = [];
+        for (let i = 0; i < 4; i++) {
+            peopleList[i] = new People(new Vector(0, 0), [1, 1], "green", new Vector(5, 5))
+        }
+        let bumblebeeList: Bumblebee[] = [];
+        for (let i = 0; i < 4; i++) {
+            bumblebeeList[i] = new Bumblebee(new Vector(0, 0), [1, 1], "yellow", new Vector(5, 5))
+        }
+
+        window.setInterval(() => {
+
+            crc2.putImageData(back, 0, 0);
+            for (let parachutist of parachutelist) {
                 parachutist.movement(0.1);
                 parachutist.drawParachutes();
             }
-            
-        },500);//alle 20ms wird update ausgeführt
+            for (let climber of climberList) {
+                climber.movement(0.1);
+                climber.drawClimber();
+            }
+            for (let people of peopleList) {
+                people.movement(0.1);
+                people.drawPeople();
+            }
+            for (let bumblebee of bumblebeeList) {
+                bumblebee.movement(0.1);
+                bumblebee.drawBumblebee();
+            }
 
-        // let climber:People=new Climber(new Vector(randomPosition[0],randomPosition[1]),[50,30],"yellow",new Vector(1,2));//Jirkas code?
-        // climber.color="yellow";//randomColor
-        // climber.draw();
-        
-        // let walker:People=new People(new Vector(randomPosition[0],randomPosition[1]),[50,30],"yellow",new Vector(1,2));//);//Jirkas code?
-        // walker.color="yellow";//randomColor
-        // walker.draw();
+        }, 500);//alle 500ms wird aktualisiert
 
-        // let bumblebee:Bumblebee=new Bumblebee(new Vector(randomPosition[0],randomPosition[1]),[50,30],"yellow",new Vector(1,2));//Jirkas code?
-        // bumblebee.color="yellow";//randomColor
-        // bumblebee.draw();
     };
 
+    //img data hier um hintergrund zu speichern
+    //mehrere vektoren hier im skript anlegen um mehrere unterschiedliche bewegungen zu animieren
+    //random vektoren
+    // ab gewissem y wert nach oben bzw unten fliegen 
+    // ab gewissen y wert type ändern von parachutist zu climber oder läufer
+    // jedes Bild wird über das alte gemalt
 
-//img data hier um hintergrund zu speichern
-//mehrere vektoren hier im skript anlegen um mehrere unterschiedliche bewegungen zu animieren
-//random vektoren
-// ab gewissem y wert nach oben bzw unten fliegen 
-// ab gewissen y wert type ändern von parachutist zu climber oder läufer
-// jedes Bild wird über das alte gemalt
-  
-    function windsack(){
+    function windsack() {
 
-        
+
         crc2.beginPath();
-        crc2.moveTo(650,551);
-        crc2.bezierCurveTo(670,560, 690, 544, 710, 542);
+        crc2.moveTo(650, 551);
+        crc2.bezierCurveTo(670, 560, 690, 544, 710, 542);
         crc2.stroke();
         crc2.closePath();
-        
-        crc2.moveTo(710,542);
+
+        crc2.moveTo(710, 542);
         crc2.bezierCurveTo(710, 527, 670, 545, 650, 531);
-        crc2.lineTo(650,551);
-        crc2.fillStyle="hsl(348,83%,47%)";
+        crc2.lineTo(650, 551);
+        crc2.fillStyle = "hsl(348,83%,47%)";
         crc2.stroke();
         crc2.fill();
-        crc2.closePath();   
-        
+        crc2.closePath();
+
         crc2.beginPath();
-        crc2.moveTo(650,600);
-        crc2.lineTo(650,550);
+        crc2.moveTo(650, 600);
+        crc2.lineTo(650, 550);
         crc2.stroke();
         crc2.closePath();
         crc2.beginPath();
-        crc2.ellipse(650, 541, 5, 10, 0, 0, 2*Math.PI);
-        crc2.fillStyle="hsl(348,83%,47%)";
+        crc2.ellipse(650, 541, 5, 10, 0, 0, 2 * Math.PI);
+        crc2.fillStyle = "hsl(348,83%,47%)";
         crc2.fill();
         crc2.stroke();
         crc2.closePath();
     };
 
-
-
-            
-           
-
-
-// function climber(){
-
-//     for(let guys:number=0; guys<5; guys++){
-//     let minX:number= 5;
-// let maxX:number= 100;
-// let randomX:number=Math.floor(Math.random() * (maxX - minX + 1)) + minX;
-// let climbers:[]=[];
-// let isUnique:boolean;
-
-// do {
-//   isUnique = true;
-//   randomX = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
-//   randomY = Math.floor(Math.random() * (maxY - minY + 1)) + minY;
-
-//   for (let i = 0; i < climbers.length; i++) {
-//     let existingClimber = climbers[i];
-//     let distance = Math.sqrt((existingClimber.x - randomX)**2 + (existingClimber.y - randomY)**2);
-//     if (distance < 20) {
-//       isUnique = false;
-//       break;
-//     }
-//   }
-// } while (!isUnique);
-
-// climbers.push({x: randomX, y: randomY});
-// // funktioniert trotz Fehler??
-// // Schleife verhindert das Überlappen der Climber
-
-// }
-// };
-
-    function kiosk(){
+    function kiosk() {
 
         //Gebäude
         crc2.beginPath();
-        crc2.moveTo(720,650);
-        crc2.lineTo(820,680);
-        crc2.lineTo(870,650);
-        crc2.lineTo(870,580);
-        crc2.lineTo(840,520);
-        crc2.lineTo(720,580);
-        crc2.lineTo(720,650);
+        crc2.moveTo(720, 650);
+        crc2.lineTo(820, 680);
+        crc2.lineTo(870, 650);
+        crc2.lineTo(870, 580);
+        crc2.lineTo(840, 520);
+        crc2.lineTo(720, 580);
+        crc2.lineTo(720, 650);
 
-        crc2.strokeStyle="black";
+        crc2.strokeStyle = "black";
         crc2.stroke();
-        crc2.fillStyle="hsl(348,83%,47%)";
+        crc2.fillStyle = "hsl(348,83%,47%)";
         crc2.fill();
         crc2.closePath();
 
         crc2.beginPath();
-        crc2.moveTo(820,680);
-        crc2.lineTo(820,610);
-        crc2.lineTo(870,580);
+        crc2.moveTo(820, 680);
+        crc2.lineTo(820, 610);
+        crc2.lineTo(870, 580);
 
-        crc2.strokeStyle="black";
+        crc2.strokeStyle = "black";
         crc2.stroke();
-        crc2.fillStyle="hsl(348,83%,47%)";
+        crc2.fillStyle = "hsl(348,83%,47%)";
         crc2.fill();
         crc2.closePath();
-        
+
         crc2.beginPath();
-        crc2.moveTo(820,610);
-        crc2.lineTo(790,545);
-        
-        crc2.strokeStyle="black";
+        crc2.moveTo(820, 610);
+        crc2.lineTo(790, 545);
+
+        crc2.strokeStyle = "black";
         crc2.stroke();
         crc2.closePath();
 
         //Markise
 
         crc2.beginPath();
-        crc2.moveTo(820,610);
-        crc2.lineTo(720,580);
-        crc2.lineTo(700,610);
-        crc2.lineTo(800,640);
-        crc2.lineTo(820,610);
-        
-        crc2.fillStyle="HSL(360,0%,80%)";
+        crc2.moveTo(820, 610);
+        crc2.lineTo(720, 580);
+        crc2.lineTo(700, 610);
+        crc2.lineTo(800, 640);
+        crc2.lineTo(820, 610);
+
+        crc2.fillStyle = "HSL(360,0%,80%)";
         crc2.fill();
         crc2.closePath();
 
     };
 
-    function ellipse(){
-        
-        let centerX:number = 550; // x-Koordinate des Mittelpunkts der Ellipse
-        let centerY:number = 650; // y-Koordinate des Mittelpunkts der Ellipse
-        
-        let minRadiusX:number = 120; // Halbachse in X-Richtung
-        let maxRadiusX:number = 140; 
-        
-        let minRadiusY:number = 10;  // Halbachse in Y-Richtung
-        let maxRadiusY:number = 30;  
-        
-        let randomXRadius:number=Math.floor(Math.random() * (maxRadiusX - minRadiusX + 1)) + minRadiusX;
-        let randomYRadius:number=Math.floor(Math.random() * (maxRadiusY - minRadiusY + 1)) + minRadiusY;
-        
+    function ellipse() {
+
+        let centerX: number = 550; // x-Koordinate des Mittelpunkts der Ellipse
+        let centerY: number = 650; // y-Koordinate des Mittelpunkts der Ellipse
+
+        let minRadiusX: number = 120; // Halbachse in X-Richtung
+        let maxRadiusX: number = 140;
+
+        let minRadiusY: number = 10;  // Halbachse in Y-Richtung
+        let maxRadiusY: number = 30;
+
+        let randomXRadius: number = Math.floor(Math.random() * (maxRadiusX - minRadiusX + 1)) + minRadiusX;
+        let randomYRadius: number = Math.floor(Math.random() * (maxRadiusY - minRadiusY + 1)) + minRadiusY;
+
         let gradient = crc2.createRadialGradient(centerX, centerY, randomXRadius, centerX, centerY, maxRadiusY);
         gradient.addColorStop(0, "HSL(360,0%,96%)");
         gradient.addColorStop(1, "HSL(348,83%,47%)");
 
-    let startAngle:number = 0;
-    let endAngle:number = 2 * Math.PI;
-        
+        let startAngle: number = 0;
+        let endAngle: number = 2 * Math.PI;
+
         crc2.beginPath();
         crc2.ellipse(centerX, centerY, randomXRadius, randomYRadius, 0, startAngle, endAngle);
         crc2.stroke();
         crc2.fillStyle = "HSL(84,100%,65%)";
         crc2.fill();
         crc2.closePath();
-      
-        
-};
 
-let minX:number= 200;
-let maxX:number= 400;
-let randomX:number=Math.floor(Math.random() * (maxX - minX + 1)) + minX;
 
-let minY:number= 400;
-let maxY:number= 600;
-let randomY:number=Math.floor(Math.random() * (maxY - minY + 1)) + minY;
+    };
 
-function mountain(){
-    
+
+    function mountain() {
+
+        let minX: number = 200;
+        let maxX: number = 400;
+        let randomX: number = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
+
 
         let gradient: CanvasGradient = crc2.createLinearGradient(0, 100, 0, crc2.canvas.height);
         gradient.addColorStop(0, "HSL(360,0%,100%)");
         gradient.addColorStop(1, "HSL(360,0%,20%)");
 
         crc2.beginPath();
-        crc2.moveTo(0,200)
-        crc2.lineTo(randomX,600);
-        crc2.lineTo(0,600);
-        crc2.fillStyle=gradient;
-        
+        crc2.moveTo(0, 200)
+        crc2.lineTo(randomX, 600);
+        crc2.lineTo(0, 600);
+        crc2.fillStyle = gradient;
+
         crc2.fill();
         crc2.closePath();
 
-};
+    };
 
     function cloud(position: { x: number, y: number }) {
-        let minSize= { x: 100, y: 100 };
+        let minSize = { x: 100, y: 100 };
         let maxSize = { x: 250, y: 250 };
         let size = {
             x: minSize.x + Math.random() * (maxSize.x - minSize.x),
@@ -368,8 +330,8 @@ function mountain(){
         gradient.addColorStop(1, "HSL(360,0%,20%)");
 
         // Linie zeichnen
-        crc2.strokeStyle="transparent";
-        crc2.fillStyle=gradient;
+        crc2.strokeStyle = "transparent";
+        crc2.fillStyle = gradient;
         crc2.fill();
         crc2.closePath();
 
