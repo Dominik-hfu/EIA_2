@@ -10,7 +10,7 @@ Quellen: <->
 namespace AlpenFlug {
     
     window.addEventListener("load", handleload);
-    let crc2: CanvasRenderingContext2D;
+    export let crc2: CanvasRenderingContext2D;
     let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.querySelector("canvas");
     
     let back:ImageData;
@@ -42,9 +42,30 @@ namespace AlpenFlug {
         // parachutist();
         windsack();
         // bumblebee();
-        back=crc2.getImageData(0,0,canvas.width,canvas.height)
+        back=crc2.getImageData(0,0,canvas.width,canvas.height);
+
+        let parachutist: Parachutist= new Parachutist("Paragleiter", [0,0],[1,1],"blue", [2,2])// Typfehler???
+        parachutist1.draw();
+        parachutist.movement(0.1);
+        parachutist1.draw();
+        // parachutist.movement(0.1);
+        // parachutist1.draw();
+        // parachutist.movement(0.1);
+        // parachutist1.draw();
+        // parachutist.movement(0.1);
+        // parachutist1.draw();
+        // parachutist.movement(0.1);//So würde eine Reihe an Fliegern gezeichnet werden
+
+        window.setInterval(update,20);//alle 20ms wird update ausgeführt
     };
     //Funktionsaufrufe über windowload
+
+    function update():void{
+
+        crc2.getImageData(0,0,canvas.width,canvas.height);
+        // parachutist.draw();???
+        // bumblebee.draw();???
+    }
 
 //img data hier um hintergrund zu speichern
 //mehrere vektoren hier im skript anlegen um mehrere unterschiedliche bewegungen zu animieren
@@ -53,7 +74,7 @@ namespace AlpenFlug {
 // ab gewissen y wert type ändern von parachutist zu climber oder läufer
 // jedes Bild wird über das alte gemalt
 
-let parachutist1:Parachutist=new Parachutist("Parachutist",randomPosition,[50,30],"yellow",[1,2]);
+let parachutist1:Parachutist=new Parachutist("Parachutist",randomPosition,[50,30],"yellow",[1,2]);//Jirkas code?
 parachutist1.color="yellow";//randomColor
 parachutist1.draw();
 
