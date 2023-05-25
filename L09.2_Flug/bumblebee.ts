@@ -21,20 +21,14 @@ namespace AlpenFlug{
 
     drawBumblebee():void{
 
-        // crc2.save();
-        // crc2.translate(this.position.x, this.position.y);//Koordinatensystem hier hin
-        // crc2.scale(this.sizeX, this.sizeY);
-        // crc2.stroke(parachutistPaths[this.type]);
-        // crc2.restore();
-
             let maxXBee:number= 800;
             let maxYBee:number= 540;
     
             let minXBee:number= 100;
             let minYBee:number= 250;
     
-            let randomXBee:number=Math.floor(Math.random() * (maxXBee - minXBee + 1)) + minXBee;
-            let randomYBee:number=Math.floor(Math.random() * (maxYBee - minYBee + 1)) + minYBee;//Bee Position
+            let randomXBee:number=Math.floor(this.position.x * (maxXBee - minXBee + 1)) + minXBee;
+            let randomYBee:number=Math.floor(this.position.y * (maxYBee - minYBee + 1)) + minYBee;//Bee Position
     
             //Körper
             crc2.beginPath();
@@ -163,11 +157,11 @@ namespace AlpenFlug{
         if(this.position.y < 0)
         this.position.y += crc2.canvas.height;
 
-        if(this.position.x > crc2.canvas.width)
-        this.position.x -= crc2.canvas.width;
+        if(this.position.x > 1400*0.001)
+        this.position.x =0;
 
-        if(this.position.y > crc2.canvas.height)
-        this.position.y -= crc2.canvas.height;
+        if(this.position.y > 1600*0.001)
+        this.position.y =0;
     };
 
 

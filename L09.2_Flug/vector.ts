@@ -23,6 +23,14 @@ export class Vector{
         this.x+=_addend.x;
         this.y+=_addend.y;
     }
+    subtract(_sub:Vector):void{
+        this.x-=_sub.x;
+        this.y-=_sub.y;
+    }
+    subtract_climb(_sub:Vector):void{
+        // this.x-=_sub.x;
+        this.y-=_sub.y;
+    }
 
     // Minute 13 random funktion hier?
 

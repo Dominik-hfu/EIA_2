@@ -15,17 +15,12 @@ var AlpenFlug;
             this.speed = _speed;
         }
         drawBumblebee() {
-            // crc2.save();
-            // crc2.translate(this.position.x, this.position.y);//Koordinatensystem hier hin
-            // crc2.scale(this.sizeX, this.sizeY);
-            // crc2.stroke(parachutistPaths[this.type]);
-            // crc2.restore();
             let maxXBee = 800;
             let maxYBee = 540;
             let minXBee = 100;
             let minYBee = 250;
-            let randomXBee = Math.floor(Math.random() * (maxXBee - minXBee + 1)) + minXBee;
-            let randomYBee = Math.floor(Math.random() * (maxYBee - minYBee + 1)) + minYBee; //Bee Position
+            let randomXBee = Math.floor(this.position.x * (maxXBee - minXBee + 1)) + minXBee;
+            let randomYBee = Math.floor(this.position.y * (maxYBee - minYBee + 1)) + minYBee; //Bee Position
             //Körper
             AlpenFlug.crc2.beginPath();
             AlpenFlug.crc2.moveTo(randomXBee, randomYBee);
@@ -133,10 +128,10 @@ var AlpenFlug;
                 this.position.x += AlpenFlug.crc2.canvas.width;
             if (this.position.y < 0)
                 this.position.y += AlpenFlug.crc2.canvas.height;
-            if (this.position.x > AlpenFlug.crc2.canvas.width)
-                this.position.x -= AlpenFlug.crc2.canvas.width;
-            if (this.position.y > AlpenFlug.crc2.canvas.height)
-                this.position.y -= AlpenFlug.crc2.canvas.height;
+            if (this.position.x > 1400 * 0.001)
+                this.position.x = 0;
+            if (this.position.y > 1600 * 0.001)
+                this.position.y = 0;
         }
         ;
     }

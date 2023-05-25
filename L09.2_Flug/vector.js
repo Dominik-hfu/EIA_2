@@ -19,6 +19,14 @@ var AlpenFlug;
             this.x += _addend.x;
             this.y += _addend.y;
         }
+        subtract(_sub) {
+            this.x -= _sub.x;
+            this.y -= _sub.y;
+        }
+        subtract_climb(_sub) {
+            // this.x-=_sub.x;
+            this.y -= _sub.y;
+        }
     }
     AlpenFlug.Vector = Vector;
 })(AlpenFlug || (AlpenFlug = {}));
