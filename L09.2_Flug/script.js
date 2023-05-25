@@ -23,15 +23,15 @@ var AlpenFlug;
         windsack();
         back = AlpenFlug.crc2.getImageData(0, 0, canvas.width, canvas.height);
         let parachutelist = [];
-        for (let i = 0; i < 1; i++) {
+        for (let i = 0; i < 10; i++) {
             parachutelist[i] = new AlpenFlug.Parachutist(new AlpenFlug.Vector((Math.floor(Math.random() * (1000 - 0 + 1)) + 0) * 0.001, (Math.floor(Math.random() * (500 - 100 + 1)) + 100) * 0.001), [1, 1], "blue", new AlpenFlug.Vector(0.1, 0.1));
         }
         let climberList = [];
-        for (let i = 0; i < 1; i++) {
+        for (let i = 0; i < 5; i++) {
             climberList[i] = new AlpenFlug.Climber(new AlpenFlug.Vector((Math.floor(Math.random() * ((x_mountain - 100) - 5 + 1)) + 5) * 0.001, 900 * 0.001), [1, 1], "red", new AlpenFlug.Vector(0.1, 0.2));
         }
         let peopleList = [];
-        for (let i = 0; i < 1; i++) {
+        for (let i = 0; i < 4; i++) {
             peopleList[i] = new AlpenFlug.People(new AlpenFlug.Vector((Math.floor(Math.random() * (700 - 200 + 1)) + 200) * 0.001, (Math.floor(Math.random() * (700 - 600 + 1)) + 600) * 0.001), [1, 1], "green", new AlpenFlug.Vector(0.5, 0.5));
         }
         let bumblebeeList = [];
@@ -45,7 +45,7 @@ var AlpenFlug;
                 let change = parachutist.movement_parachute(0.1);
                 if (change == true) {
                     parachutelist.splice(i, 1);
-                    peopleList.push(new AlpenFlug.People(parachutist.position, [parachutist.sizeX, parachutist.sizeY], "green", new AlpenFlug.Vector(Math.floor(Math.random() * (1 - 0.5 + 1)) + 0.5, Math.floor(Math.random() * (1 - 0.5 + 1)) + 0.5)));
+                    peopleList.push(new AlpenFlug.People(parachutist.position, [parachutist.sizeX, parachutist.sizeY], "green", new AlpenFlug.Vector(Math.floor(Math.random() * (0.7 - 0.5 + 1)) + 0.5, Math.floor(Math.random() * (0.7 - 0.5 + 1)) + 0.5)));
                 }
                 parachutist.drawParachutes();
             }
