@@ -1,7 +1,7 @@
 "use strict";
 var AlpenFlug;
 (function (AlpenFlug) {
-    class Parachutist {
+    class People {
         type;
         position;
         sizeX;
@@ -19,11 +19,40 @@ var AlpenFlug;
             // this.speed.random(100,200); bei Jirka
         }
         draw() {
-            AlpenFlug.crc2.save();
-            AlpenFlug.crc2.translate(this.position.x, this.position.y); //Koordinatensystem hier hin
-            AlpenFlug.crc2.scale(this.sizeX, this.sizeY);
-            AlpenFlug.crc2.stroke(AlpenFlug.parachutistPaths[this.type]);
-            AlpenFlug.crc2.restore();
+            // crc2.save();
+            // crc2.translate(this.position.x, this.position.y);//Koordinatensystem hier hin
+            // crc2.scale(this.sizeX, this.sizeY);
+            // crc2.stroke(parachutistPaths[this.type]);
+            // crc2.restore();
+            let minX = 200;
+            let maxX = 1000;
+            let randomX = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
+            let minY = 100;
+            let maxY = 500;
+            let randomY = Math.floor(Math.random() * (maxY - minY + 1)) + minY;
+            AlpenFlug.crc2.beginPath();
+            AlpenFlug.crc2.moveTo(randomX, randomY);
+            AlpenFlug.crc2.arc(randomX, randomY, 8, 0, 2 * Math.PI);
+            AlpenFlug.crc2.stroke();
+            AlpenFlug.crc2.fillStyle = "white";
+            AlpenFlug.crc2.fill();
+            AlpenFlug.crc2.closePath();
+            AlpenFlug.crc2.beginPath();
+            AlpenFlug.crc2.moveTo(randomX, randomY + 8);
+            AlpenFlug.crc2.lineTo(randomX, randomY + 20);
+            AlpenFlug.crc2.moveTo(randomX, randomY + 20);
+            AlpenFlug.crc2.lineTo(randomX - 10, randomY + 30);
+            AlpenFlug.crc2.moveTo(randomX, randomY + 20);
+            AlpenFlug.crc2.lineTo(randomX + 10, randomY + 30);
+            AlpenFlug.crc2.stroke();
+            AlpenFlug.crc2.closePath();
+            AlpenFlug.crc2.beginPath();
+            AlpenFlug.crc2.moveTo(randomX, randomY + 15);
+            AlpenFlug.crc2.lineTo(randomX - 20, randomY);
+            AlpenFlug.crc2.moveTo(randomX, randomY + 15);
+            AlpenFlug.crc2.lineTo(randomX + 20, randomY);
+            AlpenFlug.crc2.stroke();
+            AlpenFlug.crc2.closePath();
             //Hier das Zeichnen des Fliegers reinkopieren? 
             //Und dann den Fallschirm, den Rucksack über paths bzw. type hinzufügen???
         }
@@ -43,6 +72,6 @@ var AlpenFlug;
         }
         ;
     }
-    AlpenFlug.Parachutist = Parachutist;
+    AlpenFlug.People = People;
 })(AlpenFlug || (AlpenFlug = {}));
 //# sourceMappingURL=parachutist.js.map
