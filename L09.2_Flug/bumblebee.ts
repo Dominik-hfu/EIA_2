@@ -60,22 +60,26 @@ namespace AlpenFlug{
             crc2.beginPath();
             crc2.moveTo(randomXBee-65,randomYBee+29);
             crc2.bezierCurveTo(randomXBee-35,randomYBee-5, randomXBee-45, randomYBee-8, randomXBee-65, randomYBee-30);
+            crc2.lineTo(randomXBee-55, randomYBee+29)
             crc2.stroke();
-            crc2.closePath();
+            // crc2.closePath();
     
-            crc2.beginPath();
+            // crc2.beginPath();
             crc2.moveTo(randomXBee-55,randomYBee+29);
             crc2.bezierCurveTo(randomXBee-25,randomYBee-5, randomXBee-35, randomYBee-8, randomXBee-55, randomYBee-30);
+            crc2.lineTo(randomXBee-65,randomYBee+29)
             crc2.stroke();
+            crc2.fillStyle="black"
+            crc2.fill();
             crc2.closePath();
     
             crc2.beginPath();
             crc2.moveTo(randomXBee-35,randomYBee+27);
             crc2.bezierCurveTo(randomXBee-5,randomYBee-5, randomXBee-15, randomYBee-8, randomXBee-35, randomYBee-27);
             crc2.stroke();
-            crc2.closePath();
+            // crc2.closePath();
     
-            crc2.beginPath();
+            // crc2.beginPath();
             crc2.moveTo(randomXBee-25,randomYBee+24);
             crc2.bezierCurveTo(randomXBee+5,randomYBee-5, randomXBee-5, randomYBee-8, randomXBee-25, randomYBee-24);
             crc2.stroke();
@@ -139,24 +143,23 @@ namespace AlpenFlug{
     };
 
 
-    movement(_timeslice:number):void{
+        movement(_timeslice:number):void{
 
-        let offset: Vector= new Vector(this.speed.x, this.speed.y);
-        offset.scale(_timeslice);
-        this.position.add(offset); //addiert auf position den offset
+            let offset: Vector= new Vector(this.speed.x, this.speed.y);
+            offset.scale(_timeslice);
+            this.position.subtract(offset); //addiert auf position den offset
 
-        if(this.position.x < 0)
-        this.position.x += crc2.canvas.width;
-        
-        if(this.position.y < 0)
-        this.position.y += crc2.canvas.height;
+            if(this.position.x < 0){
+            this.position.x += 1.5;}
+            
+            if(this.position.y < 0){
+            this.position.y += crc2.canvas.height;}
 
-        if(this.position.x > 1400*0.001)
-        this.position.x =0;
-
-        if(this.position.y > 1600*0.001)
-        this.position.y =0;
-    };
+            if(this.position.y > crc2.canvas.height){
+            this.position.y += 0;}
+      
+            
+        };
 
 
 }

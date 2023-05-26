@@ -48,19 +48,23 @@ var AlpenFlug;
             AlpenFlug.crc2.beginPath();
             AlpenFlug.crc2.moveTo(randomXBee - 65, randomYBee + 29);
             AlpenFlug.crc2.bezierCurveTo(randomXBee - 35, randomYBee - 5, randomXBee - 45, randomYBee - 8, randomXBee - 65, randomYBee - 30);
+            AlpenFlug.crc2.lineTo(randomXBee - 55, randomYBee + 29);
             AlpenFlug.crc2.stroke();
-            AlpenFlug.crc2.closePath();
-            AlpenFlug.crc2.beginPath();
+            // crc2.closePath();
+            // crc2.beginPath();
             AlpenFlug.crc2.moveTo(randomXBee - 55, randomYBee + 29);
             AlpenFlug.crc2.bezierCurveTo(randomXBee - 25, randomYBee - 5, randomXBee - 35, randomYBee - 8, randomXBee - 55, randomYBee - 30);
+            AlpenFlug.crc2.lineTo(randomXBee - 65, randomYBee + 29);
             AlpenFlug.crc2.stroke();
+            AlpenFlug.crc2.fillStyle = "black";
+            AlpenFlug.crc2.fill();
             AlpenFlug.crc2.closePath();
             AlpenFlug.crc2.beginPath();
             AlpenFlug.crc2.moveTo(randomXBee - 35, randomYBee + 27);
             AlpenFlug.crc2.bezierCurveTo(randomXBee - 5, randomYBee - 5, randomXBee - 15, randomYBee - 8, randomXBee - 35, randomYBee - 27);
             AlpenFlug.crc2.stroke();
-            AlpenFlug.crc2.closePath();
-            AlpenFlug.crc2.beginPath();
+            // crc2.closePath();
+            // crc2.beginPath();
             AlpenFlug.crc2.moveTo(randomXBee - 25, randomYBee + 24);
             AlpenFlug.crc2.bezierCurveTo(randomXBee + 5, randomYBee - 5, randomXBee - 5, randomYBee - 8, randomXBee - 25, randomYBee - 24);
             AlpenFlug.crc2.stroke();
@@ -117,15 +121,16 @@ var AlpenFlug;
         movement(_timeslice) {
             let offset = new AlpenFlug.Vector(this.speed.x, this.speed.y);
             offset.scale(_timeslice);
-            this.position.add(offset); //addiert auf position den offset
-            if (this.position.x < 0)
-                this.position.x += AlpenFlug.crc2.canvas.width;
-            if (this.position.y < 0)
+            this.position.subtract(offset); //addiert auf position den offset
+            if (this.position.x < 0) {
+                this.position.x += 1.5;
+            }
+            if (this.position.y < 0) {
                 this.position.y += AlpenFlug.crc2.canvas.height;
-            if (this.position.x > 1400 * 0.001)
-                this.position.x = 0;
-            if (this.position.y > 1600 * 0.001)
-                this.position.y = 0;
+            }
+            if (this.position.y > AlpenFlug.crc2.canvas.height) {
+                this.position.y += 0;
+            }
         }
         ;
     }

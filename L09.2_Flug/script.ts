@@ -2,7 +2,7 @@
 Aufgabe: <L09.2_Alpenflug>
 Name: <Dominik Putz>
 Matrikel: <272244>
-Datum: <25.05.2023>
+Datum: <26.05.2023>
 Quellen: <->
 */
 
@@ -22,7 +22,7 @@ namespace AlpenFlug {
         mountains();
         sun();
         cloud({ x: 100, y: 100 })
-        let x_mountain=mountain();
+        let x_mountain = mountain();
         kiosk();
         ellipse();
         windsack();
@@ -31,58 +31,71 @@ namespace AlpenFlug {
 
         let parachutelist: Parachutist[] = [];
         for (let i = 0; i < 10; i++) {
-            parachutelist[i] = new Parachutist(new Vector((Math.floor(Math.random() * (1000 - 0 + 1)) + 0)*0.001,(Math.floor(Math.random() * (500 - 100 + 1)) + 100)*0.001), new Vector(0.1,0.1));
+            parachutelist[i] = new Parachutist(new Vector((Math.floor(Math.random() * (1000 - 0 + 1)) + 0) * 0.001, (Math.floor(Math.random() * (500 - 100 + 1)) + 100) * 0.001), new Vector(0.08, 0.08));
         }
 
         let climberList: Climber[] = [];
-        for (let i = 0; i < 5; i++) {
-            climberList[i] = new Climber(new Vector((Math.floor(Math.random() * ((x_mountain-100) - 5 + 1)) + 5)*0.001,900*0.001), new Vector(0.1,0.2))
+        for (let i = 0; i < 2; i++) {
+            climberList[i] = new Climber(new Vector((Math.floor(Math.random() * ((x_mountain - 100) - 5 + 1)) + 5) * 0.001, 900 * 0.001), new Vector(0.1, 0.2))
         }
 
         let peopleList: People[] = [];
-        for (let i = 0; i < 4; i++) {
-            peopleList[i] = new People(new Vector((Math.floor(Math.random() * (700 - 200 + 1)) + 200)*0.001,(Math.floor(Math.random() * (700 - 600 + 1)) + 600)*0.001), new Vector(0.5, 0.5))
+        for (let i = 0; i < 3; i++) {
+            peopleList[i] = new People(new Vector((Math.floor(Math.random() * (x_mountain - 200 + 1)) + 200) * 0.001, (Math.floor(Math.random() * (700 - 600 + 1)) + 600) * 0.001), new Vector(0.2, 0.2))
         }
+
         let bumblebeeList: Bumblebee[] = [];
-        for (let i = 0; i < 1; i++) {
-            bumblebeeList[i] = new Bumblebee(new Vector(0,0), new Vector(0.2, 0.3))
+        for (let i = 0; i < 3; i++) {
+            const x = Math.floor(Math.random() * (1500 + 1)) * 0.001;
+            const y = Math.floor(Math.random() * (1500 + 1)) * 0.001;
+            const speedX = 0.2;
+            const speedY = (Math.random() < 0.5 ? Math.random() : -Math.random()) * (Math.floor(Math.random() * (200 - 100 + 1)) + 100) * -0.001;
+
+            // Begrenze die Position der Bumblebee auf den Canvas-Bereich
+            const canvasWidth = crc2.canvas.width * 0.001;
+            const canvasHeight = crc2.canvas.height * 0.001;
+            const position = new Vector(Math.max(0, Math.min(x, canvasWidth)), Math.max(0, Math.min(y, canvasHeight)));
+
+            bumblebeeList[i] = new Bumblebee(position, new Vector(speedX, speedY));
+            // Bienen können nach unten oder oben fliegen
         }
 
         window.setInterval(() => {
 
             crc2.putImageData(back, 0, 0);
-            
-            for (let i=0;i < parachutelist.length; i++) {
-                let parachutist=parachutelist[i]
-                let change=parachutist.movement_parachute(0.1);
-                if (change == true){
+
+            for (let i = 0; i < parachutelist.length; i++) {
+                let parachutist = parachutelist[i]
+                let change = parachutist.movement_parachute(0.1);
+                if (change == true) {
                     parachutelist.splice(i, 1);
-                    peopleList.push(new People(parachutist.position,new Vector(Math.floor(Math.random() * (0.7 - 0.5 + 1)) + 0.5,Math.floor(Math.random() * (0.7 - 0.5 + 1)) + 0.5)))
+                    peopleList.push(new People(parachutist.position, new Vector(Math.floor(Math.random() * (0.5 - 0.3 + 1)) + 0.3, Math.floor(Math.random() * (0.5 - 0.3 + 1)) + 0.3)))
                 }
                 parachutist.drawParachutes();
-                
+
             }
-            for (let i=0; i < climberList.length; i++) {
-                let climber=climberList[i]
-                let change=climber.movement_climber(0.1);
-                if (change == true){
+            for (let i = 0; i < climberList.length; i++) {
+                let climber = climberList[i]
+                let change = climber.movement_climber(0.1);
+                if (change == true) {
                     climberList.splice(i, 1);
-                    parachutelist.push(new Parachutist(climber.position,new Vector(Math.floor(Math.random() * (0.3 - 0.1 + 1)) + 0.1,Math.floor(Math.random() * (0.3 - 0.1 + 1)) + 0.1)))
+                    parachutelist.push(new Parachutist(climber.position, new Vector(Math.floor(Math.random() * (0.3 - 0.1 + 1)) + 0.1, Math.floor(Math.random() * (0.3 - 0.1 + 1)) + 0.1)))
                 }
                 climber.drawClimber();
             }
-            for (let i=0; i < peopleList.length; i++) {
-                let people=peopleList[i]
-                let change=people.movement(0.1);
-                if (change == true){
+            for (let i = 0; i < peopleList.length; i++) {
+                let people = peopleList[i]
+                let change = people.movement(0.05);
+                if (change == true) {
                     peopleList.splice(i, 1);
-                    climberList.push(new Climber(new Vector((Math.floor(Math.random() * ((x_mountain-100) - 5 + 1)) + 5)*0.001,900*0.001),new Vector(Math.floor(Math.random() * (0.4- 0.2 + 1)) + 0.2,Math.floor(Math.random() * (0.4 - 0.2+ 1)) + 0.2)))
+                    climberList.push(new Climber(new Vector((Math.floor(Math.random() * ((x_mountain - 100) - 5 + 1)) + 5) * 0.001, 900 * 0.001), new Vector(Math.floor(Math.random() * (0.4 - 0.2 + 1)) + 0.2, Math.floor(Math.random() * (0.4 - 0.2 + 1)) + 0.2)))
                 }
                 people.drawPeople();
             }
             for (let bumblebee of bumblebeeList) {
                 bumblebee.movement(0.05);
                 bumblebee.drawBumblebee();
+                // console.log(bumblebee.position)
             }
 
         }, 100);//alle 500ms wird aktualisiert
@@ -210,7 +223,7 @@ namespace AlpenFlug {
     };
 
 
-    function mountain():number {
+    function mountain(): number {
 
         let minX: number = 200;
         let maxX: number = 400;
