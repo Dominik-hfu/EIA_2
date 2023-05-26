@@ -31,21 +31,21 @@ namespace AlpenFlug {
 
         let parachutelist: Parachutist[] = [];
         for (let i = 0; i < 10; i++) {
-            parachutelist[i] = new Parachutist(new Vector((Math.floor(Math.random() * (1000 - 0 + 1)) + 0)*0.001,(Math.floor(Math.random() * (500 - 100 + 1)) + 100)*0.001), [1, 1], "blue", new Vector(0.1,0.1));
+            parachutelist[i] = new Parachutist(new Vector((Math.floor(Math.random() * (1000 - 0 + 1)) + 0)*0.001,(Math.floor(Math.random() * (500 - 100 + 1)) + 100)*0.001), new Vector(0.1,0.1));
         }
 
         let climberList: Climber[] = [];
         for (let i = 0; i < 5; i++) {
-            climberList[i] = new Climber(new Vector((Math.floor(Math.random() * ((x_mountain-100) - 5 + 1)) + 5)*0.001,900*0.001), [1, 1], "red", new Vector(0.1,0.2))
+            climberList[i] = new Climber(new Vector((Math.floor(Math.random() * ((x_mountain-100) - 5 + 1)) + 5)*0.001,900*0.001), new Vector(0.1,0.2))
         }
 
         let peopleList: People[] = [];
         for (let i = 0; i < 4; i++) {
-            peopleList[i] = new People(new Vector((Math.floor(Math.random() * (700 - 200 + 1)) + 200)*0.001,(Math.floor(Math.random() * (700 - 600 + 1)) + 600)*0.001), [1, 1], "green", new Vector(0.5, 0.5))
+            peopleList[i] = new People(new Vector((Math.floor(Math.random() * (700 - 200 + 1)) + 200)*0.001,(Math.floor(Math.random() * (700 - 600 + 1)) + 600)*0.001), new Vector(0.5, 0.5))
         }
         let bumblebeeList: Bumblebee[] = [];
         for (let i = 0; i < 1; i++) {
-            bumblebeeList[i] = new Bumblebee(new Vector(0, 0), [1, 1], "yellow", new Vector(0.1, 0.3))
+            bumblebeeList[i] = new Bumblebee(new Vector(0,0), new Vector(0.2, 0.3))
         }
 
         window.setInterval(() => {
@@ -57,16 +57,17 @@ namespace AlpenFlug {
                 let change=parachutist.movement_parachute(0.1);
                 if (change == true){
                     parachutelist.splice(i, 1);
-                    peopleList.push(new People(parachutist.position,[parachutist.sizeX,parachutist.sizeY],"green",new Vector(Math.floor(Math.random() * (0.7 - 0.5 + 1)) + 0.5,Math.floor(Math.random() * (0.7 - 0.5 + 1)) + 0.5)))
+                    peopleList.push(new People(parachutist.position,new Vector(Math.floor(Math.random() * (0.7 - 0.5 + 1)) + 0.5,Math.floor(Math.random() * (0.7 - 0.5 + 1)) + 0.5)))
                 }
                 parachutist.drawParachutes();
+                
             }
             for (let i=0; i < climberList.length; i++) {
                 let climber=climberList[i]
                 let change=climber.movement_climber(0.1);
                 if (change == true){
                     climberList.splice(i, 1);
-                    parachutelist.push(new Parachutist(climber.position,[climber.sizeX,climber.sizeY],"green",new Vector(Math.floor(Math.random() * (0.3 - 0.1 + 1)) + 0.1,Math.floor(Math.random() * (0.3 - 0.1 + 1)) + 0.1)))
+                    parachutelist.push(new Parachutist(climber.position,new Vector(Math.floor(Math.random() * (0.3 - 0.1 + 1)) + 0.1,Math.floor(Math.random() * (0.3 - 0.1 + 1)) + 0.1)))
                 }
                 climber.drawClimber();
             }
@@ -75,12 +76,12 @@ namespace AlpenFlug {
                 let change=people.movement(0.1);
                 if (change == true){
                     peopleList.splice(i, 1);
-                    climberList.push(new Climber(new Vector((Math.floor(Math.random() * ((x_mountain-100) - 5 + 1)) + 5)*0.001,900*0.001),[people.sizeX,people.sizeY],"green",new Vector(Math.floor(Math.random() * (0.4- 0.2 + 1)) + 0.2,Math.floor(Math.random() * (0.4 - 0.2+ 1)) + 0.2)))
+                    climberList.push(new Climber(new Vector((Math.floor(Math.random() * ((x_mountain-100) - 5 + 1)) + 5)*0.001,900*0.001),new Vector(Math.floor(Math.random() * (0.4- 0.2 + 1)) + 0.2,Math.floor(Math.random() * (0.4 - 0.2+ 1)) + 0.2)))
                 }
                 people.drawPeople();
             }
             for (let bumblebee of bumblebeeList) {
-                bumblebee.movement(0.1);
+                bumblebee.movement(0.05);
                 bumblebee.drawBumblebee();
             }
 

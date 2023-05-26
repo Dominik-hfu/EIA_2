@@ -4,17 +4,11 @@ namespace AlpenFlug{
 
     
     position:Vector;
-    sizeX:number;
-    sizeY:number;
-    color:string;
     speed:Vector;
 
-    constructor(_position: Vector, _size: Array<number>, _color: string, _speed:Vector){
+    constructor(_position: Vector, _speed:Vector){
         
         this.position= _position;
-        this.sizeX=_size[0];
-        this.sizeY=_size[1];
-        this.color=_color;
         this.speed= _speed;
 
     }

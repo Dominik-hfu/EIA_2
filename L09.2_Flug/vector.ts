@@ -32,7 +32,5 @@ export class Vector{
         this.y-=_sub.y;
     }
 
-    // Minute 13 random funktion hier?
-
 }
 }

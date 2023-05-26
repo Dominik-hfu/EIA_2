@@ -3,15 +3,9 @@ var AlpenFlug;
 (function (AlpenFlug) {
     class Bumblebee {
         position;
-        sizeX;
-        sizeY;
-        color;
         speed;
-        constructor(_position, _size, _color, _speed) {
+        constructor(_position, _speed) {
             this.position = _position;
-            this.sizeX = _size[0];
-            this.sizeY = _size[1];
-            this.color = _color;
             this.speed = _speed;
         }
         drawBumblebee() {

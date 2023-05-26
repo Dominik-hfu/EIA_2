@@ -3,32 +3,18 @@ var AlpenFlug;
 (function (AlpenFlug) {
     class People {
         position;
-        sizeX;
-        sizeY;
-        color;
         speed;
-        constructor(_position, _size, _color, _speed) {
+        constructor(_position, _speed) {
             this.position = _position;
-            this.sizeX = _size[0];
-            this.sizeY = _size[1];
-            this.color = _color;
             this.speed = _speed;
-            // this.speed.random(100,200); bei Jirka
         }
         drawPeople() {
-            // crc2.save();
-            // crc2.translate(this.position.x, this.position.y);//Koordinatensystem hier hin
-            // crc2.scale(this.sizeX, this.sizeY);
-            // crc2.stroke(parachutistPaths[this.type]);
-            // crc2.restore();
             let minX = 200;
             let maxX = 700;
             let positionx = Math.floor(this.position.x * (maxX - minX + 1)) + minX;
-            // let positionx: number = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
             let minY = 600;
             let maxY = 700;
             let positiony = Math.floor(this.position.y * (maxY - minY + 1)) + minY;
-            // let positiony: number = Math.floor(Math.random() * (maxY - minY + 1)) + minY;
             AlpenFlug.crc2.beginPath();
             AlpenFlug.crc2.moveTo(positionx, positiony);
             AlpenFlug.crc2.arc(positionx, positiony, 8, 0, 2 * Math.PI);
@@ -57,7 +43,7 @@ var AlpenFlug;
         movement(_timeslice) {
             let offset = new AlpenFlug.Vector(this.speed.x, this.speed.y);
             offset.scale(_timeslice);
-            this.position.subtract(offset); //addiert auf position den offset
+            this.position.subtract(offset); //subtrahiert von position den offset
             let change = false;
             if (this.position.y < 200 * 0.001 && this.position.x < 350 * 0.001) {
                 change = true;
