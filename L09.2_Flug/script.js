@@ -21,6 +21,7 @@ var AlpenFlug;
         kiosk();
         ellipse();
         windsack();
+        helicopter();
         back = AlpenFlug.crc2.getImageData(0, 0, canvas.width, canvas.height);
         let parachutelist = [];
         for (let i = 0; i < 10; i++) {
@@ -90,6 +91,74 @@ var AlpenFlug;
     // ab gewissem y wert nach oben bzw unten fliegen 
     // ab gewissen y wert type ändern von parachutist zu climber oder läufer
     // jedes Bild wird über das alte gemalt
+    function helicopter() {
+        //Standfüße
+        AlpenFlug.crc2.beginPath();
+        AlpenFlug.crc2.moveTo(190, 730);
+        AlpenFlug.crc2.lineTo(200, 740);
+        AlpenFlug.crc2.lineTo(300, 740);
+        AlpenFlug.crc2.stroke();
+        AlpenFlug.crc2.closePath();
+        AlpenFlug.crc2.beginPath();
+        AlpenFlug.crc2.moveTo(230, 740);
+        AlpenFlug.crc2.lineTo(235, 730);
+        AlpenFlug.crc2.stroke();
+        AlpenFlug.crc2.closePath();
+        AlpenFlug.crc2.beginPath();
+        AlpenFlug.crc2.moveTo(260, 740);
+        AlpenFlug.crc2.lineTo(265, 730);
+        AlpenFlug.crc2.stroke();
+        AlpenFlug.crc2.closePath();
+        //Körper
+        AlpenFlug.crc2.beginPath();
+        AlpenFlug.crc2.moveTo(250, 710);
+        AlpenFlug.crc2.ellipse(250, 711, 50, 20, 0, 0, 2 * Math.PI);
+        // crc2.stroke();
+        AlpenFlug.crc2.fillStyle = "black";
+        AlpenFlug.crc2.fill();
+        AlpenFlug.crc2.closePath();
+        //Rotor_hinten
+        AlpenFlug.crc2.beginPath();
+        AlpenFlug.crc2.moveTo(300, 710);
+        AlpenFlug.crc2.lineTo(350, 690);
+        AlpenFlug.crc2.lineTo(360, 730);
+        AlpenFlug.crc2.lineTo(365, 720);
+        AlpenFlug.crc2.lineTo(355, 690);
+        AlpenFlug.crc2.lineTo(365, 660);
+        AlpenFlug.crc2.lineTo(360, 650);
+        AlpenFlug.crc2.lineTo(350, 690);
+        AlpenFlug.crc2.stroke();
+        AlpenFlug.crc2.closePath();
+        AlpenFlug.crc2.beginPath();
+        AlpenFlug.crc2.moveTo(290, 710);
+        AlpenFlug.crc2.lineTo(351, 684);
+        AlpenFlug.crc2.stroke();
+        AlpenFlug.crc2.closePath();
+        //Rotor oben
+        AlpenFlug.crc2.beginPath();
+        AlpenFlug.crc2.moveTo(250, 695);
+        AlpenFlug.crc2.lineTo(255, 680);
+        AlpenFlug.crc2.lineTo(260, 680);
+        AlpenFlug.crc2.lineTo(265, 695);
+        AlpenFlug.crc2.stroke();
+        AlpenFlug.crc2.closePath();
+        //Rotorblätter
+        AlpenFlug.crc2.beginPath();
+        AlpenFlug.crc2.moveTo(260, 680);
+        AlpenFlug.crc2.lineTo(350, 650);
+        AlpenFlug.crc2.lineTo(320, 650);
+        AlpenFlug.crc2.lineTo(260, 680);
+        AlpenFlug.crc2.stroke();
+        AlpenFlug.crc2.closePath();
+        AlpenFlug.crc2.beginPath();
+        AlpenFlug.crc2.moveTo(255, 680);
+        AlpenFlug.crc2.lineTo(140, 650);
+        AlpenFlug.crc2.lineTo(170, 650);
+        AlpenFlug.crc2.lineTo(255, 680);
+        AlpenFlug.crc2.stroke();
+        AlpenFlug.crc2.closePath();
+    }
+    ;
     function windsack() {
         AlpenFlug.crc2.beginPath();
         AlpenFlug.crc2.moveTo(650, 551);

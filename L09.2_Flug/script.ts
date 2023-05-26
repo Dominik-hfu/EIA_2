@@ -26,6 +26,7 @@ namespace AlpenFlug {
         kiosk();
         ellipse();
         windsack();
+        helicopter();
 
         back = crc2.getImageData(0, 0, canvas.width, canvas.height);
 
@@ -108,6 +109,85 @@ namespace AlpenFlug {
     // ab gewissem y wert nach oben bzw unten fliegen 
     // ab gewissen y wert type ändern von parachutist zu climber oder läufer
     // jedes Bild wird über das alte gemalt
+
+    function helicopter(){
+
+        //Standfüße
+        crc2.beginPath();
+        crc2.moveTo(190,730);
+        crc2.lineTo(200,740);
+        crc2.lineTo(300,740);
+        crc2.stroke();
+        crc2.closePath();
+        
+        crc2.beginPath();
+        crc2.moveTo(230,740);
+        crc2.lineTo(235,730);
+        crc2.stroke();
+        crc2.closePath();
+        
+        crc2.beginPath();
+        crc2.moveTo(260,740);
+        crc2.lineTo(265,730);
+        crc2.stroke();
+        crc2.closePath();
+
+        //Körper
+        crc2.beginPath();
+        crc2.moveTo(250,710);
+        crc2.ellipse(250,711,50,20,0,0,2*Math.PI);
+        // crc2.stroke();
+        crc2.fillStyle="black";
+        crc2.fill();
+        crc2.closePath();
+
+        //Rotor_hinten
+        crc2.beginPath();
+        crc2.moveTo(300,710);
+        crc2.lineTo(350,690);
+        
+        crc2.lineTo(360,730);
+        crc2.lineTo(365,720);
+        crc2.lineTo(355,690);
+        crc2.lineTo(365,660);
+        crc2.lineTo(360,650);
+        crc2.lineTo(350,690);
+        crc2.stroke();
+        crc2.closePath();
+        
+        crc2.beginPath();
+        crc2.moveTo(290,710);
+        crc2.lineTo(351,684);
+        crc2.stroke();
+        crc2.closePath();
+
+        //Rotor oben
+        crc2.beginPath();
+        crc2.moveTo(250,695);
+        crc2.lineTo(255,680);
+        crc2.lineTo(260,680);
+        crc2.lineTo(265,695);
+        crc2.stroke();
+        crc2.closePath();
+        
+        //Rotorblätter
+        crc2.beginPath();
+        crc2.moveTo(260,680);
+        crc2.lineTo(350,650);
+        crc2.lineTo(320,650);
+        crc2.lineTo(260,680);
+        crc2.stroke();
+        crc2.closePath();
+        
+        crc2.beginPath();
+        crc2.moveTo(255,680);
+        crc2.lineTo(140,650);
+        crc2.lineTo(170,650);
+        crc2.lineTo(255,680);
+        crc2.stroke();
+        crc2.closePath();
+
+    };
 
     function windsack() {
 

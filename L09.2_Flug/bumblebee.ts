@@ -60,17 +60,13 @@ namespace AlpenFlug{
             crc2.beginPath();
             crc2.moveTo(randomXBee-65,randomYBee+29);
             crc2.bezierCurveTo(randomXBee-35,randomYBee-5, randomXBee-45, randomYBee-8, randomXBee-65, randomYBee-30);
-            crc2.lineTo(randomXBee-55, randomYBee+29)
             crc2.stroke();
-            // crc2.closePath();
+            crc2.closePath();
     
-            // crc2.beginPath();
+            crc2.beginPath();
             crc2.moveTo(randomXBee-55,randomYBee+29);
             crc2.bezierCurveTo(randomXBee-25,randomYBee-5, randomXBee-35, randomYBee-8, randomXBee-55, randomYBee-30);
-            crc2.lineTo(randomXBee-65,randomYBee+29)
             crc2.stroke();
-            crc2.fillStyle="black"
-            crc2.fill();
             crc2.closePath();
     
             crc2.beginPath();
@@ -83,10 +79,8 @@ namespace AlpenFlug{
             crc2.moveTo(randomXBee-25,randomYBee+24);
             crc2.bezierCurveTo(randomXBee+5,randomYBee-5, randomXBee-5, randomYBee-8, randomXBee-25, randomYBee-24);
             crc2.stroke();
-            // crc2.fillStyle="black";
-            // crc2.fill();
             crc2.closePath();
-                //fill???
+    
     
             //Augen
             crc2.beginPath();
