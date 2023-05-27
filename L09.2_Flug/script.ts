@@ -4,6 +4,7 @@ Name: <Dominik Putz>
 Matrikel: <272244>
 Datum: <26.05.2023>
 Quellen: <->
+Kommentar: Sorry für das unübersichtliche/ unvollständige AD Diagramm, das Zeichne ich bei Zeit nochmal neu :D
 */
 
 namespace AlpenFlug {

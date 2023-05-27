@@ -14,7 +14,7 @@ namespace AlpenFlug {
 
         }
 
-        drawPeople(): void {
+        drawPeople() {
 
             let minX: number = 200;
             let maxX: number = 700;
@@ -199,6 +199,7 @@ namespace AlpenFlug {
     let minY: number = 400;
     let maxY: number = 600;
     let positiony: number = Math.floor(Math.random() * (maxY - minY + 1)) + minY;
+    
     export class Climber extends People {
 
         drawClimber() {

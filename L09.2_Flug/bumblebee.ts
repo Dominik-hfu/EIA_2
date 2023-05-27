@@ -13,7 +13,7 @@ namespace AlpenFlug{
 
     }
 
-    drawBumblebee():void{
+    drawBumblebee(){
 
             let maxXBee:number= 800;
             let maxYBee:number= 540;
