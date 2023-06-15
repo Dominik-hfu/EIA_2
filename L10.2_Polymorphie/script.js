@@ -23,68 +23,6 @@ var AlpenFlug;
         windsack();
         helicopter();
         back = AlpenFlug.crc2.getImageData(0, 0, canvas.width, canvas.height);
-        //     let movingObjects:MovingObjects[]=[];
-        //     let parachutelist: Parachutists[] = [];
-        //     for (let i = 0; i < 10; i++) {
-        //         parachutelist[i] = new Parachutists(new Vector((Math.floor(Math.random() * (1000 - 0 + 1)) + 0) * 0.001, (Math.floor(Math.random() * (500 - 100 + 1)) + 100) * 0.001), new Vector(0.08, 0.08));
-        //     }
-        //     let climberList: Climbers[] = [];
-        //     for (let i = 0; i < 2; i++) {
-        //         climberList[i] = new Climbers(new Vector((Math.floor(Math.random() * ((x_mountain - 100) - 5 + 1)) + 5) * 0.001, 900 * 0.001), new Vector(0.1, 0.2))
-        //     }
-        //     let peopleList: Guys[] = [];
-        //     for (let i = 0; i < 3; i++) {
-        //         peopleList[i] = new Guys(new Vector((Math.floor(Math.random() * (x_mountain - 200 + 1)) + 200) * 0.001, (Math.floor(Math.random() * (700 - 600 + 1)) + 600) * 0.001), new Vector(0.2, 0.2))
-        //     }
-        //     let bumblebeeList: Bumblebees[] = [];
-        //     for (let i = 0; i < 3; i++) {
-        //         let x = Math.floor(Math.random() * (1500 + 1)) * 0.001;
-        //         let y = Math.floor(Math.random() * (1500 + 1)) * 0.001;
-        //         let speedX = 0.2;
-        //         let speedY = (Math.random() < 0.5 ? Math.random() : -Math.random()) * (Math.floor(Math.random() * (200 - 100 + 1)) + 100) * -0.001;
-        //         // Begrenze die Position der Bumblebee auf den Canvas-Bereich
-        //         let canvasWidth = crc2.canvas.width * 0.001;
-        //         let canvasHeight = crc2.canvas.height * 0.001;
-        //         let position = new Vector(Math.max(0, Math.min(x, canvasWidth)), Math.max(0, Math.min(y, canvasHeight)));
-        //         bumblebeeList[i] = new Bumblebees(position, new Vector(speedX, speedY));
-        //         // Bienen können nach unten oder oben fliegen
-        //     }
-        //     window.setInterval(() => {
-        //         crc2.putImageData(back, 0, 0);
-        //         for (let i = 0; i < parachutelist.length; i++) {
-        //             let parachutist = parachutelist[i]
-        //             let change = parachutist.moveTheirself(0.1);
-        //             if (change == true) {
-        //                 parachutelist.splice(i, 1);
-        //                 peopleList.push(new Guys(parachutist.position, new Vector(Math.floor(Math.random() * (0.5 - 0.3 + 1)) + 0.3, Math.floor(Math.random() * (0.5 - 0.3 + 1)) + 0.3)))
-        //             }
-        //             parachutist.drawTheirself();
-        //         }
-        //         for (let i = 0; i < climberList.length; i++) {
-        //             let climber = climberList[i]
-        //             let change = climber.moveTheirself(0.1);
-        //             if (change == true) {
-        //                 climberList.splice(i, 1);
-        //                 parachutelist.push(new Parachutists(climber.position, new Vector(Math.floor(Math.random() * (0.3 - 0.1 + 1)) + 0.1, Math.floor(Math.random() * (0.3 - 0.1 + 1)) + 0.1)))
-        //             }
-        //             climber.drawTheirself();
-        //         }
-        //         for (let i = 0; i < peopleList.length; i++) {
-        //             let people = peopleList[i]
-        //             let change = people.moveTheirself(0.05);
-        //             if (change == true) {
-        //                 peopleList.splice(i, 1);
-        //                 climberList.push(new Climbers(new Vector((Math.floor(Math.random() * ((x_mountain - 100) - 5 + 1)) + 5) * 0.001, 900 * 0.001), new Vector(Math.floor(Math.random() * (0.4 - 0.2 + 1)) + 0.2, Math.floor(Math.random() * (0.4 - 0.2 + 1)) + 0.2)))
-        //             }
-        //             people.drawTheirself();
-        //         }
-        //         for (let bumblebee of bumblebeeList) {
-        //             bumblebee.moveTheirself(0.05);
-        //             bumblebee.drawTheirself();
-        //             // console.log(bumblebee.position)
-        //         }
-        //     }, 100);//alle 500ms wird aktualisiert
-        // };
         let movingObjects = [];
         for (let i = 0; i < 10; i++) {
             let parachutist = new AlpenFlug.Parachutists(new AlpenFlug.Vector((Math.floor(Math.random() * (1000 - 0 + 1)) + 0) * 0.001, (Math.floor(Math.random() * (500 - 100 + 1)) + 100) * 0.001), new AlpenFlug.Vector(0.08, 0.08));
@@ -118,6 +56,7 @@ var AlpenFlug;
                     if (change === true) {
                         movingObjects.splice(i, 1);
                         movingObjects.push(new AlpenFlug.Guys(movingObject.position, new AlpenFlug.Vector(Math.floor(Math.random() * (0.5 - 0.3 + 1)) + 0.3, Math.floor(Math.random() * (0.5 - 0.3 + 1)) + 0.3)));
+                        // console.log(movingObject)  
                     }
                 }
                 else if (movingObject instanceof AlpenFlug.Climbers) {
