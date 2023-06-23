@@ -34,6 +34,7 @@ export class Guys extends MovingObjects{// wichtig export, extends
         crc2.beginPath();
         crc2.moveTo(positionx, positiony);
         crc2.arc(positionx, positiony, 8, 0, 2 * Math.PI);
+        crc2.strokeStyle="black"
         crc2.stroke();
         crc2.fillStyle = "white";
         crc2.fill();
@@ -46,6 +47,7 @@ export class Guys extends MovingObjects{// wichtig export, extends
         crc2.lineTo(positionx - 10, positiony + 30);
         crc2.moveTo(positionx, positiony + 20);
         crc2.lineTo(positionx + 10, positiony + 30);
+        crc2.strokeStyle="black"
         crc2.stroke();
         crc2.closePath();
 
@@ -54,6 +56,7 @@ export class Guys extends MovingObjects{// wichtig export, extends
         crc2.lineTo(positionx - 20, positiony);
         crc2.moveTo(positionx, positiony + 15);
         crc2.lineTo(positionx + 20, positiony);
+        crc2.strokeStyle="black"
         crc2.stroke();
         crc2.closePath();
 
