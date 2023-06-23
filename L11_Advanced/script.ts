@@ -651,7 +651,9 @@ function helicopter(){
 
             }
                        
-            console.log(isDaytime)
+            
+            // console.log(isDaytime)
+
           }
 
         });
