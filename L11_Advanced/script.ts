@@ -1,27 +1,27 @@
 /*
-Aufgabe: <L10.2_Polymorphie>
+Aufgabe: <L11_Advanced:Alpenflug>
 Name: <Dominik Putz>
 Matrikel: <272244>
-Datum: <15.06.2023>
+Datum: <23.06.2023>
 Quellen: <->
 */
 
 namespace AlpenFlug {
 
     window.addEventListener("load", handleload);
+
     export let crc2: CanvasRenderingContext2D;
     let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.querySelector("canvas");
-
     let back: ImageData;
     let isDaytime:boolean= true
+
     function handleload(_event: Event): void {
 
         crc2 = <CanvasRenderingContext2D>canvas.getContext("2d");
         
         let x_mountain=background(true);
-      
-
         back = crc2.getImageData(0, 0, canvas.width, canvas.height);        
+
         enum DIRECTION{
           LEFT,
           RIGHT
@@ -35,15 +35,11 @@ namespace AlpenFlug {
 
             for(let i=0;i<movingObjects.length;i++){
               
-              if(direction==DIRECTION.LEFT){
-
-              if (movingObjects[i] instanceof Parachutists){
+              if(direction==DIRECTION.LEFT&& movingObjects[i] instanceof Parachutists){
 
                movingObjects[i].speed.scale(3)
 
-              }
-
-              if (movingObjects[i] instanceof Bumblebees){
+              if (direction==DIRECTION.LEFT&& movingObjects[i] instanceof Bumblebees){
 
                movingObjects[i].speed.scale(.3)
 

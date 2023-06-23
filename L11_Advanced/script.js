@@ -1,9 +1,9 @@
 "use strict";
 /*
-Aufgabe: <L10.2_Polymorphie>
+Aufgabe: <L11_Advanced:Alpenflug>
 Name: <Dominik Putz>
 Matrikel: <272244>
-Datum: <15.06.2023>
+Datum: <23.06.2023>
 Quellen: <->
 */
 var AlpenFlug;
@@ -26,11 +26,9 @@ var AlpenFlug;
             if (event.key === 'ArrowLeft') {
                 direction = DIRECTION.LEFT;
                 for (let i = 0; i < movingObjects.length; i++) {
-                    if (direction == DIRECTION.LEFT) {
-                        if (movingObjects[i] instanceof AlpenFlug.Parachutists) {
-                            movingObjects[i].speed.scale(3);
-                        }
-                        if (movingObjects[i] instanceof AlpenFlug.Bumblebees) {
+                    if (direction == DIRECTION.LEFT && movingObjects[i] instanceof AlpenFlug.Parachutists) {
+                        movingObjects[i].speed.scale(3);
+                        if (direction == DIRECTION.LEFT && movingObjects[i] instanceof AlpenFlug.Bumblebees) {
                             movingObjects[i].speed.scale(.3);
                         }
                     }
@@ -502,7 +500,7 @@ var AlpenFlug;
                 else {
                     isDaytime = true;
                 }
-                console.log(isDaytime);
+                // console.log(isDaytime)
             }
         });
         //mit translate verschiebt man das allgemeine koordinatensystem vom ursprung 0,0 zu einer bestimmten position
