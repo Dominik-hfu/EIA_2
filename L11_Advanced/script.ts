@@ -34,12 +34,14 @@ namespace AlpenFlug {
             direction=DIRECTION.LEFT
 
             for(let i=0;i<movingObjects.length;i++){
+
+              if(direction==DIRECTION.RIGHT){
               
-              if(direction==DIRECTION.LEFT&& movingObjects[i] instanceof Parachutists){
+              if(movingObjects[i] instanceof Parachutists){
 
                movingObjects[i].speed.scale(3)
 
-              if (direction==DIRECTION.LEFT&& movingObjects[i] instanceof Bumblebees){
+              if (movingObjects[i] instanceof Bumblebees){
 
                movingObjects[i].speed.scale(.3)
 
@@ -52,7 +54,7 @@ namespace AlpenFlug {
             console.log('Linker Pfeil wurde gedrückt!');
           }
 
-        });
+        }});
         
         document.addEventListener('keydown', (event: KeyboardEvent) => {
           if (event.key === 'ArrowRight') {
