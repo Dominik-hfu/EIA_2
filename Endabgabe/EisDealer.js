@@ -35,6 +35,7 @@ var EisDealer;
             EisDealer.crc2.fillStyle = "white";
             EisDealer.crc2.fill();
             EisDealer.crc2.closePath();
+            EisDealer.crc2.stroke(); //Mütze
         }
         ;
         startDay() {

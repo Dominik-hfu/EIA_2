@@ -1,0 +1,17 @@
+button{
+    margin-right: 100px;
+    margin-top: 300px;
+    background-color: #8cff00;
+    position: absolute;
+    z-index: 1;
+}
+
+p{
+    font-size: 30pt;
+    color: #8cff00;
+    position: absolute;
+    z-index: 1;
+    top: 70px;
+    left: 85px;
+
+}

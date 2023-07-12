@@ -45,6 +45,7 @@ namespace EisDealer{
                 crc2.fillStyle="white";
                 crc2.fill();
                 crc2.closePath();
+                crc2.stroke();//Mütze
 
              };
 

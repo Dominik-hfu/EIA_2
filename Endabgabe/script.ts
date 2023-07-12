@@ -19,9 +19,20 @@ namespace EisDealer{
     function handleload(_event: Event): void {
         
         crc2 = <CanvasRenderingContext2D>canvas.getContext("2d");
+
+        function createStartButton(): void {
+            const button = document.createElement("button");
+            button.textContent = "Start Day";
+            button.addEventListener("click", () => {
+                day();
+            });
+    
+            document.body.appendChild(button);
+            
+        }
+        createStartButton();
         
         //Funktionen aufrufen()
-        // day();
         
         // back = crc2.getImageData(0, 0, canvas.width, canvas.height);
         
@@ -137,12 +148,17 @@ namespace EisDealer{
     
         let dealer=new Eisdealer(new Vector(400,100));//Vector unnötig hier?
         dealer.draw();
-        console.log(dealer.draw)
+        console.log("Ich wurde geklickt");
+
+        let cashRegister:HTMLParagraphElement=document.createElement("p")as HTMLParagraphElement;
+        cashRegister.textContent="Kasse";
+        document.body.appendChild(cashRegister);
+        console.log(cashRegister)
     
     };
     
     drawStore();
-    day();
+
 }
 
 // window.setInterval(() => {

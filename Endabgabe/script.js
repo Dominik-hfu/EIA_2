@@ -15,8 +15,16 @@ var EisDealer;
     // let serve:boolean=false;
     function handleload(_event) {
         EisDealer.crc2 = canvas.getContext("2d");
+        function createStartButton() {
+            const button = document.createElement("button");
+            button.textContent = "Start Day";
+            button.addEventListener("click", () => {
+                day();
+            });
+            document.body.appendChild(button);
+        }
+        createStartButton();
         //Funktionen aufrufen()
-        // day();
         // back = crc2.getImageData(0, 0, canvas.width, canvas.height);
         function drawStore() {
             EisDealer.crc2.beginPath();
@@ -111,11 +119,14 @@ var EisDealer;
         function day() {
             let dealer = new EisDealer.Eisdealer(new EisDealer.Vector(400, 100)); //Vector unnötig hier?
             dealer.draw();
-            console.log(dealer.draw);
+            console.log("Ich wurde geklickt");
+            let cashRegister = document.createElement("p");
+            cashRegister.textContent = "Kasse";
+            document.body.appendChild(cashRegister);
+            console.log(cashRegister);
         }
         ;
         drawStore();
-        day();
     }
     // window.setInterval(() => {
     //     crc2.putImageData(back, 0, 0);
