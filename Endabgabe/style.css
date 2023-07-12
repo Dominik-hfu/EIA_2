@@ -1,8 +1,9 @@
 button{
-    margin-right: 100px;
-    margin-top: 300px;
+
     background-color: #8cff00;
     position: absolute;
+    right: 200px;
+    top: 200px;
     z-index: 1;
 }
 
@@ -14,4 +15,54 @@ p{
     top: 70px;
     left: 85px;
 
+}
+
+.cash{
+    font-size: 20pt;
+    color: #8cff00;
+    position: absolute;
+    z-index: 1;
+    top: 140px;
+    left: 105px;
+
+}
+
+.amarena{
+    background-color: #ff4760;
+    position: absolute;
+    height: 75px;
+    width: 213px;
+    left: 33px;
+    top: 308px;
+    /* z-index: 1; */
+}
+
+.banana{
+    background-color: #fdff82;
+    position: absolute;
+    height: 75px;
+    width: 213px;
+    left: 33px;
+    top: 383px;
+    /* z-index: 1; */
+}
+
+.pistazie{
+    background-color: #a3ff47;
+    position: absolute;
+    height: 75px;
+    width: 239px;
+    left: 245px;
+    top: 308px;
+    /* z-index: 1; */
+}
+
+.coffee{
+    background-color: #c77646;
+    position: absolute;
+    height: 75px;
+    width: 239px;
+    left: 245px;
+    top: 383px;
+    /* z-index: 1; */
 }

@@ -15,13 +15,14 @@ namespace EisDealer{
     // let back: ImageData;
     // let background:boolean=true;
     // let serve:boolean=false;
+    let button:HTMLButtonElement;
     
     function handleload(_event: Event): void {
         
         crc2 = <CanvasRenderingContext2D>canvas.getContext("2d");
 
         function createStartButton(): void {
-            const button = document.createElement("button");
+            button = document.createElement("button");
             button.textContent = "Start Day";
             button.addEventListener("click", () => {
                 day();
@@ -153,12 +154,125 @@ namespace EisDealer{
         let cashRegister:HTMLParagraphElement=document.createElement("p")as HTMLParagraphElement;
         cashRegister.textContent="Kasse";
         document.body.appendChild(cashRegister);
-        console.log(cashRegister)
-    
+        console.log(cashRegister);//Wort Kasse
+        
+        let cash:HTMLParagraphElement=document.createElement("p")as HTMLParagraphElement;
+        cash.classList.add("cash");
+        cash.textContent="100€";
+        document.body.appendChild(cash);
+        button.remove();// Kassenbestand
+
+        let amarena:HTMLButtonElement;
+        amarena = document.createElement("button")as HTMLButtonElement;
+        amarena.classList.add("amarena")
+        amarena.textContent = "Amarena";
+        document.body.appendChild(amarena);
+        amarena.addEventListener("click", () => {
+            amarenaIce();
+        });
+
+        let banana:HTMLButtonElement;
+        banana = document.createElement("button")as HTMLButtonElement;
+        banana.classList.add("banana")
+        banana.textContent = "Banane";
+        document.body.appendChild(banana);
+        banana.addEventListener("click", () => {
+            bananaIce();
+        });
+
+        let pistazie:HTMLButtonElement;
+        pistazie = document.createElement("button")as HTMLButtonElement;
+        pistazie.classList.add("pistazie")
+        pistazie.textContent = "Pistazie";
+        document.body.appendChild(pistazie);
+        pistazie.addEventListener("click", () => {
+            pistazieIce();
+        });
+
+        let coffee:HTMLButtonElement;
+        coffee = document.createElement("button")as HTMLButtonElement;
+        coffee.classList.add("coffee")
+        coffee.textContent = "Kaffee";
+        document.body.appendChild(coffee);
+        coffee.addEventListener("click", () => {
+            coffeeIce();
+        });//Eissorten
+
+
+        let pistazie:HTMLButtonElement;
+        pistazie = document.createElement("button")as HTMLButtonElement;
+        pistazie.classList.add("pistazie")
+        pistazie.textContent = "Pistazie";
+        document.body.appendChild(pistazie);
+        pistazie.addEventListener("click", () => {
+            pistazieIce();
+        });
+
+        let pistazie:HTMLButtonElement;
+        pistazie = document.createElement("button")as HTMLButtonElement;
+        pistazie.classList.add("pistazie")
+        pistazie.textContent = "Pistazie";
+        document.body.appendChild(pistazie);
+        pistazie.addEventListener("click", () => {
+            pistazieIce();
+        });
+
+        let pistazie:HTMLButtonElement;
+        pistazie = document.createElement("button")as HTMLButtonElement;
+        pistazie.classList.add("pistazie")
+        pistazie.textContent = "Pistazie";
+        document.body.appendChild(pistazie);
+        pistazie.addEventListener("click", () => {
+            pistazieIce();
+        });
+
+        let pistazie:HTMLButtonElement;
+        pistazie = document.createElement("button")as HTMLButtonElement;
+        pistazie.classList.add("pistazie")
+        pistazie.textContent = "Pistazie";
+        document.body.appendChild(pistazie);
+        pistazie.addEventListener("click", () => {
+            pistazieIce();
+        });
+        
+        
     };
     
     drawStore();
+    
+    function amarenaIce(){
+        console.log("1 Kugel Amarena")
+        
+    }
+    function bananaIce(){
+        console.log("1 Kugel Banane")
+        
+    }
+    function pistazieIce(){
+        console.log("1 Kugel Pistazie")
+        
+    }
+    function coffeeIce(){
+        console.log("1 Kugel Kaffee")
+        
+    }
 
+    function vanillaSauce(){
+        console.log("1x Vanillesoße")
+        
+    }
+    function caramelSauce(){
+        console.log("1x Karamellsoße")
+        
+    }
+    function chocolateSauce(){
+        console.log("1x Schokoladensoße")
+        
+    }
+    function liqueur(){
+        console.log("1x Likör")
+        
+    }
 }
 
 // window.setInterval(() => {
