@@ -7,6 +7,16 @@ button{
     z-index: 1;
 }
 
+.closeButton{
+
+    background-color: #003cff;
+    position: absolute;
+    right: 200px;
+    top: 200px;
+    z-index: 1;
+
+}
+
 p{
     font-size: 30pt;
     color: #8cff00;
@@ -38,7 +48,7 @@ p{
 }
 
 .banana{
-    background-color: #fdff82;
+    background-color: #fcff3e;
     position: absolute;
     height: 75px;
     width: 213px;
@@ -66,3 +76,123 @@ p{
     top: 383px;
     /* z-index: 1; */
 }
+
+.vanilla{
+    background-color: #ffeb66;
+    position: absolute;
+    height: 75px;
+    width: 120px;
+    left: 483px;
+    top: 308px;
+    /* z-index: 1; */
+}
+
+.chocolate{
+    background-color: #b58649;
+    position: absolute;
+    height: 75px;
+    width: 120px;
+    left: 483px;
+    top: 383px;
+    /* z-index: 1; */
+}
+
+.caramel{
+    background-color: #ff9a1e;
+    position: absolute;
+    height: 75px;
+    width: 120px;
+    left: 601px;
+    top: 308px;
+    /* z-index: 1; */
+}
+
+.liqueur{
+    background-color: #f8ffb5;
+    position: absolute;
+    height: 75px;
+    width: 120px;
+    left: 601px;
+    top: 383px;
+    /* z-index: 1; */
+}
+
+.krokant{
+    background-color: #642a04;
+    position: absolute;
+    height: 75px;
+    width: 120px;
+    left: 720px;
+    top: 308px;
+    /* z-index: 1; */
+}
+
+.streusel{
+    background-color: #b58649;
+    position: absolute;
+    height: 75px;
+    width: 120px;
+    left: 720px;
+    top: 383px;
+    /* z-index: 1; */
+}
+
+.coffeePowder{
+    background-color: #ff9a1e;
+    position: absolute;
+    height: 75px;
+    width: 145px;
+    left: 839px;
+    top: 308px;
+    /* z-index: 1; */
+}
+
+.marshmallow{
+    background-color: #f8ffb5;
+    position: absolute;
+    height: 75px;
+    width: 145px;
+    left: 839px;
+    top: 383px;
+    /* z-index: 1; */
+}
+
+.cup{
+    background-color: #47edff;
+    position: absolute;
+    height: 50px;
+    width: 52px;
+    left: 82px;
+    top: 258px;
+    font-size: 9pt;
+    /* z-index: 1; */
+}
+
+.waffle{
+    opacity: 0;
+    position: absolute;
+    height: 70px;
+    width: 50px;
+    left: 158px;
+    top: 238px;
+    font-size: 9pt;
+    /* z-index: 1; */
+}
+
+.waffleFont{
+    position: absolute;
+    font-size: 9pt;
+    top: 244px;
+    left: 167px;
+    color: "black";
+}
+
+.cream{
+    background-color: #4766ff;
+    position: absolute;
+    height: 72px;
+    width: 27px;
+    right: 403px;
+    top: 238px;
+}
+

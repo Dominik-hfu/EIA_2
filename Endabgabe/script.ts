@@ -16,6 +16,7 @@ namespace EisDealer{
     // let background:boolean=true;
     // let serve:boolean=false;
     let button:HTMLButtonElement;
+    let closeButton:HTMLButtonElement;
     
     function handleload(_event: Event): void {
         
@@ -39,10 +40,10 @@ namespace EisDealer{
         
         function drawStore(){
             
-            crc2.beginPath();
-            crc2.fillStyle="hsl(160, 2%, 60%)";
-            crc2.fillRect(0,0,canvas.width,canvas.height);
-            crc2.fill();
+        crc2.beginPath();
+        crc2.fillStyle="hsl(160, 2%, 60%)";
+        crc2.fillRect(0,0,canvas.width,canvas.height);
+        crc2.fill();
         crc2.closePath();
         
         crc2.beginPath();
@@ -107,6 +108,117 @@ namespace EisDealer{
         crc2.stroke();
         crc2.closePath();//Ausgang
         
+
+    }
+    function day(){
+    
+        let dealer=new Eisdealer(new Vector(400,100));//Vector unnötig hier?
+        dealer.draw();
+        console.log("Ich wurde geklickt");
+
+        let cashRegister:HTMLParagraphElement=document.createElement("p")as HTMLParagraphElement;
+        cashRegister.textContent="Kasse";
+        document.body.appendChild(cashRegister);
+        console.log(cashRegister);//Wort Kasse
+        
+        let cash:HTMLParagraphElement=document.createElement("p")as HTMLParagraphElement;
+        cash.classList.add("cash");
+        cash.textContent="100€";
+        document.body.appendChild(cash);
+        button.remove();// Kassenbestand
+        createCloseStoreButton();
+
+
+        //set Timeout für Button Erstellung
+        function createCloseStoreButton(): void {
+            closeButton = document.createElement("button");
+            closeButton.classList.add("closeButton");
+            closeButton.textContent = "Close Store";
+            closeButton.addEventListener("click", () => {
+                closeStore();
+            });
+    
+            document.body.appendChild(closeButton);
+            
+        }
+
+        function closeStore(){//Schönere Variante?Theke weiß
+
+            //imageData=black
+            console.log("Store wurde geschlossen")
+
+            crc2.beginPath();
+            crc2.fillStyle="hsl(160, 2%, 60%)";
+            crc2.fillRect(0,0,canvas.width,canvas.height);
+            crc2.fill();
+            crc2.closePath();
+            
+            crc2.beginPath();
+            crc2.moveTo(25,100);
+            crc2.lineTo(25,700);
+            crc2.lineTo(975,700);
+            crc2.lineTo(975,100);
+            crc2.closePath();
+            crc2.fillStyle="black";
+            crc2.fill();
+            crc2.stroke();// Umriss Gebäude
+            
+            crc2.beginPath();
+            crc2.moveTo(25,450);
+            crc2.lineTo(975,450);
+            crc2.lineTo(975,300);
+            crc2.lineTo(25,300);
+            crc2.closePath();
+            crc2.stroke();//Theke Grundriss
+            
+            crc2.beginPath();
+            crc2.moveTo(25,375);
+            crc2.lineTo(975,375);//Mitte Horizontal
+            
+            crc2.moveTo(475,300);
+            crc2.lineTo(475,450);// Mitte Vertikal (Saucen)
+            
+            crc2.moveTo(237.5,300);
+            crc2.lineTo(237.5,450);//Eissorten
+            
+            crc2.moveTo(593.75,300);//Saucen
+            crc2.lineTo(593.75,450);
+            
+            crc2.moveTo(712.5,300);//Toppings
+            crc2.lineTo(712.5,450);
+            
+            crc2.moveTo(831.25,300);//Toppings
+            crc2.lineTo(831.25,450);
+            crc2.stroke();
+            crc2.closePath();
+            
+            crc2.beginPath();
+            crc2.moveTo(25,200);
+            crc2.lineTo(225,200);
+            crc2.lineTo(225,100);
+            crc2.stroke();
+            crc2.closePath();//Kasse
+            
+            crc2.beginPath();
+            crc2.moveTo(450,700);
+            crc2.lineTo(450,625);
+            crc2.lineTo(500,625);
+            crc2.lineTo(500,700);
+            crc2.stroke();
+            crc2.closePath();//Eingang
+            
+            crc2.beginPath();
+            crc2.moveTo(100,700);
+            crc2.lineTo(100,625);
+            crc2.lineTo(150,625);
+            crc2.lineTo(150,700);
+            crc2.stroke();
+            crc2.closePath();//Ausgang
+
+
+
+        };
+
         crc2.beginPath();
         crc2.moveTo(75,250);
         crc2.lineTo(75,300);
@@ -126,6 +238,8 @@ namespace EisDealer{
         crc2.lineTo(175,300);
         crc2.lineTo(200,230);
         crc2.closePath();
+        crc2.fillStyle="hsl(53, 91%, 81%)"
+        crc2.fill();
         crc2.stroke();//Waffel
         
         crc2.beginPath();
@@ -143,24 +257,6 @@ namespace EisDealer{
         crc2.lineTo(656.625,230);
         crc2.closePath();
         crc2.stroke();//Sahnedeckel
-        
-    }
-    function day(){
-    
-        let dealer=new Eisdealer(new Vector(400,100));//Vector unnötig hier?
-        dealer.draw();
-        console.log("Ich wurde geklickt");
-
-        let cashRegister:HTMLParagraphElement=document.createElement("p")as HTMLParagraphElement;
-        cashRegister.textContent="Kasse";
-        document.body.appendChild(cashRegister);
-        console.log(cashRegister);//Wort Kasse
-        
-        let cash:HTMLParagraphElement=document.createElement("p")as HTMLParagraphElement;
-        cash.classList.add("cash");
-        cash.textContent="100€";
-        document.body.appendChild(cash);
-        button.remove();// Kassenbestand
 
         let amarena:HTMLButtonElement;
         amarena = document.createElement("button")as HTMLButtonElement;
@@ -199,47 +295,114 @@ namespace EisDealer{
         });//Eissorten
 
 
-        let pistazie:HTMLButtonElement;
-        pistazie = document.createElement("button")as HTMLButtonElement;
-        pistazie.classList.add("pistazie")
-        pistazie.textContent = "Pistazie";
-        document.body.appendChild(pistazie);
-        pistazie.addEventListener("click", () => {
-            pistazieIce();
+        let vanilla:HTMLButtonElement;
+        vanilla = document.createElement("button")as HTMLButtonElement;
+        vanilla.classList.add("vanilla")
+        vanilla.textContent = "Vanille Soße";
+        document.body.appendChild(vanilla);
+        vanilla.addEventListener("click", () => {
+            vanillaSauce();
         });
 
-        let pistazie:HTMLButtonElement;
-        pistazie = document.createElement("button")as HTMLButtonElement;
-        pistazie.classList.add("pistazie")
-        pistazie.textContent = "Pistazie";
-        document.body.appendChild(pistazie);
-        pistazie.addEventListener("click", () => {
-            pistazieIce();
+        let chocolate:HTMLButtonElement;
+        chocolate = document.createElement("button")as HTMLButtonElement;
+        chocolate.classList.add("chocolate")
+        chocolate.textContent = "Schokoladen Soße";
+        document.body.appendChild(chocolate);
+        chocolate.addEventListener("click", () => {
+            chocolateSauce();
         });
 
-        let pistazie:HTMLButtonElement;
-        pistazie = document.createElement("button")as HTMLButtonElement;
-        pistazie.classList.add("pistazie")
-        pistazie.textContent = "Pistazie";
-        document.body.appendChild(pistazie);
-        pistazie.addEventListener("click", () => {
-            pistazieIce();
+        let caramel:HTMLButtonElement;
+        caramel = document.createElement("button")as HTMLButtonElement;
+        caramel.classList.add("caramel")
+        caramel.textContent = "Karamel Soße";
+        document.body.appendChild(caramel);
+        caramel.addEventListener("click", () => {
+            caramelSauce();
         });
 
-        let pistazie:HTMLButtonElement;
-        pistazie = document.createElement("button")as HTMLButtonElement;
-        pistazie.classList.add("pistazie")
-        pistazie.textContent = "Pistazie";
-        document.body.appendChild(pistazie);
-        pistazie.addEventListener("click", () => {
-            pistazieIce();
+        let liqueur:HTMLButtonElement;
+        liqueur = document.createElement("button")as HTMLButtonElement;
+        liqueur.classList.add("liqueur")
+        liqueur.textContent = "Likör";
+        document.body.appendChild(liqueur);
+        liqueur.addEventListener("click", () => {
+            liqueurSauce();
+        });//Soßen
+
+        let krokant:HTMLButtonElement;
+        krokant = document.createElement("button")as HTMLButtonElement;
+        krokant.classList.add("krokant")
+        krokant.textContent = "Krokant";
+        document.body.appendChild(krokant);
+        krokant.addEventListener("click", () => {
+            krokantTopping();
         });
+
+        let streusel:HTMLButtonElement;
+        streusel = document.createElement("button")as HTMLButtonElement;
+        streusel.classList.add("streusel")
+        streusel.textContent = "Streusel";
+        document.body.appendChild(streusel);
+        streusel.addEventListener("click", () => {
+            streuselTopping();
+        });
+
+        let coffeePowder:HTMLButtonElement;
+        coffeePowder = document.createElement("button")as HTMLButtonElement;
+        coffeePowder.classList.add("coffeePowder")
+        coffeePowder.textContent = "Kaffeepulver";
+        document.body.appendChild(coffeePowder);
+        coffeePowder.addEventListener("click", () => {
+            coffeeTopping();
+        });
+
+        let marshmallow:HTMLButtonElement;
+        marshmallow = document.createElement("button")as HTMLButtonElement;
+        marshmallow.classList.add("marshmallow")
+        marshmallow.textContent = "Marshmallows";
+        document.body.appendChild(marshmallow);
+        marshmallow.addEventListener("click", () => {
+            marshmallowTopping();
+        });//Toppings
+
+        let cup:HTMLButtonElement;
+        cup = document.createElement("button")as HTMLButtonElement;
+        cup.classList.add("cup")
+        cup.textContent = "Becher";
+        document.body.appendChild(cup);
+        cup.addEventListener("click", () => {
+            iceInCup();
+        }); 
+
+        let waffle:HTMLButtonElement;
+        waffle = document.createElement("button")as HTMLButtonElement;
+        waffle.classList.add("waffle");
+        document.body.appendChild(waffle);
+        waffle.addEventListener("click", () => {
+            iceInWaffle();
+
+        }); 
+        
+        let waffleFont=document.createElement("span") as HTMLSpanElement;
+        waffleFont.classList.add("waffleFont");
+        document.body.appendChild(waffleFont);
+        waffleFont.textContent="Waffel";
         
         
+        let cream:HTMLButtonElement;
+        cream = document.createElement("button")as HTMLButtonElement;
+        cream.classList.add("cream");
+        document.body.appendChild(cream);
+        cream.addEventListener("click", () => {
+            iceWithCream();
+
+        }); 
     };
     
     drawStore();
-    
+    //hier enum oder switch case
     function amarenaIce(){
         console.log("1 Kugel Amarena")
         
@@ -269,8 +432,36 @@ namespace EisDealer{
         console.log("1x Schokoladensoße")
         
     }
-    function liqueur(){
+    function liqueurSauce(){
         console.log("1x Likör")
+        
+    }
+    function krokantTopping(){
+        console.log("1x Krokant")
+        
+    }
+    function streuselTopping(){
+        console.log("1x Streusel")
+        
+    }
+    function coffeeTopping(){
+        console.log("1x Kaffeepulver")
+        
+    }
+    function marshmallowTopping(){
+        console.log("1x Marshmallows")
+        
+    }
+    function iceInCup(){
+        console.log("1x Eis im Becher")
+        
+    }
+    function iceInWaffle(){
+        console.log("1x Eis in der Waffel")
+        
+    }
+    function iceWithCream(){
+        console.log("1x Eis mit Sahne")
         
     }
 }
