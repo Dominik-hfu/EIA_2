@@ -2,7 +2,7 @@ button{
 
     background-color: #8cff00;
     position: absolute;
-    right: 200px;
+    left: 800px;
     top: 200px;
     z-index: 1;
 }
@@ -11,7 +11,7 @@ button{
 
     background-color: #003cff;
     position: absolute;
-    right: 200px;
+    left: 800px;
     top: 200px;
     z-index: 1;
 
@@ -184,15 +184,24 @@ p{
     font-size: 9pt;
     top: 244px;
     left: 167px;
-    color: "black";
 }
 
 .cream{
     background-color: #4766ff;
     position: absolute;
     height: 72px;
-    width: 27px;
-    right: 403px;
+    width: 28px;
+    left: 646px;
     top: 238px;
+    font-size: 9pt;
+}
+
+.creamFont{
+    position: absolute;
+    font-size: 9pt;
+    top: 200px;
+    left: 646px;
+    z-index: 1;
+
 }
 

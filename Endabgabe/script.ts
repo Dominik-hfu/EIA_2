@@ -12,11 +12,13 @@ namespace EisDealer{
     export let crc2: CanvasRenderingContext2D;
     let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.querySelector("canvas");
     
-    // let back: ImageData;
+    let back: ImageData;
     // let background:boolean=true;
     // let serve:boolean=false;
     let button:HTMLButtonElement;
     let closeButton:HTMLButtonElement;
+    let isDay:boolean;
+
     
     function handleload(_event: Event): void {
         
@@ -36,11 +38,12 @@ namespace EisDealer{
         
         //Funktionen aufrufen()
         
-        // back = crc2.getImageData(0, 0, canvas.width, canvas.height);
+        back = crc2.getImageData(0, 0, canvas.width, canvas.height);
         
-        function drawStore(){
+        function drawStore(isDay:boolean){
             
-        crc2.beginPath();
+            
+            crc2.beginPath();
         crc2.fillStyle="hsl(160, 2%, 60%)";
         crc2.fillRect(0,0,canvas.width,canvas.height);
         crc2.fill();
@@ -107,10 +110,36 @@ namespace EisDealer{
         crc2.lineTo(150,700);
         crc2.stroke();
         crc2.closePath();//Ausgang
-        
 
+    //     if(isDay==true){
+    //         crc2.beginPath();
+    //         crc2.moveTo(0,0);
+    //         crc2.fillStyle="white"
+    //         crc2.fillRect(0,0,canvas.width,canvas.height);
+    //         crc2.closePath();
+    // }
+    
+    // else{
+        
+    //     crc2.beginPath();
+    //     crc2.moveTo(0,0);
+    //     crc2.fillStyle="black"
+    //     crc2.fillRect(0,0,canvas.width,canvas.height);
+    //     crc2.closePath();
+
+    // }
+    //macht den ganzen canvas einfarbig, deswegen ist umriss nicht mehr zu sehen :/ und dealer macht feierabend nach timeout
+    
+    
+    
+    
+    
     }
+
     function day(){
+
+        isDay=true;
+        console.log(isDay)
     
         let dealer=new Eisdealer(new Vector(400,100));//Vector unnötig hier?
         dealer.draw();
@@ -146,118 +175,15 @@ namespace EisDealer{
 
             //imageData=black
             console.log("Store wurde geschlossen")
+            isDay=false;
+            console.log(isDay)
 
-            crc2.beginPath();
-            crc2.fillStyle="hsl(160, 2%, 60%)";
-            crc2.fillRect(0,0,canvas.width,canvas.height);
-            crc2.fill();
-            crc2.closePath();
-            
-            crc2.beginPath();
-            crc2.moveTo(25,100);
-            crc2.lineTo(25,700);
-            crc2.lineTo(975,700);
-            crc2.lineTo(975,100);
-            crc2.closePath();
-            crc2.fillStyle="black";
-            crc2.fill();
-            crc2.stroke();// Umriss Gebäude
-            
-            crc2.beginPath();
-            crc2.moveTo(25,450);
-            crc2.lineTo(975,450);
-            crc2.lineTo(975,300);
-            crc2.lineTo(25,300);
-            crc2.closePath();
-            crc2.stroke();//Theke Grundriss
-            
-            crc2.beginPath();
-            crc2.moveTo(25,375);
-            crc2.lineTo(975,375);//Mitte Horizontal
-            
-            crc2.moveTo(475,300);
-            crc2.lineTo(475,450);// Mitte Vertikal (Saucen)
-            
-            crc2.moveTo(237.5,300);
-            crc2.lineTo(237.5,450);//Eissorten
-            
-            crc2.moveTo(593.75,300);//Saucen
-            crc2.lineTo(593.75,450);
-            
-            crc2.moveTo(712.5,300);//Toppings
-            crc2.lineTo(712.5,450);
-            
-            crc2.moveTo(831.25,300);//Toppings
-            crc2.lineTo(831.25,450);
-            crc2.stroke();
-            crc2.closePath();
-            
-            crc2.beginPath();
-            crc2.moveTo(25,200);
-            crc2.lineTo(225,200);
-            crc2.lineTo(225,100);
-            crc2.stroke();
-            crc2.closePath();//Kasse
-            
-            crc2.beginPath();
-            crc2.moveTo(450,700);
-            crc2.lineTo(450,625);
-            crc2.lineTo(500,625);
-            crc2.lineTo(500,700);
-            crc2.stroke();
-            crc2.closePath();//Eingang
-            
-            crc2.beginPath();
-            crc2.moveTo(100,700);
-            crc2.lineTo(100,625);
-            crc2.lineTo(150,625);
-            crc2.lineTo(150,700);
-            crc2.stroke();
-            crc2.closePath();//Ausgang
+            closeButton.remove();
+            document.body.appendChild(button);
 
-
-
-        };
-
-        crc2.beginPath();
-        crc2.moveTo(75,250);
-        crc2.lineTo(75,300);
-        crc2.lineTo(125,300);
-        crc2.lineTo(125,250);
-        crc2.closePath();
-        crc2.stroke();//Eisbecher
+   
+    };
         
-        crc2.beginPath();
-        crc2.moveTo(110,250);
-        crc2.lineTo(130,230);
-        crc2.stroke();
-        crc2.closePath();//Löffel
-        
-        crc2.beginPath();
-        crc2.moveTo(150,230);
-        crc2.lineTo(175,300);
-        crc2.lineTo(200,230);
-        crc2.closePath();
-        crc2.fillStyle="hsl(53, 91%, 81%)"
-        crc2.fill();
-        crc2.stroke();//Waffel
-        
-        crc2.beginPath();
-        crc2.moveTo(638.125,300);
-        crc2.lineTo(638.125,230);
-        crc2.lineTo(665.125,230);
-        crc2.lineTo(665.125,300);
-        crc2.closePath();
-        crc2.stroke();//Sahne
-        
-        crc2.beginPath();
-        crc2.moveTo(646.625,230);//651.625
-        crc2.lineTo(646.625,215);
-        crc2.lineTo(656.625,215);
-        crc2.lineTo(656.625,230);
-        crc2.closePath();
-        crc2.stroke();//Sahnedeckel
-
         let amarena:HTMLButtonElement;
         amarena = document.createElement("button")as HTMLButtonElement;
         amarena.classList.add("amarena")
@@ -266,7 +192,7 @@ namespace EisDealer{
         amarena.addEventListener("click", () => {
             amarenaIce();
         });
-
+        
         let banana:HTMLButtonElement;
         banana = document.createElement("button")as HTMLButtonElement;
         banana.classList.add("banana")
@@ -390,18 +316,35 @@ namespace EisDealer{
         document.body.appendChild(waffleFont);
         waffleFont.textContent="Waffel";
         
-        
         let cream:HTMLButtonElement;
         cream = document.createElement("button")as HTMLButtonElement;
         cream.classList.add("cream");
         document.body.appendChild(cream);
         cream.addEventListener("click", () => {
             iceWithCream();
-
+            
         }); 
+        
+        let creamFont=document.createElement("span") as HTMLSpanElement;
+        creamFont.classList.add("creamFont");
+        document.body.appendChild(creamFont);
+        creamFont.textContent="Sahne";
+        console.log(creamFont)
+            
+        
     };
     
-    drawStore();
+    // window.setInterval(() => {
+    //     crc2.putImageData(back, 0, 0);
+    //     if (isDay) {
+    //       drawStore(true)
+    //     } else {
+    //       drawStore(false)
+    //     }},5000)}
+
+//Intervall einkomentieren für tag nacht funktion
+ 
+    drawStore(true);
     //hier enum oder switch case
     function amarenaIce(){
         console.log("1 Kugel Amarena")
@@ -466,11 +409,7 @@ namespace EisDealer{
     }
 }
 
-// window.setInterval(() => {
-    
-    //     crc2.putImageData(back, 0, 0);
-
-// }, 100);//alle 100ms wird aktualisiert
-
-
 }
+
+
+
