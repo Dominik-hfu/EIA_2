@@ -19,6 +19,11 @@ namespace EisDealer{
             this.x+=_addend.x;
             this.y+=_addend.y;
         }
+
+        scale(_factor:number):void{
+            this.x*=_factor;
+            this.y*=_factor;
+        }
     
     }
 

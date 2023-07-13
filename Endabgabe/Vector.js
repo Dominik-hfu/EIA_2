@@ -15,6 +15,10 @@ var EisDealer;
             this.x += _addend.x;
             this.y += _addend.y;
         }
+        scale(_factor) {
+            this.x *= _factor;
+            this.y *= _factor;
+        }
     }
     EisDealer.Vector = Vector;
 })(EisDealer || (EisDealer = {}));
