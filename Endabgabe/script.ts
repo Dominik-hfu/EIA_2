@@ -17,10 +17,15 @@ namespace EisDealer{
     // let serve:boolean=false;
     let button:HTMLButtonElement;
     let closeButton:HTMLButtonElement;
+    let serveButton:HTMLButtonElement;
     let isDay:boolean=true;
     let started:boolean=false;
-    console.log(started)
-
+    let eater:EatingCustomer;
+    let waiter:WaitingCustomer[]=[];
+    let orderer: OrderingCustomer;
+    let newwaiter:WaitingCustomer;
+    export let selectedItems:string[]=[];  // console.log(started)
+    export let selectedorder:order;
     
     function handleload(_event: Event): void {
         
@@ -36,64 +41,123 @@ namespace EisDealer{
 
 }
 
-interface ice {
-    type:number;
-    container:string;
-    scoops: number;
+
+export interface order {
+    // orderId:number;
+    container:string[];
     variation: string[];
-    sauce: string;
-    topping: string;
-    cream: boolean;
+    sauce: string[];
+    topping: string[];
+    cream: string[];
   };
 
+export let iceCreamFlavors = ["Amarena", "Kaffee", "Banane", "Pistazie"];
+export let Toppings=["Krokant","Streusel","Kaffeepulver","Marshmallow"]
+export let IceCreamSauce=["Vanille","Schoko","Karamell","Likör"]
+export let container=["Waffel","Becher"]
+export let sahne=["ja","nein"]
+export function getRandomListItems(_list:string[]) {
+    // Bestimme zufällig, wie viele Items ausgewählt werden sollen (min 1, max 3)
+    let numberOfItems = Math.floor(Math.random() * 3) + 1;
+
+    let chosenItems = [];
+
+    for (let i = 0; i < numberOfItems; i++) {
+        // Wähle eine zufällige Eissorte aus dem Array aus
+        let randomIndex = Math.floor(Math.random() *3 )+1;
+
+        // Füge die ausgewählte Eissorte zum Array der ausgewählten Eissorten hinzu
+        chosenItems.push(_list[randomIndex]);
+
+    }
+    console.log(chosenItems)
+    return chosenItems;
+}
+
+export function get1RandomListItem(_list:string[]){
+    // Bestimme zufällig, wie viele Items ausgewählt werden sollen (min 1, max 3)
+
+    let chosenItems = [];
+
+    // Wähle eine zufällige Eissorte aus dem Array aus
+    let randomIndex = Math.floor(Math.random() *_list.length )+1;
+
+    // Füge die ausgewählte Eissorte zum Array der ausgewählten Eissorten hinzu
+    chosenItems.push(_list[randomIndex-1]);
+    return chosenItems;
+}
+function checkSelection(selection:string[],checkarray:string[]){
+
+    for (let item of selection) {
+        if (checkarray.includes(item)) {
+            window.alert("Du hast schon ein Topping/ eine Sauce/ einen Behälter oder eine kleks Sahne ausgewählt")
+            return false
+        } 
+            
+        
+    }
+    return true
+}
+export function checkServing(selection:string[],checkarray:string[],variation:boolean){
+    if (variation==false){
+    for (let item of selection) {
+        if (checkarray.includes(item)) {
+            return [item]
+        } 
+    }
+
+    }
+    else{
+        let iceCreamScoops:string[]=[]
+        for (let item of selection) {
+            if (checkarray.includes(item)) {
+                iceCreamScoops.push(item)
+            } 
+    }
+    return iceCreamScoops
+
+    
+}
+return ["Keins"]
+}
+function checkIceCream(selection:string[],checkarray:string[]){
+    let countIceCream=0
+    for (let item of selection) {
+        if (checkarray.includes(item)) {
+           countIceCream+=1
+        } 
+        
+        
+    }
+    if(countIceCream==3){
+        window.alert("Du hast schon drei Kugeln ausgewählt!!")
+        return false
+    }
+    return true
+}
+let chosenIceCreams = getRandomListItems(iceCreamFlavors);
+
+console.log(chosenIceCreams);
+
   // Array muss deklariert aber kann auch leer sein, da Daten in json sind
-  let iceCream: ice[] = [
-    {
-      type:1,
-      container: "waffle",
-      scoops: 3,
-      variation: ["amarena, banana, pistazie"],
-      sauce: "vanille",
-      topping: "coffeepowder",
-      cream: false// Attribute von Elementen
-    },
-    {
-      type:2,
-      container: "cup",
-      scoops: 2,
-      variation: ["coffee, banana"],
-      sauce: "chocolate",
-      topping: "krokant",
-      cream: true
-    },
-
-    {
-        type:3,
-      container: "cup",
-      scoops: 1,
-      variation: ["pistazie"],
-      sauce: "liqueur",
-      topping: "marshamllows",
-      cream: true
-
-    },];
+ 
 
     // for (let i = 0; i < iceCream.length; i++) {
     //     switch (iceCream[i].type) {
     //       case 1:
-    //         console.log("Type 1: Waffle");
+            console.log("Type 1: Waffle");
     //         // Weitere Aktionen für Typ 1 hier einfügen
     //         break;
     //       case 2:
-    //         console.log("Type 2: Cup");
+            console.log("Type 2: Cup");
     //         // Weitere Aktionen für Typ 2 hier einfügen
     //         break;
     //       case 3:
-    //         console.log("Type 3: Cup");
+            console.log("Type 3: Cup");
     //         // Weitere Aktionen für Typ 3 hier einfügen
     //         break;
     //       default:
-    //         console.log("Unbekannter Typ");
+            console.log("Unbekannter Typ");
     //         // Aktionen für unbekannten Typ hier einfügen
     //     }
     //   }
@@ -149,7 +213,7 @@ let creamFont=document.createElement("span") as HTMLSpanElement;
 function night(){
 
     // started=true;
-    console.log("jetzt ist nacht")
+    // console.log("jetzt ist nacht")
     crc2.beginPath();
     crc2.fillStyle="black";
     crc2.fillRect(0,0,canvas.width,canvas.height);
@@ -235,26 +299,123 @@ function night(){
     waffleFont.remove();
     cream.remove();
     creamFont.remove();
-
 }
-
+  
+  function createCloseStoreButton(): void {
+      closeButton = document.createElement("button");
+      closeButton.classList.add("closeButton");
+      closeButton.textContent = "Close Store";
+      closeButton.addEventListener("click", () => {
+          closeStore();
+      });
+  
+      document.body.appendChild(closeButton);
+      
+  }
 //set Timeout für Button Erstellung
-function createCloseStoreButton(): void {
-    closeButton = document.createElement("button");
-    closeButton.classList.add("closeButton");
-    closeButton.textContent = "Close Store";
-    closeButton.addEventListener("click", () => {
-        closeStore();
-    });
 
-    document.body.appendChild(closeButton);
+
+function createServeButton():void{
+
+    serveButton = document.createElement("button");
+    serveButton.classList.add("serveButton");
+    serveButton.textContent = "Serve";
+    document.body.appendChild(serveButton)
+    serveButton.addEventListener("click", () => {
+        serveIce();
+
     
+})}
+
+function serveIce(){
+    newwaiter=new WaitingCustomer(new Vector(1000,750),new Vector(0.1,0))
+    let count =0;
+    let limit=60;
+    let intervalID=setInterval(function(){
+        count++;
+    
+        crc2.putImageData(back, 0, 0);
+        
+        dealer.draw();
+
+        crc2.beginPath();
+        crc2.moveTo(110,250);
+        crc2.lineTo(130,230);
+        crc2.stroke();
+        crc2.closePath();//Löffel
+        
+        crc2.beginPath();
+        crc2.moveTo(150,230);
+        crc2.lineTo(175,300);
+        crc2.lineTo(200,230);
+        crc2.closePath();
+        crc2.fillStyle="hsl(53, 91%, 81%)"
+        crc2.fill();
+        crc2.stroke();//Waffel
+        
+
+        crc2.beginPath();
+        crc2.moveTo(646.625,230);//651.625
+        crc2.lineTo(646.625,215);
+        crc2.lineTo(656.625,215);
+        crc2.lineTo(656.625,230);
+        crc2.closePath();
+        crc2.fillStyle="white";
+        crc2.fill();
+        crc2.stroke();//Sahnedeckel
+        orderer.move(-57);
+        waiter[0].move(-12);
+        waiter[1].move(-27);
+        waiter[2].move(-24);
+        newwaiter.move(-65);
+
+        
+        orderer.drawSelf();
+        waiter[0].drawSelf();
+        waiter[1].drawSelf();
+        waiter[2].drawSelf();
+        newwaiter.drawSelf();
+       if(eater !== undefined)
+        {
+            eater.speed=new Vector(0,0.1)
+            eater.move(60)
+        } 
+        if(eater !== undefined)
+        {
+            eater.drawSelf();
+        }
+        
+        // console.log(orderingCustomer.position)
+        if(count>=limit){
+            
+            if(eater!==undefined){
+
+                crc2.clearRect(eater.position.x,eater.position.y,30,30)
+
+
+            }
+            eater=new EatingCustomer(orderer.position,orderer.speed)  
+            // console.log(orderer)
+            orderer=new OrderingCustomer(waiter[0].position,new Vector(0.1,0))
+            orderer.order()
+            eater.eat();
+            // console.log(orderer)
+            waiter.splice(0,1)
+            waiter[2]=newwaiter;
+            waiter[0].speed=new Vector(0,0.1)
+            waiter[1].speed=new Vector(0,0.1)
+            waiter[2].speed=new Vector(0.1,0)
+            clearInterval(intervalID)
+        }
+    },50)
+
+
 }
 
 
 function drawStore(){
             
-    console.log("jetzt ist tag")
+    // console.log("jetzt ist tag")
 
     crc2.beginPath();
     crc2.fillStyle="hsl(160, 2%, 60%)";
@@ -329,13 +490,15 @@ function drawStore(){
 function closeStore(){//Schönere Variante?Theke weiß
 
     //imageData=black
-    console.log("Store wurde geschlossen")
+    // console.log("Store wurde geschlossen")
     isDay=false;
-    console.log(isDay)
-    console.log(started)
-
+    // console.log(isDay)
+    // console.log(started)
+    serveButton.remove();
     closeButton.remove();
     document.body.appendChild(button);
+
+
 
     cashEnd=document.createElement("p")as HTMLParagraphElement;
     cashEnd.classList.add("cash");
@@ -344,33 +507,33 @@ function closeStore(){//Schönere Variante?Theke weiß
     document.body.appendChild(cashEnd);
 
 
-    cashEnd.textContent = ""; 
     cash.textContent = ""; 
     updateCash("0€");
-    console.log(cash.textContent)
-    // night();
+    // console.log(cash.textContent)
+    night();
 
 
 };
 export function updateCash(amount: string) {
 cash.textContent = amount;
+cashEnd.textContent=amount;
 }
 
 //Ab 5mal zahlen werden überschrieben
 
-
+let dealer:Eisdealer//Vector unnötig hier?
 function day(){
 
     drawStore();
 
     started=true;
     isDay=true;
-    console.log(isDay)
-    console.log(started)
+    // console.log(isDay)
+    // console.log(started)
     
-    let dealer=new Eisdealer(new Vector(400,100));//Vector unnötig hier?
+    dealer=new Eisdealer(new Vector(400,100));
     dealer.draw();
-    console.log("Ich wurde geklickt");
+    // console.log("Ich wurde geklickt");
 
     // let waitingCustomer= new WaitingCustomer(new Vector(800,600),new Vector(0.05,0.05));
     // waitingCustomer.drawSelf();
@@ -378,20 +541,33 @@ function day(){
     // console.log("HALLOICHWILLEIS")
     // console.log(waitingCustomer.position)
 
-    let orderingCustomer= new OrderingCustomer(new Vector(800,600), new Vector(0.01,0.01));
+    let orderingCustomer= new OrderingCustomer(new Vector(475,520), new Vector(0.1,0));
     orderingCustomer.drawSelf();
     orderingCustomer.order();
+    orderer=orderingCustomer
         
-        for(let i=0;i<2;i++){
-        let eatingCustomer= new EatingCustomer(new Vector(800,600), new Vector(0.01,0.01));
-        if(i<2){
-        eatingCustomer.drawSelf();
-        eatingCustomer.eat();
-        }}
-        let waitingCustomer= new WaitingCustomer(new Vector(200,400),new Vector(0.5,0.5));
-        waitingCustomer.move(0.5);
+        // for(let i=0;i<2;i++){
+        // let eatingCustomer= new EatingCustomer(new Vector(126,520), new Vector(0.01,0.01));
+        // if(i<2){
+        // eatingCustomer.drawSelf();
+        // eatingCustomer.eat();
+        // }}
+
+        let waitingCustomer= new WaitingCustomer(new Vector(475,590),new Vector(0,0.1));
         waitingCustomer.drawSelf();
-        console.log(waitingCustomer.position)
+        // console.log(waitingCustomer.position)
+        waiter.push(waitingCustomer)
+
+        let waitingCustomer1= new WaitingCustomer(new Vector(475,750),new Vector(0,0.1));
+        waitingCustomer1.drawSelf();
+        // console.log(waitingCustomer1.position)
+        waiter.push(waitingCustomer1)
+
+        let waitingCustomer2= new WaitingCustomer(new Vector(620,750),new Vector(0.1,0));
+        waitingCustomer2.drawSelf();
+        // console.log(waitingCustomer2.position)
+        waiter.push(waitingCustomer2)
+
 
 
 
@@ -402,7 +578,7 @@ function day(){
     cashRegister.textContent="Kasse";
     cashEnd?.remove();
     document.body.appendChild(cashRegister);
-    console.log(cashRegister);//Wort Kasse
+    // console.log(cashRegister);//Wort Kasse
     
     cash=document.createElement("p")as HTMLParagraphElement;
     cash.textContent="";
@@ -412,7 +588,17 @@ function day(){
     // cash.textContent="100€";
     document.body.appendChild(cash);
     button.remove();// Kassenbestand
-    createCloseStoreButton();
+
+    setTimeout(() => {
+        // Hier können Sie den Code platzieren, der nach der Verzögerung von 1 Minute ausgeführt werden soll
+        createCloseStoreButton();
+        console.log("1 Minute ist vergangen!");
+      }, 60000);
+      
+
+
+
+    createServeButton();
 
     crc2.beginPath();
     crc2.moveTo(75,250);
@@ -582,148 +768,187 @@ function day(){
     creamFont.classList.add("creamFont");
     document.body.appendChild(creamFont);
     creamFont.textContent="Sahne";
-    console.log(creamFont)
+    // console.log(creamFont)
  
     
 };
-console.log(started)
+// console.log(started)
 
 
-if (!started==true){
-window.setInterval(() => {
-    crc2.putImageData(back, 0, 0);
-    console.log("aktualisiert")
-    console.log(started)
-    if (isDay==true) {
-    //   drawStore()
-      day()
+// if (!started==true){
+// window.setInterval(() => {
+//     crc2.putImageData(back, 0, 0);
+    // console.log("aktualisiert")
+    // console.log(started)
+//     if (isDay==true) {
+//     //   drawStore()
+//       day()
 
       
-    } else{
-        night()
-        closeStore();
-    }
+//     } else{
+//         night()
+//         closeStore();
+//     }
 
-let waitingCustomer= new WaitingCustomer(new Vector(200,400),new Vector(0.5,0.5));
-waitingCustomer.move(0.5);
-    waitingCustomer.drawSelf();
-    console.log(waitingCustomer.position)
+// let waitingCustomer= new WaitingCustomer(new Vector(200,400),new Vector(0.5,0.5));
+// waitingCustomer.move(0.5);
+//     waitingCustomer.drawSelf();
+    // console.log(waitingCustomer.position)
+//     // customers.push(waitingCustomer)
 
-let orderingCustomer= new OrderingCustomer(new Vector(200,400),new Vector(0.5,0.5));
-orderingCustomer.move(0.5);
-    orderingCustomer.drawSelf();
-    console.log(orderingCustomer.position)
+// let orderingCustomer= new OrderingCustomer(new Vector(200,400),new Vector(0.5,0.5));
+// orderingCustomer.move(0.5);
+//     orderingCustomer.drawSelf();
+    // console.log(orderingCustomer.position)
+//     customers[0]=orderingCustomer
 
-let eatingCustomer= new EatingCustomer(new Vector(200,400),new Vector(0.5,0.5));
-eatingCustomer.move(0.5);
-    eatingCustomer.drawSelf();
-    console.log(eatingCustomer.position)
+
+// let eatingCustomer= new EatingCustomer(new Vector(200,400),new Vector(0.5,0.5));
+// eatingCustomer.move(0.5);
+//     eatingCustomer.drawSelf();
+    // console.log(eatingCustomer.position)
+//     // customers.push(eatingCustomer)
+
     
-    },1000)}
+    // },1000)}
  
-    // drawStore();
+    drawStore();
     //hier enum oder switch case
     function amarenaIce(){
-        console.log("1 Kugel Amarena")
+        let value:boolean=checkIceCream(selectedItems,iceCreamFlavors)
+        if(value==true){
+          selectedItems.push("Amarena")  
+        }
+        
+        // console.log("1 Kugel Amarena")
+        console.log(selectedItems)
         
     }
     function bananaIce(){
-        console.log("1 Kugel Banane")
-        
+        let value:boolean=checkIceCream(selectedItems,iceCreamFlavors)
+        if(value==true){
+        selectedItems.push("Banane")
+        // console.log("1 Kugel Banane")
+        console.log(selectedItems)
+        }
     }
     function pistazieIce(){
-        console.log("1 Kugel Pistazie")
+        let value:boolean=checkIceCream(selectedItems,iceCreamFlavors)
+        if(value==true){
+        selectedItems.push("Pistazie")
+        // console.log("1 Kugel Pistazie")
+        console.log(selectedItems)
+        }
         
     }
     function coffeeIce(){
-        console.log("1 Kugel Kaffee")
-        
+        let value:boolean=checkIceCream(selectedItems,iceCreamFlavors)
+        if(value==true){
+        selectedItems.push("Kaffee")
+        // console.log("1 Kugel Kaffee")
+        console.log(selectedItems)
+        }
     }
 
     function vanillaSauce(){
-        console.log("1x Vanillesoße")
+        let value:boolean=checkSelection(selectedItems,IceCreamSauce)
+        if (value==true){
+
+            selectedItems.push("Vanille")
+        }
+        
+        // console.log("1x Vanillesoße")
+        console.log(selectedItems)
         
     }
     function caramelSauce(){
-        console.log("1x Karamellsoße")
+        let value:boolean=checkSelection(selectedItems,IceCreamSauce)
+        if (value==true){
+        selectedItems.push("Karamell")
+        // console.log("1x Karamellsoße")
+        }
         
     }
     function chocolateSauce(){
-        console.log("1x Schokoladensoße")
+        let value:boolean=checkSelection(selectedItems,IceCreamSauce)
+        if (value==true){
+        selectedItems.push("Schoko")
+        // console.log("1x Schokoladensoße")
+        console.log(selectedItems)
+        }
         
     }
     function liqueurSauce(){
-        console.log("1x Likör")
-        
+        let value:boolean=checkSelection(selectedItems,IceCreamSauce)
+        if (value==true){
+        selectedItems.push("Likör")
+        // console.log("1x Likör")
+        console.log(selectedItems)
+        }       
     }
     function krokantTopping(){
-        console.log("1x Krokant")
+        let value:boolean=checkSelection(selectedItems,Toppings)
+        if (value==true){
+        selectedItems.push("Krokant")
+        // console.log("1x Krokant")
+        console.log(selectedItems)
+    }
         
     }
     function streuselTopping(){
-        console.log("1x Streusel")
+        let value:boolean=checkSelection(selectedItems,Toppings)
+        if (value==true){
+        selectedItems.push("Streusel")
+        // console.log("1x Streusel")
+        console.log(selectedItems)
+        }
         
     }
     function coffeeTopping(){
-        console.log("1x Kaffeepulver")
-        
+        let value:boolean=checkSelection(selectedItems,Toppings)
+        if (value==true){
+        selectedItems.push("Kaffeepulver")
+        // console.log("1x Kaffeepulver")
+        console.log(selectedItems)
+        }
     }
     function marshmallowTopping(){
-        console.log("1x Marshmallows")
-        
+        let value:boolean=checkSelection(selectedItems,Toppings)
+        if (value==true){
+            selectedItems.push("Marshamllows")
+        // console.log("1x Marshmallows")
+        console.log(selectedItems)
+        }
     }
     function iceInCup(){
-        console.log("1x Eis im Becher")
-        
+        let value:boolean=checkSelection(selectedItems,container)
+        if (value==true){
+            selectedItems.push("Becher")
+        // console.log("1x Eis im Becher")
+        console.log(selectedItems)
+    }
     }
     function iceInWaffle(){
-        console.log("1x Eis in der Waffel")
-        
+        let value:boolean=checkSelection(selectedItems,container)
+        if (value==true){selectedItems.push("Waffel")
+        // console.log("1x Eis in der Waffel")
+        console.log(selectedItems)
+    }
+
     }
     function iceWithCream(){
-        console.log("1x Eis mit Sahne")
+        let value:boolean=checkSelection(selectedItems,sahne)
+        if(value==true){
+
+            selectedItems.push("ja")
+        }
+        // console.log("1x Eis mit Sahne")
+        console.log(selectedItems)
         
     }
 
-    //Funktion für essprozess
 
-    // function drawChart(canvas, progress) {
-    //     const ctx = canvas.getContext("2d");
-    //     const chartWidth = canvas.width - 20;
-    //     const chartHeight = canvas.height - 20;
-    //     const barWidth = chartWidth * progress;
-    //     const barHeight = chartHeight * 0.6;
-    //     const barX = (chartWidth - barWidth) / 2;
-    //     const barY = (chartHeight - barHeight) / 2;
-  
-    //     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    //     ctx.fillStyle = "#0066cc";
-    //     ctx.fillRect(barX, barY, barWidth, barHeight);
-    //   }
-  
-    //   // Animationsfunktion
-    //   function animateChart(canvas, duration) {
-    //     const startTime = Date.now();
-  
-    //     function update() {
-    //       const elapsedTime = Date.now() - startTime;
-    //       const progress = Math.min(elapsedTime / duration, 1); // Berechnung des Fortschritts zwischen 0 und 1
-  
-    //       drawChart(canvas, progress);
-  
-    //       if (progress < 1) {
-    //         requestAnimationFrame(update);
-    //       }
-    //     }
-  
-    //     update();
-    //   }
-  
-    //   // Canvas und Animation starten
-    //   const canvas = document.getElementById("chartCanvas");
-    //   animateChart(canvas, 10000); 
 }
-
 
 
 
