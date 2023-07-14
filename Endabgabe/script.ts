@@ -18,14 +18,14 @@ namespace EisDealer{
     let button:HTMLButtonElement;
     let closeButton:HTMLButtonElement;
     let serveButton:HTMLButtonElement;
-    let isDay:boolean=true;
-    let started:boolean=false;
+    // let isDay:boolean=true;
+    // let started:boolean=false;
     let eater:EatingCustomer;
     let waiter:WaitingCustomer[]=[];
     let orderer: OrderingCustomer;
     let newwaiter:WaitingCustomer;
     export let selectedItems:string[]=[];  // console.log(started)
-    export let selectedorder:order;
+    
     
     function handleload(_event: Event): void {
         
@@ -44,11 +44,11 @@ namespace EisDealer{
 
 export interface order {
     // orderId:number;
-    container:string[];
+    container:string;
     variation: string[];
-    sauce: string[];
-    topping: string[];
-    cream: string[];
+    sauce: string;
+    topping: string;
+    cream: string;
   };
 
 export let iceCreamFlavors = ["Amarena", "Kaffee", "Banane", "Pistazie"];
@@ -98,28 +98,44 @@ function checkSelection(selection:string[],checkarray:string[]){
     }
     return true
 }
-export function checkServing(selection:string[],checkarray:string[],variation:boolean){
-    if (variation==false){
-    for (let item of selection) {
-        if (checkarray.includes(item)) {
-            return [item]
-        } 
-    }
 
-    }
-    else{
-        let iceCreamScoops:string[]=[]
-        for (let item of selection) {
-            if (checkarray.includes(item)) {
-                iceCreamScoops.push(item)
-            } 
-    }
-    return iceCreamScoops
-
+export function checkServing(selection:string[]){
     
-}
-return ["Keins"]
-}
+    let selectedorder = {
+        container: "",
+        topping: "",
+        sauce: "",
+        cream: "",
+        variation: [] as string[],
+      };
+    for (let i=0;i< selection.length;i++)
+    {
+        if (container.includes(selection[i])) {
+            selectedorder.container=selection[i]
+        }
+        else if(Toppings.includes(selection[i]))
+        {
+            selectedorder.topping=selection[i]
+        }
+        else if(IceCreamSauce.includes(selection[i]))
+        {
+            selectedorder.sauce=selection[i]
+        }
+        else if(sahne.includes(selection[i]))
+        {
+            selectedorder.cream=selection[i]
+        }
+        else
+        {
+            selectedorder.variation.push(selection[i])
+        } 
+    
+    }
+    return selectedorder
+
+    }
+    
+
 function checkIceCream(selection:string[],checkarray:string[]){
     let countIceCream=0
     for (let item of selection) {
@@ -491,7 +507,7 @@ function closeStore(){//Schönere Variante?Theke weiß
 
     //imageData=black
     // console.log("Store wurde geschlossen")
-    isDay=false;
+    // isDay=false;
     // console.log(isDay)
     // console.log(started)
     serveButton.remove();
@@ -521,37 +537,25 @@ cashEnd.textContent=amount;
 
 //Ab 5mal zahlen werden überschrieben
 
-let dealer:Eisdealer//Vector unnötig hier?
+let dealer:Eisdealer
 function day(){
 
     drawStore();
 
-    started=true;
-    isDay=true;
+    // started=true;
+    // isDay=true;
     // console.log(isDay)
     // console.log(started)
     
-    dealer=new Eisdealer(new Vector(400,100));
+    dealer=new Eisdealer(new Vector(475,220));
     dealer.draw();
-    // console.log("Ich wurde geklickt");
-
-    // let waitingCustomer= new WaitingCustomer(new Vector(800,600),new Vector(0.05,0.05));
-    // waitingCustomer.drawSelf();
-    // waitingCustomer.move(0.05);
-    // console.log("HALLOICHWILLEIS")
-    // console.log(waitingCustomer.position)
+  
 
     let orderingCustomer= new OrderingCustomer(new Vector(475,520), new Vector(0.1,0));
     orderingCustomer.drawSelf();
     orderingCustomer.order();
     orderer=orderingCustomer
         
-        // for(let i=0;i<2;i++){
-        // let eatingCustomer= new EatingCustomer(new Vector(126,520), new Vector(0.01,0.01));
-        // if(i<2){
-        // eatingCustomer.drawSelf();
-        // eatingCustomer.eat();
-        // }}
 
         let waitingCustomer= new WaitingCustomer(new Vector(475,590),new Vector(0,0.1));
         waitingCustomer.drawSelf();
@@ -569,11 +573,6 @@ function day(){
         waiter.push(waitingCustomer2)
 
 
-
-
-
-
-    
     let cashRegister:HTMLParagraphElement=document.createElement("p")as HTMLParagraphElement;
     cashRegister.textContent="Kasse";
     cashEnd?.remove();

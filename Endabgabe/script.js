@@ -16,8 +16,8 @@ var EisDealer;
     let button;
     let closeButton;
     let serveButton;
-    let isDay = true;
-    let started = false;
+    // let isDay:boolean=true;
+    // let started:boolean=false;
     let eater;
     let waiter = [];
     let orderer;
@@ -68,24 +68,32 @@ var EisDealer;
         }
         return true;
     }
-    function checkServing(selection, checkarray, variation) {
-        if (variation == false) {
-            for (let item of selection) {
-                if (checkarray.includes(item)) {
-                    return [item];
-                }
+    function checkServing(selection) {
+        let selectedorder = {
+            container: "",
+            topping: "",
+            sauce: "",
+            cream: "",
+            variation: [],
+        };
+        for (let i = 0; i < selection.length; i++) {
+            if (EisDealer.container.includes(selection[i])) {
+                selectedorder.container = selection[i];
+            }
+            else if (EisDealer.Toppings.includes(selection[i])) {
+                selectedorder.topping = selection[i];
+            }
+            else if (EisDealer.IceCreamSauce.includes(selection[i])) {
+                selectedorder.sauce = selection[i];
+            }
+            else if (EisDealer.sahne.includes(selection[i])) {
+                selectedorder.cream = selection[i];
+            }
+            else {
+                selectedorder.variation.push(selection[i]);
             }
         }
-        else {
-            let iceCreamScoops = [];
-            for (let item of selection) {
-                if (checkarray.includes(item)) {
-                    iceCreamScoops.push(item);
-                }
-            }
-            return iceCreamScoops;
-        }
-        return ["Keins"];
+        return selectedorder;
     }
     EisDealer.checkServing = checkServing;
     function checkIceCream(selection, checkarray) {
@@ -385,7 +393,7 @@ var EisDealer;
     function closeStore() {
         //imageData=black
         // console.log("Store wurde geschlossen")
-        isDay = false;
+        // isDay=false;
         // console.log(isDay)
         // console.log(started)
         serveButton.remove();
@@ -408,31 +416,19 @@ var EisDealer;
     }
     EisDealer.updateCash = updateCash;
     //Ab 5mal zahlen werden überschrieben
-    let dealer; //Vector unnötig hier?
+    let dealer;
     function day() {
         drawStore();
-        started = true;
-        isDay = true;
+        // started=true;
+        // isDay=true;
         // console.log(isDay)
         // console.log(started)
-        dealer = new EisDealer.Eisdealer(new EisDealer.Vector(400, 100));
+        dealer = new EisDealer.Eisdealer(new EisDealer.Vector(475, 220));
         dealer.draw();
-        // console.log("Ich wurde geklickt");
-        // let waitingCustomer= new WaitingCustomer(new Vector(800,600),new Vector(0.05,0.05));
-        // waitingCustomer.drawSelf();
-        // waitingCustomer.move(0.05);
-        // console.log("HALLOICHWILLEIS")
-        // console.log(waitingCustomer.position)
         let orderingCustomer = new EisDealer.OrderingCustomer(new EisDealer.Vector(475, 520), new EisDealer.Vector(0.1, 0));
         orderingCustomer.drawSelf();
         orderingCustomer.order();
         orderer = orderingCustomer;
-        // for(let i=0;i<2;i++){
-        // let eatingCustomer= new EatingCustomer(new Vector(126,520), new Vector(0.01,0.01));
-        // if(i<2){
-        // eatingCustomer.drawSelf();
-        // eatingCustomer.eat();
-        // }}
         let waitingCustomer = new EisDealer.WaitingCustomer(new EisDealer.Vector(475, 590), new EisDealer.Vector(0, 0.1));
         waitingCustomer.drawSelf();
         // console.log(waitingCustomer.position)
