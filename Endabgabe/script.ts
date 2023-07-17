@@ -24,6 +24,7 @@ namespace EisDealer{
     let waiter:WaitingCustomer[]=[];
     let orderer: OrderingCustomer;
     let newwaiter:WaitingCustomer;
+    let finalorder:string[];
     export let selectedItems:string[]=[];  // console.log(started)
     
     
@@ -32,6 +33,7 @@ namespace EisDealer{
         crc2 = <CanvasRenderingContext2D>canvas.getContext("2d");
         drawStore();
 
+        checkStart();
 
         createStartButton();
         
@@ -40,6 +42,58 @@ namespace EisDealer{
    
 
 }
+let previousorder:string[]
+let prevSelection:string[]
+ function check_order(order:string[],selection:string[]){
+    if(eater==undefined){
+        previousorder=order
+        prevSelection=selection
+    }
+    else{
+    let success:Boolean;
+    if(previousorder.length==prevSelection.length){
+        for(let item of prevSelection){
+
+            if(previousorder.includes(item)){
+                success=true
+            }
+            else{
+                success=false
+                previousorder=order
+                prevSelection=selection
+                return success
+            }
+        }
+        previousorder=order
+        prevSelection=selection
+        return true
+    }
+    previousorder=order
+    prevSelection=selection
+    return false
+ }
+ return false 
+}
+
+async function checkStart() {
+    let collectionExists = await findCollection('items')
+
+    if (collectionExists == true) {
+      console.log("Alles schon erstellt")
+
+    }
+    else {
+      let create = await createData(createURL, payload)
+      console.log(create)
+      for (let i = 0; i < 13; i++) {
+
+        let item = items[i]
+        let insert = await insertItems('items', item)
+        console.log(insert)
+      }
+    }
+
+  }
 
 
 export interface order {
@@ -53,7 +107,7 @@ export interface order {
 
 export let iceCreamFlavors = ["Amarena", "Kaffee", "Banane", "Pistazie"];
 export let Toppings=["Krokant","Streusel","Kaffeepulver","Marshmallow"]
-export let IceCreamSauce=["Vanille","Schoko","Karamell","Likör"]
+export let IceCreamSauce=["Vanillesauce","Schokosauce","Karamellsauce","Likör"]
 export let container=["Waffel","Becher"]
 export let sahne=["ja","nein"]
 export function getRandomListItems(_list:string[]) {
@@ -342,11 +396,72 @@ function createServeButton():void{
 
     
 })}
+let bill:number;
+let price: number | undefined
+let previousSelection: string[] = []; // Variable für die vorherige Auswahl
+async function serveIce(){
 
-function serveIce(){
-    newwaiter=new WaitingCustomer(new Vector(1000,750),new Vector(0.1,0))
+    let hasIcecream:boolean=false;
+    let hasContainer:boolean=false;
+    console.log((selectedItems));
+    if (eater == undefined){
+        
+            bill=0;
+    }    
+    else{
+        bill=0
+        for(let item of previousSelection){
+            if(item!=="Waffel" && item!=="Becher"){
+            if(item == "ja"){
+                let itemprice:Promise<number | undefined>=findPreis("items","Sahne")
+                price = await itemprice;
+            }
+            else{
+                let itemprice:Promise<number | undefined>=findPreis("items",item)
+                price = await itemprice;
+            }
+                
+            if(price !== undefined){
+                    bill=bill+price
+                }
+            }
+            
+            
+        }
+    }
+    previousSelection=selectedItems.slice()
+    for(let item of selectedItems){
+
+
+        if(iceCreamFlavors.includes(item)){
+
+            hasIcecream=true;
+        }
+
+        if(container.includes(item)){
+
+            hasContainer=true;
+        }
+
+        
+        
+    }
+    if(hasIcecream==false||hasContainer==false){
+        window.alert("Du musst mindestens einen Behälter und eine Kugel auswählen")
+
+        return false
+        
+    }
+
+    
+    newwaiter=new WaitingCustomer(new Vector(1000,750),new Vector(0.1,0),1)
     let count =0;
     let limit=60;
+    let richtigeBestellung=check_order(finalorder,selectedItems)
+    if(eater==undefined){
+
+    }
+    
     let intervalID=setInterval(function(){
         count++;
     
@@ -389,16 +504,25 @@ function serveIce(){
         orderer.drawSelf();
         waiter[0].drawSelf();
         waiter[1].drawSelf();
-        waiter[2].drawSelf();
-        newwaiter.drawSelf();
+        waiter[2].drawSelfSad();
+        newwaiter.drawSelfSad();
        if(eater !== undefined)
         {
             eater.speed=new Vector(0,0.1)
             eater.move(60)
         } 
         if(eater !== undefined)
-        {
-            eater.drawSelf();
+        {   
+            if(richtigeBestellung==true){
+                eater.drawSelf();
+            }
+            else{
+                eater.drawSelfSad();
+            }
+            
+        }
+        if(count ==limit-5){
+            updateCash(bill)
         }
         
         // console.log(orderingCustomer.position)
@@ -410,12 +534,13 @@ function serveIce(){
 
 
             }
-            eater=new EatingCustomer(orderer.position,orderer.speed)  
+            eater=new EatingCustomer(orderer.position,orderer.speed,0)  
             // console.log(orderer)
-            orderer=new OrderingCustomer(waiter[0].position,new Vector(0.1,0))
-            orderer.order()
+            orderer=new OrderingCustomer(waiter[0].position,new Vector(0.1,0),0)
+            
+            finalorder=orderer.order()
             eater.eat();
-            // console.log(orderer)
+            // console.log(orderer)     
             waiter.splice(0,1)
             waiter[2]=newwaiter;
             waiter[0].speed=new Vector(0,0.1)
@@ -424,6 +549,9 @@ function serveIce(){
             clearInterval(intervalID)
         }
     },50)
+
+    return true
+
 
 
 }
@@ -519,20 +647,24 @@ function closeStore(){//Schönere Variante?Theke weiß
     cashEnd=document.createElement("p")as HTMLParagraphElement;
     cashEnd.classList.add("cash");
     cash?.remove();
-    // cash.textContent="100€";
+    cash.textContent="100€";
     document.body.appendChild(cashEnd);
 
 
     cash.textContent = ""; 
-    updateCash("0€");
+    updateCash(0);
     // console.log(cash.textContent)
     night();
 
+    
 
 };
-export function updateCash(amount: string) {
-cash.textContent = amount;
-cashEnd.textContent=amount;
+let startamount:number=100
+export function updateCash(amount: number) {
+
+startamount=startamount+amount
+cash.textContent = startamount.toString()+"€";
+cashEnd.textContent="0€";
 }
 
 //Ab 5mal zahlen werden überschrieben
@@ -551,24 +683,24 @@ function day(){
     dealer.draw();
   
 
-    let orderingCustomer= new OrderingCustomer(new Vector(475,520), new Vector(0.1,0));
+    let orderingCustomer= new OrderingCustomer(new Vector(475,520), new Vector(0.1,0),0);
     orderingCustomer.drawSelf();
-    orderingCustomer.order();
+    finalorder=orderingCustomer.order();
     orderer=orderingCustomer
         
 
-        let waitingCustomer= new WaitingCustomer(new Vector(475,590),new Vector(0,0.1));
+        let waitingCustomer= new WaitingCustomer(new Vector(475,590),new Vector(0,0.1),0);
         waitingCustomer.drawSelf();
         // console.log(waitingCustomer.position)
         waiter.push(waitingCustomer)
 
-        let waitingCustomer1= new WaitingCustomer(new Vector(475,750),new Vector(0,0.1));
-        waitingCustomer1.drawSelf();
+        let waitingCustomer1= new WaitingCustomer(new Vector(475,750),new Vector(0,0.1),1);
+        waitingCustomer1.drawSelfSad();
         // console.log(waitingCustomer1.position)
         waiter.push(waitingCustomer1)
 
-        let waitingCustomer2= new WaitingCustomer(new Vector(620,750),new Vector(0.1,0));
-        waitingCustomer2.drawSelf();
+        let waitingCustomer2= new WaitingCustomer(new Vector(620,750),new Vector(0.1,0),1);
+        waitingCustomer2.drawSelfSad();
         // console.log(waitingCustomer2.position)
         waiter.push(waitingCustomer2)
 
@@ -578,10 +710,12 @@ function day(){
     cashEnd?.remove();
     document.body.appendChild(cashRegister);
     // console.log(cashRegister);//Wort Kasse
+
+    let amount:number=100
     
     cash=document.createElement("p")as HTMLParagraphElement;
     cash.textContent="";
-    cash.textContent="100€";
+    cash.textContent=amount+"€";
     cash.classList.add("cash");
     // updateCash("100€");
     // cash.textContent="100€";
@@ -853,7 +987,7 @@ function day(){
         let value:boolean=checkSelection(selectedItems,IceCreamSauce)
         if (value==true){
 
-            selectedItems.push("Vanille")
+            selectedItems.push("Vanillesauce")
         }
         
         // console.log("1x Vanillesoße")
@@ -863,7 +997,7 @@ function day(){
     function caramelSauce(){
         let value:boolean=checkSelection(selectedItems,IceCreamSauce)
         if (value==true){
-        selectedItems.push("Karamell")
+        selectedItems.push("Karamellsauce")
         // console.log("1x Karamellsoße")
         }
         
@@ -871,7 +1005,7 @@ function day(){
     function chocolateSauce(){
         let value:boolean=checkSelection(selectedItems,IceCreamSauce)
         if (value==true){
-        selectedItems.push("Schoko")
+        selectedItems.push("Schokosauce")
         // console.log("1x Schokoladensoße")
         console.log(selectedItems)
         }
@@ -914,7 +1048,7 @@ function day(){
     function marshmallowTopping(){
         let value:boolean=checkSelection(selectedItems,Toppings)
         if (value==true){
-            selectedItems.push("Marshamllows")
+            selectedItems.push("Marshmallow")
         // console.log("1x Marshmallows")
         console.log(selectedItems)
         }

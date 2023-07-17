@@ -11,10 +11,11 @@ namespace EisDealer {
         public speed: Vector;
         private mood: MOOD;
 
-        constructor(_position: Vector, _speed: Vector) {
+        constructor(_position: Vector, _speed: Vector,_mood:MOOD) {
 
             this.position = _position;
             this.speed = _speed;
+            this.mood=_mood;
 
         }
         
@@ -52,6 +53,36 @@ namespace EisDealer {
 
     
         }
+        public drawSelfSad(): void {
+
+            crc2.beginPath();
+            crc2.arc(this.position.x, this.position.y, 30, 0, 2 * Math.PI);
+            crc2.fillStyle = "hsl(50, 98%, 88%)";
+            crc2.fill();
+            crc2.stroke();
+            crc2.closePath();//Kopf
+
+            crc2.beginPath();
+            crc2.arc(this.position.x-10, this.position.y-10, 8, 0, 2 * Math.PI);
+            crc2.fillStyle = "black";
+            crc2.fill();
+            crc2.closePath();
+
+            crc2.beginPath();
+            crc2.arc(this.position.x+10, this.position.y-10, 8, 0, 2 * Math.PI);
+            crc2.fillStyle = "black";
+            crc2.fill();
+            crc2.closePath();//Augen
+
+            crc2.beginPath();
+            crc2.bezierCurveTo(this.position.x-10, this.position.y+10, this.position.x, this.position.y, this.position.x+10, this.position.y+10);
+            crc2.strokeStyle = "black";
+            crc2.stroke();
+            crc2.closePath();//Mund
+
+
+    
+        }
         public move(_timeslice: number): void {
 
             let offset: Vector = new Vector(this.speed.x, this.speed.y);
@@ -60,11 +91,6 @@ namespace EisDealer {
 
         }
 
-
-        public waitOutside(): void {
-
-
-        }
     }
 
 
@@ -108,16 +134,17 @@ namespace EisDealer {
         }
 
 
-        public order(): void {
+        public order(): string[] {
 
             let randomIceCreams=getRandomListItems(iceCreamFlavors);
-            let randomtopping=get1RandomListItem(Toppings);
+            let randomTopping=get1RandomListItem(Toppings);
             let randomSauce=get1RandomListItem(IceCreamSauce);
             let randomContainer=get1RandomListItem(container);
             let randomSahne=get1RandomListItem(sahne)
+            let combinedarray=randomIceCreams.concat(randomContainer)
             console.log(randomContainer)
             console.log(randomSauce)
-            console.log(randomtopping)
+            console.log(randomTopping)
             console.log(randomSahne)
             let positionx: number = 590;
             let positiony:number=510;
@@ -311,7 +338,81 @@ namespace EisDealer {
 
             }
 }
-        }
+switch(randomSauce[0]){
+
+    case'Vanillesauce':
+    crc2.beginPath();
+    crc2.arc(positionx, positiony-30, 15, 0, 2 * Math.PI);
+    crc2.fillStyle = "red";
+    crc2.fill();
+    crc2.closePath();
+    break;
+    case'Schokosauce':
+    crc2.beginPath();
+    crc2.arc(positionx, positiony-30, 15, 0, 2 * Math.PI);
+    crc2.fillStyle = "yellow";
+    crc2.fill();
+    crc2.closePath();
+    break;
+    case'Karamellsauce':
+    crc2.beginPath();
+    crc2.arc(positionx, positiony-30, 15, 0, 2 * Math.PI);
+    crc2.fillStyle = "brown";
+    crc2.fill();
+    crc2.closePath();
+    break;
+    case'Likör':
+    crc2.beginPath();
+    crc2.arc(positionx, positiony-30, 15, 0, 2 * Math.PI);
+    crc2.fillStyle = "green";
+    crc2.fill();
+    crc2.closePath();
+    break;
+}
+
+switch(randomTopping[0]){
+
+    case'Krokant':
+    crc2.beginPath();
+    crc2.arc(positionx, positiony-30, 15, 0, 2 * Math.PI);
+    crc2.fillStyle = "red";
+    crc2.fill();
+    crc2.closePath();
+    break;
+    case'Streusel':
+    crc2.beginPath();
+    crc2.arc(positionx, positiony-30, 15, 0, 2 * Math.PI);
+    crc2.fillStyle = "yellow";
+    crc2.fill();
+    crc2.closePath();
+    break;
+    case'Marshmallow':
+    crc2.beginPath();
+    crc2.arc(positionx, positiony-30, 15, 0, 2 * Math.PI);
+    crc2.fillStyle = "brown";
+    crc2.fill();
+    crc2.closePath();
+    break;
+    case'Kaffeepulver':
+    crc2.beginPath();
+    crc2.arc(positionx, positiony-30, 15, 0, 2 * Math.PI);
+    crc2.fillStyle = "green";
+    crc2.fill();
+    crc2.closePath();
+    break;
+}
+if(randomSahne[0]=="ja"){
+
+    
+    crc2.beginPath();
+    crc2.arc(positionx, positiony-30, 15, 0, 2 * Math.PI);
+    crc2.fillStyle = "red";
+    crc2.fill();
+    crc2.closePath();
+
+}
+return combinedarray        
+}
     }
 
 
@@ -346,6 +447,33 @@ namespace EisDealer {
 
 
         }
+        public drawSelfSad(): void {
+
+            crc2.beginPath();
+            crc2.arc(this.position.x, this.position.y, 30, 0, 2 * Math.PI);
+            crc2.fillStyle = "hsl(50, 98%, 88%)";
+            crc2.fill();
+            crc2.stroke();
+            crc2.closePath();//Kopf
+
+            crc2.beginPath();
+            crc2.arc(this.position.x-10, this.position.y-10, 8, 0, 2 * Math.PI);
+            crc2.fillStyle = "black";
+            crc2.fill();
+            crc2.closePath();
+
+            crc2.beginPath();
+            crc2.arc(this.position.x+10, this.position.y-10, 8, 0, 2 * Math.PI);
+            crc2.fillStyle = "black";
+            crc2.fill();
+            crc2.closePath();//Augen
+
+            crc2.beginPath();
+            crc2.bezierCurveTo(this.position.x-10, this.position.y+10, this.position.x, this.position.y, this.position.x+10, this.position.y+10);
+            crc2.strokeStyle = "black";
+            crc2.stroke();
+            crc2.closePath();//Mund
+        }
 
         public move(_timeslice: number): void {
             let offset: Vector = new Vector(this.speed.x, this.speed.y);
@@ -356,9 +484,6 @@ namespace EisDealer {
 
         public eat(): void {
 
-            // let this.position.x: number = 126;
-            // let this.position.y:number=520;
-            // selectedorder.orderId=1;
             let order=checkServing(selectedItems);
             console.log(order);
             selectedItems=[]
@@ -538,14 +663,82 @@ namespace EisDealer {
 
 
 
+switch(order.sauce){
+
+    case'Vanillesauce':
+    crc2.beginPath();
+    crc2.arc(this.position.x, this.position.y-30, 15, 0, 2 * Math.PI);
+    crc2.fillStyle = "red";
+    crc2.fill();
+    crc2.closePath();
+    break;
+    case'Schokosauce':
+    crc2.beginPath();
+    crc2.arc(this.position.x, this.position.y-30, 15, 0, 2 * Math.PI);
+    crc2.fillStyle = "yellow";
+    crc2.fill();
+    crc2.closePath();
+    break;
+    case'Karamellsauce':
+    crc2.beginPath();
+    crc2.arc(this.position.x, this.position.y-30, 15, 0, 2 * Math.PI);
+    crc2.fillStyle = "brown";
+    crc2.fill();
+    crc2.closePath();
+    break;
+    case'Likör':
+    crc2.beginPath();
+    crc2.arc(this.position.x, this.position.y-30, 15, 0, 2 * Math.PI);
+    crc2.fillStyle = "green";
+    crc2.fill();
+    crc2.closePath();
+    break;
+}
+
+switch(order.topping){
+
+    case'Krokant':
+    crc2.beginPath();
+    crc2.arc(this.position.x, this.position.y-30, 15, 0, 2 * Math.PI);
+    crc2.fillStyle = "red";
+    crc2.fill();
+    crc2.closePath();
+    break;
+    case'Streusel':
+    crc2.beginPath();
+    crc2.arc(this.position.x, this.position.y-30, 15, 0, 2 * Math.PI);
+    crc2.fillStyle = "yellow";
+    crc2.fill();
+    crc2.closePath();
+    break;
+    case'Marshmallow':
+    crc2.beginPath();
+    crc2.arc(this.position.x, this.position.y-30, 15, 0, 2 * Math.PI);
+    crc2.fillStyle = "brown";
+    crc2.fill();
+    crc2.closePath();
+    break;
+    case'Kaffeepulver':
+    crc2.beginPath();
+    crc2.arc(this.position.x, this.position.y-30, 15, 0, 2 * Math.PI);
+    crc2.fillStyle = "green";
+    crc2.fill();
+    crc2.closePath();
+    break;
+}
+if(order.cream=="ja"){
+
+    
+    crc2.beginPath();
+    crc2.arc(this.position.x, this.position.y-30, 15, 0, 2 * Math.PI);
+    crc2.fillStyle = "red";
+    crc2.fill();
+    crc2.closePath();
+
+}
+
         }
 
-        public pay(): void {
-
-            //hier cash counter :)  
-
-
-        }
     }
 
 

@@ -22,17 +22,65 @@ var EisDealer;
     let waiter = [];
     let orderer;
     let newwaiter;
+    let finalorder;
     EisDealer.selectedItems = []; // console.log(started)
     function handleload(_event) {
         EisDealer.crc2 = canvas.getContext("2d");
         drawStore();
+        checkStart();
         createStartButton();
         back = EisDealer.crc2.getImageData(0, 0, canvas.width, canvas.height);
+    }
+    let previousorder;
+    let prevSelection;
+    function check_order(order, selection) {
+        if (eater == undefined) {
+            previousorder = order;
+            prevSelection = selection;
+        }
+        else {
+            let success;
+            if (previousorder.length == prevSelection.length) {
+                for (let item of prevSelection) {
+                    if (previousorder.includes(item)) {
+                        success = true;
+                    }
+                    else {
+                        success = false;
+                        previousorder = order;
+                        prevSelection = selection;
+                        return success;
+                    }
+                }
+                previousorder = order;
+                prevSelection = selection;
+                return true;
+            }
+            previousorder = order;
+            prevSelection = selection;
+            return false;
+        }
+        return false;
+    }
+    async function checkStart() {
+        let collectionExists = await EisDealer.findCollection('items');
+        if (collectionExists == true) {
+            console.log("Alles schon erstellt");
+        }
+        else {
+            let create = await EisDealer.createData(EisDealer.createURL, EisDealer.payload);
+            console.log(create);
+            for (let i = 0; i < 13; i++) {
+                let item = EisDealer.items[i];
+                let insert = await EisDealer.insertItems('items', item);
+                console.log(insert);
+            }
+        }
     }
     ;
     EisDealer.iceCreamFlavors = ["Amarena", "Kaffee", "Banane", "Pistazie"];
     EisDealer.Toppings = ["Krokant", "Streusel", "Kaffeepulver", "Marshmallow"];
-    EisDealer.IceCreamSauce = ["Vanille", "Schoko", "Karamell", "Likör"];
+    EisDealer.IceCreamSauce = ["Vanillesauce", "Schokosauce", "Karamellsauce", "Likör"];
     EisDealer.container = ["Waffel", "Becher"];
     EisDealer.sahne = ["ja", "nein"];
     function getRandomListItems(_list) {
@@ -264,10 +312,53 @@ var EisDealer;
             serveIce();
         });
     }
-    function serveIce() {
-        newwaiter = new EisDealer.WaitingCustomer(new EisDealer.Vector(1000, 750), new EisDealer.Vector(0.1, 0));
+    let bill;
+    let price;
+    let previousSelection = []; // Variable für die vorherige Auswahl
+    async function serveIce() {
+        let hasIcecream = false;
+        let hasContainer = false;
+        console.log((EisDealer.selectedItems));
+        if (eater == undefined) {
+            bill = 0;
+        }
+        else {
+            bill = 0;
+            for (let item of previousSelection) {
+                if (item !== "Waffel" && item !== "Becher") {
+                    if (item == "ja") {
+                        let itemprice = EisDealer.findPreis("items", "Sahne");
+                        price = await itemprice;
+                    }
+                    else {
+                        let itemprice = EisDealer.findPreis("items", item);
+                        price = await itemprice;
+                    }
+                    if (price !== undefined) {
+                        bill = bill + price;
+                    }
+                }
+            }
+        }
+        previousSelection = EisDealer.selectedItems.slice();
+        for (let item of EisDealer.selectedItems) {
+            if (EisDealer.iceCreamFlavors.includes(item)) {
+                hasIcecream = true;
+            }
+            if (EisDealer.container.includes(item)) {
+                hasContainer = true;
+            }
+        }
+        if (hasIcecream == false || hasContainer == false) {
+            window.alert("Du musst mindestens einen Behälter und eine Kugel auswählen");
+            return false;
+        }
+        newwaiter = new EisDealer.WaitingCustomer(new EisDealer.Vector(1000, 750), new EisDealer.Vector(0.1, 0), 1);
         let count = 0;
         let limit = 60;
+        let richtigeBestellung = check_order(finalorder, EisDealer.selectedItems);
+        if (eater == undefined) {
+        }
         let intervalID = setInterval(function () {
             count++;
             EisDealer.crc2.putImageData(back, 0, 0);
@@ -302,26 +393,34 @@ var EisDealer;
             orderer.drawSelf();
             waiter[0].drawSelf();
             waiter[1].drawSelf();
-            waiter[2].drawSelf();
-            newwaiter.drawSelf();
+            waiter[2].drawSelfSad();
+            newwaiter.drawSelfSad();
             if (eater !== undefined) {
                 eater.speed = new EisDealer.Vector(0, 0.1);
                 eater.move(60);
             }
             if (eater !== undefined) {
-                eater.drawSelf();
+                if (richtigeBestellung == true) {
+                    eater.drawSelf();
+                }
+                else {
+                    eater.drawSelfSad();
+                }
+            }
+            if (count == limit - 5) {
+                updateCash(bill);
             }
             // console.log(orderingCustomer.position)
             if (count >= limit) {
                 if (eater !== undefined) {
                     EisDealer.crc2.clearRect(eater.position.x, eater.position.y, 30, 30);
                 }
-                eater = new EisDealer.EatingCustomer(orderer.position, orderer.speed);
+                eater = new EisDealer.EatingCustomer(orderer.position, orderer.speed, 0);
                 // console.log(orderer)
-                orderer = new EisDealer.OrderingCustomer(waiter[0].position, new EisDealer.Vector(0.1, 0));
-                orderer.order();
+                orderer = new EisDealer.OrderingCustomer(waiter[0].position, new EisDealer.Vector(0.1, 0), 0);
+                finalorder = orderer.order();
                 eater.eat();
-                // console.log(orderer)
+                // console.log(orderer)     
                 waiter.splice(0, 1);
                 waiter[2] = newwaiter;
                 waiter[0].speed = new EisDealer.Vector(0, 0.1);
@@ -330,6 +429,7 @@ var EisDealer;
                 clearInterval(intervalID);
             }
         }, 50);
+        return true;
     }
     function drawStore() {
         // console.log("jetzt ist tag")
@@ -402,17 +502,19 @@ var EisDealer;
         EisDealer.cashEnd = document.createElement("p");
         EisDealer.cashEnd.classList.add("cash");
         EisDealer.cash?.remove();
-        // cash.textContent="100€";
+        EisDealer.cash.textContent = "100€";
         document.body.appendChild(EisDealer.cashEnd);
         EisDealer.cash.textContent = "";
-        updateCash("0€");
+        updateCash(0);
         // console.log(cash.textContent)
         night();
     }
     ;
+    let startamount = 100;
     function updateCash(amount) {
-        EisDealer.cash.textContent = amount;
-        EisDealer.cashEnd.textContent = amount;
+        startamount = startamount + amount;
+        EisDealer.cash.textContent = startamount.toString() + "€";
+        EisDealer.cashEnd.textContent = "0€";
     }
     EisDealer.updateCash = updateCash;
     //Ab 5mal zahlen werden überschrieben
@@ -425,20 +527,20 @@ var EisDealer;
         // console.log(started)
         dealer = new EisDealer.Eisdealer(new EisDealer.Vector(475, 220));
         dealer.draw();
-        let orderingCustomer = new EisDealer.OrderingCustomer(new EisDealer.Vector(475, 520), new EisDealer.Vector(0.1, 0));
+        let orderingCustomer = new EisDealer.OrderingCustomer(new EisDealer.Vector(475, 520), new EisDealer.Vector(0.1, 0), 0);
         orderingCustomer.drawSelf();
-        orderingCustomer.order();
+        finalorder = orderingCustomer.order();
         orderer = orderingCustomer;
-        let waitingCustomer = new EisDealer.WaitingCustomer(new EisDealer.Vector(475, 590), new EisDealer.Vector(0, 0.1));
+        let waitingCustomer = new EisDealer.WaitingCustomer(new EisDealer.Vector(475, 590), new EisDealer.Vector(0, 0.1), 0);
         waitingCustomer.drawSelf();
         // console.log(waitingCustomer.position)
         waiter.push(waitingCustomer);
-        let waitingCustomer1 = new EisDealer.WaitingCustomer(new EisDealer.Vector(475, 750), new EisDealer.Vector(0, 0.1));
-        waitingCustomer1.drawSelf();
+        let waitingCustomer1 = new EisDealer.WaitingCustomer(new EisDealer.Vector(475, 750), new EisDealer.Vector(0, 0.1), 1);
+        waitingCustomer1.drawSelfSad();
         // console.log(waitingCustomer1.position)
         waiter.push(waitingCustomer1);
-        let waitingCustomer2 = new EisDealer.WaitingCustomer(new EisDealer.Vector(620, 750), new EisDealer.Vector(0.1, 0));
-        waitingCustomer2.drawSelf();
+        let waitingCustomer2 = new EisDealer.WaitingCustomer(new EisDealer.Vector(620, 750), new EisDealer.Vector(0.1, 0), 1);
+        waitingCustomer2.drawSelfSad();
         // console.log(waitingCustomer2.position)
         waiter.push(waitingCustomer2);
         let cashRegister = document.createElement("p");
@@ -446,9 +548,10 @@ var EisDealer;
         EisDealer.cashEnd?.remove();
         document.body.appendChild(cashRegister);
         // console.log(cashRegister);//Wort Kasse
+        let amount = 100;
         EisDealer.cash = document.createElement("p");
         EisDealer.cash.textContent = "";
-        EisDealer.cash.textContent = "100€";
+        EisDealer.cash.textContent = amount + "€";
         EisDealer.cash.classList.add("cash");
         // updateCash("100€");
         // cash.textContent="100€";
@@ -674,7 +777,7 @@ var EisDealer;
     function vanillaSauce() {
         let value = checkSelection(EisDealer.selectedItems, EisDealer.IceCreamSauce);
         if (value == true) {
-            EisDealer.selectedItems.push("Vanille");
+            EisDealer.selectedItems.push("Vanillesauce");
         }
         // console.log("1x Vanillesoße")
         console.log(EisDealer.selectedItems);
@@ -682,14 +785,14 @@ var EisDealer;
     function caramelSauce() {
         let value = checkSelection(EisDealer.selectedItems, EisDealer.IceCreamSauce);
         if (value == true) {
-            EisDealer.selectedItems.push("Karamell");
+            EisDealer.selectedItems.push("Karamellsauce");
             // console.log("1x Karamellsoße")
         }
     }
     function chocolateSauce() {
         let value = checkSelection(EisDealer.selectedItems, EisDealer.IceCreamSauce);
         if (value == true) {
-            EisDealer.selectedItems.push("Schoko");
+            EisDealer.selectedItems.push("Schokosauce");
             // console.log("1x Schokoladensoße")
             console.log(EisDealer.selectedItems);
         }
@@ -729,7 +832,7 @@ var EisDealer;
     function marshmallowTopping() {
         let value = checkSelection(EisDealer.selectedItems, EisDealer.Toppings);
         if (value == true) {
-            EisDealer.selectedItems.push("Marshamllows");
+            EisDealer.selectedItems.push("Marshmallow");
             // console.log("1x Marshmallows")
             console.log(EisDealer.selectedItems);
         }

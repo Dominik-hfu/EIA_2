@@ -10,9 +10,10 @@ var EisDealer;
         position;
         speed;
         mood;
-        constructor(_position, _speed) {
+        constructor(_position, _speed, _mood) {
             this.position = _position;
             this.speed = _speed;
+            this.mood = _mood;
         }
     }
     EisDealer.Customer = Customer;
@@ -40,12 +41,33 @@ var EisDealer;
             EisDealer.crc2.stroke();
             EisDealer.crc2.closePath(); //Mund
         }
+        drawSelfSad() {
+            EisDealer.crc2.beginPath();
+            EisDealer.crc2.arc(this.position.x, this.position.y, 30, 0, 2 * Math.PI);
+            EisDealer.crc2.fillStyle = "hsl(50, 98%, 88%)";
+            EisDealer.crc2.fill();
+            EisDealer.crc2.stroke();
+            EisDealer.crc2.closePath(); //Kopf
+            EisDealer.crc2.beginPath();
+            EisDealer.crc2.arc(this.position.x - 10, this.position.y - 10, 8, 0, 2 * Math.PI);
+            EisDealer.crc2.fillStyle = "black";
+            EisDealer.crc2.fill();
+            EisDealer.crc2.closePath();
+            EisDealer.crc2.beginPath();
+            EisDealer.crc2.arc(this.position.x + 10, this.position.y - 10, 8, 0, 2 * Math.PI);
+            EisDealer.crc2.fillStyle = "black";
+            EisDealer.crc2.fill();
+            EisDealer.crc2.closePath(); //Augen
+            EisDealer.crc2.beginPath();
+            EisDealer.crc2.bezierCurveTo(this.position.x - 10, this.position.y + 10, this.position.x, this.position.y, this.position.x + 10, this.position.y + 10);
+            EisDealer.crc2.strokeStyle = "black";
+            EisDealer.crc2.stroke();
+            EisDealer.crc2.closePath(); //Mund
+        }
         move(_timeslice) {
             let offset = new EisDealer.Vector(this.speed.x, this.speed.y);
             offset.scale(_timeslice);
             this.position.add(offset); //addiert auf position den offset
-        }
-        waitOutside() {
         }
     }
     EisDealer.WaitingCustomer = WaitingCustomer;
@@ -80,13 +102,14 @@ var EisDealer;
         }
         order() {
             let randomIceCreams = EisDealer.getRandomListItems(EisDealer.iceCreamFlavors);
-            let randomtopping = EisDealer.get1RandomListItem(EisDealer.Toppings);
+            let randomTopping = EisDealer.get1RandomListItem(EisDealer.Toppings);
             let randomSauce = EisDealer.get1RandomListItem(EisDealer.IceCreamSauce);
             let randomContainer = EisDealer.get1RandomListItem(EisDealer.container);
             let randomSahne = EisDealer.get1RandomListItem(EisDealer.sahne);
+            let combinedarray = randomIceCreams.concat(randomContainer);
             console.log(randomContainer);
             console.log(randomSauce);
-            console.log(randomtopping);
+            console.log(randomTopping);
             console.log(randomSahne);
             let positionx = 590;
             let positiony = 510;
@@ -260,6 +283,74 @@ var EisDealer;
                     }
                 }
             }
+            switch (randomSauce[0]) {
+                case 'Vanillesauce':
+                    EisDealer.crc2.beginPath();
+                    EisDealer.crc2.arc(positionx, positiony - 30, 15, 0, 2 * Math.PI);
+                    EisDealer.crc2.fillStyle = "red";
+                    EisDealer.crc2.fill();
+                    EisDealer.crc2.closePath();
+                    break;
+                case 'Schokosauce':
+                    EisDealer.crc2.beginPath();
+                    EisDealer.crc2.arc(positionx, positiony - 30, 15, 0, 2 * Math.PI);
+                    EisDealer.crc2.fillStyle = "yellow";
+                    EisDealer.crc2.fill();
+                    EisDealer.crc2.closePath();
+                    break;
+                case 'Karamellsauce':
+                    EisDealer.crc2.beginPath();
+                    EisDealer.crc2.arc(positionx, positiony - 30, 15, 0, 2 * Math.PI);
+                    EisDealer.crc2.fillStyle = "brown";
+                    EisDealer.crc2.fill();
+                    EisDealer.crc2.closePath();
+                    break;
+                case 'Likör':
+                    EisDealer.crc2.beginPath();
+                    EisDealer.crc2.arc(positionx, positiony - 30, 15, 0, 2 * Math.PI);
+                    EisDealer.crc2.fillStyle = "green";
+                    EisDealer.crc2.fill();
+                    EisDealer.crc2.closePath();
+                    break;
+            }
+            switch (randomTopping[0]) {
+                case 'Krokant':
+                    EisDealer.crc2.beginPath();
+                    EisDealer.crc2.arc(positionx, positiony - 30, 15, 0, 2 * Math.PI);
+                    EisDealer.crc2.fillStyle = "red";
+                    EisDealer.crc2.fill();
+                    EisDealer.crc2.closePath();
+                    break;
+                case 'Streusel':
+                    EisDealer.crc2.beginPath();
+                    EisDealer.crc2.arc(positionx, positiony - 30, 15, 0, 2 * Math.PI);
+                    EisDealer.crc2.fillStyle = "yellow";
+                    EisDealer.crc2.fill();
+                    EisDealer.crc2.closePath();
+                    break;
+                case 'Marshmallow':
+                    EisDealer.crc2.beginPath();
+                    EisDealer.crc2.arc(positionx, positiony - 30, 15, 0, 2 * Math.PI);
+                    EisDealer.crc2.fillStyle = "brown";
+                    EisDealer.crc2.fill();
+                    EisDealer.crc2.closePath();
+                    break;
+                case 'Kaffeepulver':
+                    EisDealer.crc2.beginPath();
+                    EisDealer.crc2.arc(positionx, positiony - 30, 15, 0, 2 * Math.PI);
+                    EisDealer.crc2.fillStyle = "green";
+                    EisDealer.crc2.fill();
+                    EisDealer.crc2.closePath();
+                    break;
+            }
+            if (randomSahne[0] == "ja") {
+                EisDealer.crc2.beginPath();
+                EisDealer.crc2.arc(positionx, positiony - 30, 15, 0, 2 * Math.PI);
+                EisDealer.crc2.fillStyle = "red";
+                EisDealer.crc2.fill();
+                EisDealer.crc2.closePath();
+            }
+            return combinedarray;
         }
     }
     EisDealer.OrderingCustomer = OrderingCustomer;
@@ -287,15 +378,35 @@ var EisDealer;
             EisDealer.crc2.stroke();
             EisDealer.crc2.closePath(); //Mund
         }
+        drawSelfSad() {
+            EisDealer.crc2.beginPath();
+            EisDealer.crc2.arc(this.position.x, this.position.y, 30, 0, 2 * Math.PI);
+            EisDealer.crc2.fillStyle = "hsl(50, 98%, 88%)";
+            EisDealer.crc2.fill();
+            EisDealer.crc2.stroke();
+            EisDealer.crc2.closePath(); //Kopf
+            EisDealer.crc2.beginPath();
+            EisDealer.crc2.arc(this.position.x - 10, this.position.y - 10, 8, 0, 2 * Math.PI);
+            EisDealer.crc2.fillStyle = "black";
+            EisDealer.crc2.fill();
+            EisDealer.crc2.closePath();
+            EisDealer.crc2.beginPath();
+            EisDealer.crc2.arc(this.position.x + 10, this.position.y - 10, 8, 0, 2 * Math.PI);
+            EisDealer.crc2.fillStyle = "black";
+            EisDealer.crc2.fill();
+            EisDealer.crc2.closePath(); //Augen
+            EisDealer.crc2.beginPath();
+            EisDealer.crc2.bezierCurveTo(this.position.x - 10, this.position.y + 10, this.position.x, this.position.y, this.position.x + 10, this.position.y + 10);
+            EisDealer.crc2.strokeStyle = "black";
+            EisDealer.crc2.stroke();
+            EisDealer.crc2.closePath(); //Mund
+        }
         move(_timeslice) {
             let offset = new EisDealer.Vector(this.speed.x, this.speed.y);
             offset.scale(_timeslice);
             this.position.add(offset);
         }
         eat() {
-            // let this.position.x: number = 126;
-            // let this.position.y:number=520;
-            // selectedorder.orderId=1;
             let order = EisDealer.checkServing(EisDealer.selectedItems);
             console.log(order);
             EisDealer.selectedItems = [];
@@ -457,9 +568,73 @@ var EisDealer;
                     }
                 }
             }
-        }
-        pay() {
-            //hier cash counter :)  
+            switch (order.sauce) {
+                case 'Vanillesauce':
+                    EisDealer.crc2.beginPath();
+                    EisDealer.crc2.arc(this.position.x, this.position.y - 30, 15, 0, 2 * Math.PI);
+                    EisDealer.crc2.fillStyle = "red";
+                    EisDealer.crc2.fill();
+                    EisDealer.crc2.closePath();
+                    break;
+                case 'Schokosauce':
+                    EisDealer.crc2.beginPath();
+                    EisDealer.crc2.arc(this.position.x, this.position.y - 30, 15, 0, 2 * Math.PI);
+                    EisDealer.crc2.fillStyle = "yellow";
+                    EisDealer.crc2.fill();
+                    EisDealer.crc2.closePath();
+                    break;
+                case 'Karamellsauce':
+                    EisDealer.crc2.beginPath();
+                    EisDealer.crc2.arc(this.position.x, this.position.y - 30, 15, 0, 2 * Math.PI);
+                    EisDealer.crc2.fillStyle = "brown";
+                    EisDealer.crc2.fill();
+                    EisDealer.crc2.closePath();
+                    break;
+                case 'Likör':
+                    EisDealer.crc2.beginPath();
+                    EisDealer.crc2.arc(this.position.x, this.position.y - 30, 15, 0, 2 * Math.PI);
+                    EisDealer.crc2.fillStyle = "green";
+                    EisDealer.crc2.fill();
+                    EisDealer.crc2.closePath();
+                    break;
+            }
+            switch (order.topping) {
+                case 'Krokant':
+                    EisDealer.crc2.beginPath();
+                    EisDealer.crc2.arc(this.position.x, this.position.y - 30, 15, 0, 2 * Math.PI);
+                    EisDealer.crc2.fillStyle = "red";
+                    EisDealer.crc2.fill();
+                    EisDealer.crc2.closePath();
+                    break;
+                case 'Streusel':
+                    EisDealer.crc2.beginPath();
+                    EisDealer.crc2.arc(this.position.x, this.position.y - 30, 15, 0, 2 * Math.PI);
+                    EisDealer.crc2.fillStyle = "yellow";
+                    EisDealer.crc2.fill();
+                    EisDealer.crc2.closePath();
+                    break;
+                case 'Marshmallow':
+                    EisDealer.crc2.beginPath();
+                    EisDealer.crc2.arc(this.position.x, this.position.y - 30, 15, 0, 2 * Math.PI);
+                    EisDealer.crc2.fillStyle = "brown";
+                    EisDealer.crc2.fill();
+                    EisDealer.crc2.closePath();
+                    break;
+                case 'Kaffeepulver':
+                    EisDealer.crc2.beginPath();
+                    EisDealer.crc2.arc(this.position.x, this.position.y - 30, 15, 0, 2 * Math.PI);
+                    EisDealer.crc2.fillStyle = "green";
+                    EisDealer.crc2.fill();
+                    EisDealer.crc2.closePath();
+                    break;
+            }
+            if (order.cream == "ja") {
+                EisDealer.crc2.beginPath();
+                EisDealer.crc2.arc(this.position.x, this.position.y - 30, 15, 0, 2 * Math.PI);
+                EisDealer.crc2.fillStyle = "red";
+                EisDealer.crc2.fill();
+                EisDealer.crc2.closePath();
+            }
         }
     }
     EisDealer.EatingCustomer = EatingCustomer;
