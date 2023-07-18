@@ -27,18 +27,22 @@ namespace EisDealer{
     let startamount:number=100
     export let selectedItems:string[]=[];  // console.log(started)
     
+    //handleload wird auf windowload ausgeführt
+    //canvas wird ausgewählt und mit rendering context wird festgelegt
+    //buttons und variablen werden global definiert
+    //back speichert den Hintergrund
     
     function handleload(_event: Event): void {
         
-        crc2 = <CanvasRenderingContext2D>canvas.getContext("2d");
-        drawStore();
+        crc2 = <CanvasRenderingContext2D>canvas.getContext("2d");//Verknüpfung von canvas mit rendering context
+        drawStore();//store ohne kunden, dealer, eis wird gemalt
 
-        checkStart();
+        checkStart();//überprüfung ob items schon auf dem server sind, sonst werden diese erstellt
 
-        createStartButton();
+        createStartButton();//ertstellt startday button
         
         
-        back = crc2.getImageData(0, 0, canvas.width, canvas.height);
+        back = crc2.getImageData(0, 0, canvas.width, canvas.height);//speichert den canvas als hintergrund in seiner vollen größe
    
 
 }
@@ -47,11 +51,11 @@ let prevSelection:string[]
  function check_order(order:string[],selection:string[]){
     if(eater==undefined){
         previousorder=order
-        prevSelection=selection
-    }
+        prevSelection=selection//merkt sich auswahl von bestellung und auswahl des ersten kunden
+    }//erster Kunde, das es noch keinen gibt der isst wird sonst mit falscher bestellung abgeglichen
     else{
     let success:Boolean;
-    if(previousorder.length==prevSelection.length){
+    if(previousorder.length==prevSelection.length){//bestellung muss gleich viele elemente haben wie auswahl
         for(let item of prevSelection){
 
             if(previousorder.includes(item)){
@@ -60,20 +64,20 @@ let prevSelection:string[]
             else{
                 success=false
                 previousorder=order
-                prevSelection=selection
+                prevSelection=selection//aktualisiert die letzte bestellung (immer nur eine bestellung im array)
                 return success
             }
         }
         previousorder=order
         prevSelection=selection
-        return true
+        return true//wenns richtig ist
     }
     previousorder=order
     prevSelection=selection
-    return false
+    return false//wenn unteschiedliche größen sind
  }
  return false 
-}
+}//überprüft für die items der vorherigen auswahl, ob diese richtig gewählt wurden, gibt den erfolg zurück
 
 async function checkStart() {
     let collectionExists = await findCollection('items')
@@ -83,12 +87,12 @@ async function checkStart() {
 
     }
     else {
-      let create = await createData(createURL, payload)
+      let create = await createData(createURL, payload)//collection erstellen
       console.log(create)
       for (let i = 0; i < 13; i++) {
 
         let item = items[i]
-        let insert = await insertItems('items', item)
+        let insert = await insertItems('items', item)//schreibt items in das interface auf dem server
         console.log(insert)
       }
     }
@@ -104,23 +108,22 @@ export interface order {
     topping: string;
     cream: string;
   };
-
+//interface für variationen
 export let iceCreamFlavors = ["Amarena", "Kaffee", "Banane", "Pistazie"];
 export let Toppings=["Krokant","Streusel","Eiswaffel","Marshmallow"]
 export let IceCreamSauce=["Vanillesauce","Schokosauce","Karamellsauce","Likör"]
 export let container=["Waffel","Becher"]
-export let sahne=["ja","nein"]
-export function getRandomListItems(_list:string[]) {
+export let sahne=["ja","nein"]//möglichkeiten für die auswahl
+export function getRandomListItems(_list:string[]) {// Wähle eine zufällige Eissorte aus dem Array aus und füge die ausgewählte Eissorte zum Array der ausgewählten Eissorten hinzu
     // Bestimme zufällig, wie viele Items ausgewählt werden sollen (min 1, max 3)
     let numberOfItems = Math.floor(Math.random() * 3) + 1;
 
     let chosenItems = [];
 
     for (let i = 0; i < numberOfItems; i++) {
-        // Wähle eine zufällige Eissorte aus dem Array aus
         let randomIndex = Math.floor(Math.random() *3 )+1;
 
-        // Füge die ausgewählte Eissorte zum Array der ausgewählten Eissorten hinzu
+
         chosenItems.push(_list[randomIndex]);
 
     }
@@ -128,7 +131,7 @@ export function getRandomListItems(_list:string[]) {
     return chosenItems;
 }
 
-export function get1RandomListItem(_list:string[]){
+export function get1RandomListItem(_list:string[]){//für toppings, sauce und sahne weil nur eins gewählt werden kann
     // Bestimme zufällig, wie viele Items ausgewählt werden sollen (min 1, max 3)
 
     let chosenItems = [];
@@ -140,7 +143,7 @@ export function get1RandomListItem(_list:string[]){
     chosenItems.push(_list[randomIndex-1]);
     return chosenItems;
 }
-function checkSelection(selection:string[],checkarray:string[]){
+function checkSelection(selection:string[],checkarray:string[]){//alert für schon einen behälter
 
     for (let item of selection) {
         if (checkarray.includes(item)) {
@@ -155,7 +158,7 @@ function checkSelection(selection:string[],checkarray:string[]){
 
 export function checkServing(selection:string[]){
     
-    let selectedorder = {
+    let selectedorder = {//interface speichert die ausgewählten elemente
         container: "",
         topping: "",
         sauce: "",
@@ -190,7 +193,7 @@ export function checkServing(selection:string[]){
     }
     
 
-function checkIceCream(selection:string[],checkarray:string[]){
+function checkIceCream(selection:string[],checkarray:string[]){//für max. 3 kugeln
     let countIceCream=0
     for (let item of selection) {
         if (checkarray.includes(item)) {
@@ -205,19 +208,9 @@ function checkIceCream(selection:string[],checkarray:string[]){
     }
     return true
 }
-let chosenIceCreams = getRandomListItems(iceCreamFlavors);
+// let chosenIceCreams = getRandomListItems(iceCreamFlavors);//speichert die ausgewählten eissorten
 
-console.log(chosenIceCreams);
-
-
-            console.log("Type 1: Waffle");
-
-            console.log("Type 2: Cup");
-
-            console.log("Type 3: Cup");
-
-            console.log("Unbekannter Typ");
-
+// console.log(chosenIceCreams);
 
 function createStartButton(): void {
             
@@ -251,7 +244,9 @@ let waffleFont=document.createElement("span") as HTMLSpanElement;
 let cream:HTMLButtonElement;
 let creamFont=document.createElement("span") as HTMLSpanElement;
 
-function night(){
+//erstellt alle buttons und die kasse 
+
+function night(){//zeichnet store bei nacht und räumt theke aus
 
     // started=true;
     // console.log("jetzt ist nacht")
@@ -370,15 +365,17 @@ function createServeButton():void{
 let bill:number;
 let price: number | undefined
 let previousSelection: string[] = []; // Variable für die vorherige Auswahl
+
 async function serveIce(){
 
-    if(!selectedItems.includes("ja")){
+    if(!selectedItems.includes("ja")){//im bestellarray ist sahne als ja oder nein definiert, 
 
         selectedItems.push("nein")
     }
 
     let hasIcecream:boolean=false;
     let hasContainer:boolean=false;
+
     console.log((selectedItems));
     if (eater == undefined){
         
@@ -387,25 +384,25 @@ async function serveIce(){
     else{
         bill=0
         for(let item of previousSelection){
-            if(item!=="Waffel" && item!=="Becher"){
-            if(item == "ja"){
-                let itemprice:Promise<number | undefined>=findPreis("items","Sahne")
+            if(item!=="Waffel" && item!=="Becher"){//sind gratis
+            if(item == "ja"){//sahne auch gratis
+                let itemprice:Promise<number | undefined>=findPreis("items","Sahne")//sucht auf server preis von sahne
                 price = await itemprice;
             }
             else{
                 let itemprice:Promise<number | undefined>=findPreis("items",item)
                 price = await itemprice;
-            }
+            }//sucht den preis
                 
             if(price !== undefined){
                     bill=bill+price
-                }
+                }//kasse wird erhöht
             }
             
             
         }
     }
-    previousSelection=selectedItems.slice()
+    previousSelection=selectedItems.slice()//fügt auswahl hinzu
     for(let item of selectedItems){
 
 
@@ -428,17 +425,15 @@ async function serveIce(){
         return false
         
     }
+    //überprüft behälter und mind eine kugel
 
     
     newwaiter=new WaitingCustomer(new Vector(1000,750),new Vector(0.1,0),1)
     let count =0;
     let limit=60;
-    let richtigeBestellung=check_order(finalorder,selectedItems)
-    if(eater==undefined){
-
-    }
+    let richtigeBestellung=check_order(finalorder,selectedItems)//richtige bestellung speichert true oder false ob richtige bestellung
     
-    let intervalID=setInterval(function(){
+    let intervalID=setInterval(function(){//Dealer, Kunden etc werden gemalt bzw animiert
         count++;
     
         crc2.putImageData(back, 0, 0);
@@ -482,16 +477,16 @@ async function serveIce(){
         waiter[1].drawSelf();
         waiter[2].drawSelfSad();
         newwaiter.drawSelfSad();
-       if(eater !== undefined)
+
+       if(eater !== undefined)//eater kann nur laufen wenn es ihn gibt und nur nach unten
         {
             eater.speed=new Vector(0,0.1)
             eater.move(60)
-        } 
-        if(eater !== undefined)
-        {   
+
             if(richtigeBestellung==true){
                 eater.drawSelf();
             }
+
             else{
                 eater.drawSelfSad();
             }
@@ -499,7 +494,7 @@ async function serveIce(){
         }
         if(count ==limit-5){
             updateCash(bill)
-        }
+        }//bezahlen
         
         // console.log(orderingCustomer.position)
         if(count>=limit){
@@ -509,7 +504,7 @@ async function serveIce(){
                 crc2.clearRect(eater.position.x,eater.position.y,30,30)
 
 
-            }
+            }//alter kunde wird gelöscht
             eater=new EatingCustomer(orderer.position,orderer.speed,0)  
             // console.log(orderer)
             orderer=new OrderingCustomer(waiter[0].position,new Vector(0.1,0),0)
@@ -523,8 +518,9 @@ async function serveIce(){
             waiter[1].speed=new Vector(0,0.1)
             waiter[2].speed=new Vector(0.1,0)
             clearInterval(intervalID)
+            //alle laufen eins weiter, es werden neue kunden erstellt
         }
-    },50)
+    },50)//alle 5ms
 
     return true
 
@@ -605,9 +601,9 @@ function drawStore(){
     crc2.stroke();
     crc2.closePath();//Ausgang 
     
-}
+}//zeichnet store
 
-function closeStore(){
+function closeStore(){//tag wird beendet, nacht wird gestartet, kasse wird abgerechnet
 
     serveButton.remove();
     closeButton.remove();
@@ -643,7 +639,7 @@ function closeStore(){
     
 
 };
-// let startamount:number=100
+
 export function updateCash(amount: number) {
 
 startamount=startamount+amount
@@ -651,10 +647,9 @@ cash.textContent = startamount.toString()+"€";
 cashEnd.textContent="0€";
 }
 
-//Ab 5mal zahlen werden überschrieben
-
 let dealer:Eisdealer
-function day(){
+
+function day(){//Öffnet den store, lässt tag beginnen
 
     drawStore();
 
@@ -892,7 +887,7 @@ function day(){
 
  
     drawStore();
-    //hier enum oder switch case
+  
     function amarenaIce(){
         let value:boolean=checkIceCream(selectedItems,iceCreamFlavors)
         if(value==true){
@@ -1026,7 +1021,7 @@ function day(){
         console.log(selectedItems)
         
     }
-
+//richtig ausgewählte elemente werden ins array gepusht
 
 }
 

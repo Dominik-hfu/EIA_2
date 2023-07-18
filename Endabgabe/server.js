@@ -1,7 +1,7 @@
 "use strict";
 var EisDealer;
 (function (EisDealer) {
-    EisDealer.payload = {};
+    EisDealer.payload = {}; //von gpt
     EisDealer.items = [
         {
             name: "Amarena",
@@ -56,30 +56,31 @@ var EisDealer;
             preis: 1
         },
     ];
-    EisDealer.URL = "https://webuser.hs-furtwangen.de/~putzdomi/Database/";
+    EisDealer.URL = "https://webuser.hs-furtwangen.de/~putzdomi/Database/"; //webserver
     async function findPreis(collection, name) {
         let queryParamsFind = new URLSearchParams({
             command: "find",
             collection,
-            data: JSON.stringify({ _name: name })
+            data: JSON.stringify({ _name: name }) //umwandlung von json in string
         });
+        //json besteht aus zwei teilen: inhalt und status
         try {
             let response = await fetch(`${EisDealer.URL}?${queryParamsFind.toString()}`, {
-                method: "GET", // Ändere den Inhalt auf dem Server
+                method: "GET",
             });
             if (!response.ok) {
                 throw new Error(`Server returned status ${response.status}`);
-            }
-            let result = await response.json();
-            let data = result.data;
-            let preis = data[Object.keys(data)[0]].preis;
+            } //kommunikation fehlgeschlagen
+            let result = await response.json(); //antwort von server wird in json umgewandelt
+            let data = result.data; //speichert daten von json
+            let preis = data[Object.keys(data)[0]].preis; //filtert preis
             console.log("Data inserted successfully:", result);
             return preis;
         }
         catch (error) {
             console.error("Error inserting data:", error);
             return undefined;
-        }
+        } //try catch versucht daten zu holen, catcht sonst den error
     }
     EisDealer.findPreis = findPreis;
     async function findCollection(collection) {
@@ -113,7 +114,7 @@ var EisDealer;
         }
     }
     EisDealer.findCollection = findCollection;
-    EisDealer.createURL = "https://webuser.hs-furtwangen.de/~putzdomi/Database/?command=create&collection=items";
+    EisDealer.createURL = "https://webuser.hs-furtwangen.de/~putzdomi/Database/?command=create&collection=items"; //url um etwas beim server zu erstellen 
     async function createData(createURL, payload) {
         try {
             let response = await fetch(createURL, {

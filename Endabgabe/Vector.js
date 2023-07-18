@@ -9,7 +9,7 @@ var EisDealer;
         }
         set(_x, _y) {
             this.x = _x;
-            this.y = _y;
+            this.y = _y; //gibt/setzt position
         }
         add(_addend) {
             this.x += _addend.x;
@@ -18,7 +18,7 @@ var EisDealer;
         scale(_factor) {
             this.x *= _factor;
             this.y *= _factor;
-        }
+        } //für move methoden
     }
     EisDealer.Vector = Vector;
 })(EisDealer || (EisDealer = {}));

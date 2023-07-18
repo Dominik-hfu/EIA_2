@@ -11,7 +11,7 @@ namespace EisDealer{
     
         set(_x:number,_y:number):void{
             this.x=_x;
-            this.y=_y;
+            this.y=_y;//gibt/setzt position
         }
     
     
@@ -23,14 +23,8 @@ namespace EisDealer{
         scale(_factor:number):void{
             this.x*=_factor;
             this.y*=_factor;
-        }
+        }//für move methoden
     
     }
 
-
-
-
-
-
-    
 }

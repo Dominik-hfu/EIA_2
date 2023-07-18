@@ -3,7 +3,7 @@ namespace EisDealer {
     export enum MOOD {
         HAPPY,
         SAD
-    }
+    }//für stimmung
 
     export abstract class Customer {
 
@@ -142,11 +142,15 @@ namespace EisDealer {
             let randomSauce=get1RandomListItem(IceCreamSauce);
             let randomContainer=get1RandomListItem(container);
             let randomCream=get1RandomListItem(sahne)
-            let combinedarray=randomIceCreams.concat(randomContainer,randomCream,randomSauce,randomTopping)
+            //speichert die zufällige Wahl des kunden
+
+
+            let combinedarray=randomIceCreams.concat(randomContainer,randomCream,randomSauce,randomTopping)//alles in ein array, d.h. die kundenbestellung
             console.log(randomContainer)
             console.log(randomSauce)
             console.log(randomTopping)
             console.log(randomCream)
+
             let positionx: number = 590;
             let positiony:number=510;
 
@@ -196,9 +200,10 @@ namespace EisDealer {
             }
             
 
-            if (randomIceCreams.length==1){
+            if (randomIceCreams.length==1){//Wenn wir nur eine kugel haben
                 
-                switch(randomIceCreams[0]){
+                switch(randomIceCreams[0]){//überprüfe welche sorte und male diese entsprechend
+                    //0 weil es gibt nur ein Element/ eine Kugel
 
                     case'Amarena':
                     crc2.beginPath();
@@ -397,10 +402,10 @@ namespace EisDealer {
                             }
 
             }
-            else{
+            else{//wenn zwei oder drei kugeln
              for(let i=0; i<randomIceCreams.length;i++){
 
-                if(i==0){
+                if(i==0){//erste kugel und sauce bisschen weiter links 
 
                     switch(randomIceCreams[i]){
 
@@ -471,7 +476,7 @@ namespace EisDealer {
             }
 
                 }
-                else if (i==1){
+                else if (i==1){//zweite kugel bisschen weiter rechts
                     switch(randomIceCreams[i]){
 
                         case'Amarena':
@@ -504,7 +509,7 @@ namespace EisDealer {
                         break;
                     }
                 }
-                else{
+                else{//dritte kugel oben zeichnen
                     switch(randomIceCreams[i]){
 
                         case'Amarena':
@@ -539,7 +544,7 @@ namespace EisDealer {
                 }
 
                 
-                switch(randomTopping[0]){
+                switch(randomTopping[0]){//toppings
 
                     case'Krokant':
                     crc2.beginPath();
@@ -607,7 +612,7 @@ namespace EisDealer {
                     crc2.closePath();
                     break;
                 }
-                if(randomCream[0]=="ja"){
+                if(randomCream[0]=="ja"){//sahne hat eine andere position als bei einer kugel
                 
                     if (randomIceCreams.length==1){
                         
@@ -672,7 +677,7 @@ namespace EisDealer {
             }
 }
 
-return combinedarray        
+return combinedarray//gibt array mit der bestellung des orderingcustomers zurück   
 }
     }
 
@@ -746,7 +751,7 @@ return combinedarray
 
         public eat(): void {
 
-            let order=checkServing(selectedItems);
+            let order=checkServing(selectedItems);//checkserving (überprüft ob nur ein behälter etc) ergebnis wird in order gespeichert
             console.log(order);
             selectedItems=[]
 
@@ -784,9 +789,9 @@ return combinedarray
                 crc2.closePath();//Löffel
             }
             
-            if (order.variation.length==1){
+            if (order.variation.length==1){//wenns nur eine kugel ist
                 
-                switch(order.variation[0]){
+                switch(order.variation[0]){//zeichne kugel und sauce in die mitte und zeichne richtige sorte/ sauce
 
                     case'Amarena':
                     crc2.beginPath();
@@ -982,15 +987,15 @@ return combinedarray
                     }
                     
                             }
-
+                //topping und sahne bei einer kugel
                 
             }
-            else{
+            else{//bei mehreren kugeln
              for(let i=0; i<order.variation.length;i++){
 
-                if(i==0){
+                if(i==0){//erste kugel
 
-                    switch(order.variation[i]){
+                    switch(order.variation[i]){//zeichne kugel bisschen weiter links
 
                         case'Amarena':
                         crc2.beginPath();
@@ -1059,7 +1064,7 @@ return combinedarray
             }
 
                 }
-                else if (i==1){
+                else if (i==1){//zeichne kugel bisschen weiter rechts
                     switch(order.variation[i]){
 
                         case'Amarena':
@@ -1092,7 +1097,7 @@ return combinedarray
                         break;
                     }
                 }
-                else{
+                else{//zeichne dritte kugel bisschen weiter hoch und mittig
                     switch(order.variation[i]){
 
                         case'Amarena':
@@ -1250,7 +1255,7 @@ return combinedarray
                 
                         }
                 
-                    }
+                    }//zeichne topping und sahne(etwas weiter höher)
 
             }
 }

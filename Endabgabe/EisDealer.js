@@ -2,9 +2,9 @@
 var EisDealer;
 (function (EisDealer) {
     class Eisdealer {
-        position;
+        position; //muss nur er selber wissen
         constructor(_position) {
-            this.position = _position;
+            this.position = _position; //this verweist immer auf die eigenschaft dieser klasse
         }
         draw() {
             EisDealer.crc2.beginPath();

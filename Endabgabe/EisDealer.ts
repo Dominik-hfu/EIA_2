@@ -2,12 +2,12 @@ namespace EisDealer{
 
     export class Eisdealer{
     
-        protected position: Vector;
+        protected position: Vector;//muss nur er selber wissen
     
     
         constructor(_position: Vector) {
     
-            this.position = _position;
+            this.position = _position;//this verweist immer auf die eigenschaft dieser klasse
 
         }
     

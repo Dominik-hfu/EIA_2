@@ -22,23 +22,27 @@ var EisDealer;
     let amount = 100;
     let startamount = 100;
     EisDealer.selectedItems = []; // console.log(started)
+    //handleload wird auf windowload ausgeführt
+    //canvas wird ausgewählt und mit rendering context wird festgelegt
+    //buttons und variablen werden global definiert
+    //back speichert den Hintergrund
     function handleload(_event) {
-        EisDealer.crc2 = canvas.getContext("2d");
-        drawStore();
-        checkStart();
-        createStartButton();
-        back = EisDealer.crc2.getImageData(0, 0, canvas.width, canvas.height);
+        EisDealer.crc2 = canvas.getContext("2d"); //Verknüpfung von canvas mit rendering context
+        drawStore(); //store ohne kunden, dealer, eis wird gemalt
+        checkStart(); //überprüfung ob items schon auf dem server sind, sonst werden diese erstellt
+        createStartButton(); //ertstellt startday button
+        back = EisDealer.crc2.getImageData(0, 0, canvas.width, canvas.height); //speichert den canvas als hintergrund in seiner vollen größe
     }
     let previousorder;
     let prevSelection;
     function check_order(order, selection) {
         if (eater == undefined) {
             previousorder = order;
-            prevSelection = selection;
-        }
+            prevSelection = selection; //merkt sich auswahl von bestellung und auswahl des ersten kunden
+        } //erster Kunde, das es noch keinen gibt der isst wird sonst mit falscher bestellung abgeglichen
         else {
             let success;
-            if (previousorder.length == prevSelection.length) {
+            if (previousorder.length == prevSelection.length) { //bestellung muss gleich viele elemente haben wie auswahl
                 for (let item of prevSelection) {
                     if (previousorder.includes(item)) {
                         success = true;
@@ -46,49 +50,48 @@ var EisDealer;
                     else {
                         success = false;
                         previousorder = order;
-                        prevSelection = selection;
+                        prevSelection = selection; //aktualisiert die letzte bestellung (immer nur eine bestellung im array)
                         return success;
                     }
                 }
                 previousorder = order;
                 prevSelection = selection;
-                return true;
+                return true; //wenns richtig ist
             }
             previousorder = order;
             prevSelection = selection;
-            return false;
+            return false; //wenn unteschiedliche größen sind
         }
         return false;
-    }
+    } //überprüft für die items der vorherigen auswahl, ob diese richtig gewählt wurden, gibt den erfolg zurück
     async function checkStart() {
         let collectionExists = await EisDealer.findCollection('items');
         if (collectionExists == true) {
             console.log("Alles schon erstellt");
         }
         else {
-            let create = await EisDealer.createData(EisDealer.createURL, EisDealer.payload);
+            let create = await EisDealer.createData(EisDealer.createURL, EisDealer.payload); //collection erstellen
             console.log(create);
             for (let i = 0; i < 13; i++) {
                 let item = EisDealer.items[i];
-                let insert = await EisDealer.insertItems('items', item);
+                let insert = await EisDealer.insertItems('items', item); //schreibt items in das interface auf dem server
                 console.log(insert);
             }
         }
     }
     ;
+    //interface für variationen
     EisDealer.iceCreamFlavors = ["Amarena", "Kaffee", "Banane", "Pistazie"];
     EisDealer.Toppings = ["Krokant", "Streusel", "Eiswaffel", "Marshmallow"];
     EisDealer.IceCreamSauce = ["Vanillesauce", "Schokosauce", "Karamellsauce", "Likör"];
     EisDealer.container = ["Waffel", "Becher"];
-    EisDealer.sahne = ["ja", "nein"];
+    EisDealer.sahne = ["ja", "nein"]; //möglichkeiten für die auswahl
     function getRandomListItems(_list) {
         // Bestimme zufällig, wie viele Items ausgewählt werden sollen (min 1, max 3)
         let numberOfItems = Math.floor(Math.random() * 3) + 1;
         let chosenItems = [];
         for (let i = 0; i < numberOfItems; i++) {
-            // Wähle eine zufällige Eissorte aus dem Array aus
             let randomIndex = Math.floor(Math.random() * 3) + 1;
-            // Füge die ausgewählte Eissorte zum Array der ausgewählten Eissorten hinzu
             chosenItems.push(_list[randomIndex]);
         }
         console.log(chosenItems);
@@ -155,12 +158,8 @@ var EisDealer;
         }
         return true;
     }
-    let chosenIceCreams = getRandomListItems(EisDealer.iceCreamFlavors);
-    console.log(chosenIceCreams);
-    console.log("Type 1: Waffle");
-    console.log("Type 2: Cup");
-    console.log("Type 3: Cup");
-    console.log("Unbekannter Typ");
+    // let chosenIceCreams = getRandomListItems(iceCreamFlavors);//speichert die ausgewählten eissorten
+    // console.log(chosenIceCreams);
     function createStartButton() {
         button = document.createElement("button");
         button.textContent = "Start Day";
@@ -186,6 +185,7 @@ var EisDealer;
     let waffleFont = document.createElement("span");
     let cream;
     let creamFont = document.createElement("span");
+    //erstellt alle buttons und die kasse 
     function night() {
         // started=true;
         // console.log("jetzt ist nacht")
@@ -286,7 +286,7 @@ var EisDealer;
     let price;
     let previousSelection = []; // Variable für die vorherige Auswahl
     async function serveIce() {
-        if (!EisDealer.selectedItems.includes("ja")) {
+        if (!EisDealer.selectedItems.includes("ja")) { //im bestellarray ist sahne als ja oder nein definiert, 
             EisDealer.selectedItems.push("nein");
         }
         let hasIcecream = false;
@@ -298,22 +298,22 @@ var EisDealer;
         else {
             bill = 0;
             for (let item of previousSelection) {
-                if (item !== "Waffel" && item !== "Becher") {
-                    if (item == "ja") {
-                        let itemprice = EisDealer.findPreis("items", "Sahne");
+                if (item !== "Waffel" && item !== "Becher") { //sind gratis
+                    if (item == "ja") { //sahne auch gratis
+                        let itemprice = EisDealer.findPreis("items", "Sahne"); //sucht auf server preis von sahne
                         price = await itemprice;
                     }
                     else {
                         let itemprice = EisDealer.findPreis("items", item);
                         price = await itemprice;
-                    }
+                    } //sucht den preis
                     if (price !== undefined) {
                         bill = bill + price;
-                    }
+                    } //kasse wird erhöht
                 }
             }
         }
-        previousSelection = EisDealer.selectedItems.slice();
+        previousSelection = EisDealer.selectedItems.slice(); //fügt auswahl hinzu
         for (let item of EisDealer.selectedItems) {
             if (EisDealer.iceCreamFlavors.includes(item)) {
                 hasIcecream = true;
@@ -326,12 +326,11 @@ var EisDealer;
             window.alert("Du musst mindestens einen Behälter und eine Kugel auswählen");
             return false;
         }
+        //überprüft behälter und mind eine kugel
         newwaiter = new EisDealer.WaitingCustomer(new EisDealer.Vector(1000, 750), new EisDealer.Vector(0.1, 0), 1);
         let count = 0;
         let limit = 60;
-        let richtigeBestellung = check_order(finalorder, EisDealer.selectedItems);
-        if (eater == undefined) {
-        }
+        let richtigeBestellung = check_order(finalorder, EisDealer.selectedItems); //richtige bestellung speichert true oder false ob richtige bestellung
         let intervalID = setInterval(function () {
             count++;
             EisDealer.crc2.putImageData(back, 0, 0);
@@ -368,11 +367,10 @@ var EisDealer;
             waiter[1].drawSelf();
             waiter[2].drawSelfSad();
             newwaiter.drawSelfSad();
-            if (eater !== undefined) {
+            if (eater !== undefined) //eater kann nur laufen wenn es ihn gibt und nur nach unten
+             {
                 eater.speed = new EisDealer.Vector(0, 0.1);
                 eater.move(60);
-            }
-            if (eater !== undefined) {
                 if (richtigeBestellung == true) {
                     eater.drawSelf();
                 }
@@ -382,12 +380,12 @@ var EisDealer;
             }
             if (count == limit - 5) {
                 updateCash(bill);
-            }
+            } //bezahlen
             // console.log(orderingCustomer.position)
             if (count >= limit) {
                 if (eater !== undefined) {
                     EisDealer.crc2.clearRect(eater.position.x, eater.position.y, 30, 30);
-                }
+                } //alter kunde wird gelöscht
                 eater = new EisDealer.EatingCustomer(orderer.position, orderer.speed, 0);
                 // console.log(orderer)
                 orderer = new EisDealer.OrderingCustomer(waiter[0].position, new EisDealer.Vector(0.1, 0), 0);
@@ -400,8 +398,9 @@ var EisDealer;
                 waiter[1].speed = new EisDealer.Vector(0, 0.1);
                 waiter[2].speed = new EisDealer.Vector(0.1, 0);
                 clearInterval(intervalID);
+                //alle laufen eins weiter, es werden neue kunden erstellt
             }
-        }, 50);
+        }, 50); //alle 5ms
         return true;
     }
     function drawStore() {
@@ -462,7 +461,7 @@ var EisDealer;
         EisDealer.crc2.lineTo(150, 700);
         EisDealer.crc2.stroke();
         EisDealer.crc2.closePath(); //Ausgang 
-    }
+    } //zeichnet store
     function closeStore() {
         serveButton.remove();
         closeButton.remove();
@@ -488,14 +487,12 @@ var EisDealer;
         console.log(profitString, endAmount, startamount);
     }
     ;
-    // let startamount:number=100
     function updateCash(amount) {
         startamount = startamount + amount;
         EisDealer.cash.textContent = startamount.toString() + "€";
         EisDealer.cashEnd.textContent = "0€";
     }
     EisDealer.updateCash = updateCash;
-    //Ab 5mal zahlen werden überschrieben
     let dealer;
     function day() {
         drawStore();
@@ -689,7 +686,6 @@ var EisDealer;
     }
     ;
     drawStore();
-    //hier enum oder switch case
     function amarenaIce() {
         let value = checkIceCream(EisDealer.selectedItems, EisDealer.iceCreamFlavors);
         if (value == true) {
@@ -809,5 +805,6 @@ var EisDealer;
         // console.log("1x Eis mit Sahne")
         console.log(EisDealer.selectedItems);
     }
+    //richtig ausgewählte elemente werden ins array gepusht
 })(EisDealer || (EisDealer = {}));
 //# sourceMappingURL=script.js.map

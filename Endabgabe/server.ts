@@ -6,9 +6,9 @@ namespace EisDealer{
         preis:number
     }
 
-    export let payload={};
+    export let payload={};//von gpt
 
-export let items: item[] = [
+export let items: item[] = [//für items und deren preis auf server
     {
       name: "Amarena",
       preis: 1
@@ -76,28 +76,28 @@ export let items: item[] = [
 
 ];
 
-export let URL = "https://webuser.hs-furtwangen.de/~putzdomi/Database/"
+export let URL = "https://webuser.hs-furtwangen.de/~putzdomi/Database/"//webserver
 
 export async function findPreis(collection: string, name: string): Promise<number|undefined> {
 
-    let queryParamsFind = new URLSearchParams({
+    let queryParamsFind = new URLSearchParams({//erstellt url auf die ich zugreifen kann
       command: "find",
       collection,
-      data: JSON.stringify({ _name: name })
+      data: JSON.stringify({ _name: name })//umwandlung von json in string
     });
-
+//json besteht aus zwei teilen: inhalt und status
     try {
-      let response = await fetch(`${URL}?${queryParamsFind.toString()}`, {
-        method: "GET",// Ändere den Inhalt auf dem Server
+      let response = await fetch(`${URL}?${queryParamsFind.toString()}`, {//fetch, holt die antwort vom server
+        method: "GET",
       });
 
       if (!response.ok) {
         throw new Error(`Server returned status ${response.status}`);
-      }
+      }//kommunikation fehlgeschlagen
 
-      let result = await response.json();
-      let data = result.data;
-      let preis = data[Object.keys(data)[0]].preis;   
+      let result = await response.json();//antwort von server wird in json umgewandelt
+      let data = result.data;//speichert daten von json
+      let preis = data[Object.keys(data)[0]].preis;//filtert preis
 
 
       console.log("Data inserted successfully:", result);
@@ -106,10 +106,10 @@ export async function findPreis(collection: string, name: string): Promise<numbe
       console.error("Error inserting data:", error);
       return undefined
 
-    }
+    }//try catch versucht daten zu holen, catcht sonst den error
   }
 
-export async function findCollection(collection: string): Promise<boolean> {
+export async function findCollection(collection: string): Promise<boolean> {//überprüft ob collection items existiert
     let serverUrl = "https://webuser.hs-furtwangen.de/~putzdomi/Database/";
 
     // Erstellen Sie die Query-Parameter
@@ -143,9 +143,9 @@ export async function findCollection(collection: string): Promise<boolean> {
     }
   }
 
- export let createURL = "https://webuser.hs-furtwangen.de/~putzdomi/Database/?command=create&collection=items"
+ export let createURL = "https://webuser.hs-furtwangen.de/~putzdomi/Database/?command=create&collection=items"//url um etwas beim server zu erstellen 
 
-  export async function createData(createURL: string, payload: object): Promise<boolean> {
+  export async function createData(createURL: string, payload: object): Promise<boolean> {//erstellt collection für interface auf server
     try {
       let response = await fetch(createURL, { // Fetch sendet HTTP Anfrage an die angegebene URL
         method: 'POST', // POST= Methode für das Sende von Daten/ GET= Methode um Datem vom Server abzurufen
@@ -169,7 +169,7 @@ export async function findCollection(collection: string): Promise<boolean> {
     }
   }
 
-  export async function insertItems(collection: string, dataArray: object): Promise<boolean> {
+  export async function insertItems(collection: string, dataArray: object): Promise<boolean> {//füllt collection mit interface
 
     let queryParams = new URLSearchParams({
       command: "insert",

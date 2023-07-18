@@ -5,7 +5,7 @@ var EisDealer;
     (function (MOOD) {
         MOOD[MOOD["HAPPY"] = 0] = "HAPPY";
         MOOD[MOOD["SAD"] = 1] = "SAD";
-    })(MOOD = EisDealer.MOOD || (EisDealer.MOOD = {}));
+    })(MOOD = EisDealer.MOOD || (EisDealer.MOOD = {})); //für stimmung
     class Customer {
         position;
         speed;
@@ -107,7 +107,8 @@ var EisDealer;
             let randomSauce = EisDealer.get1RandomListItem(EisDealer.IceCreamSauce);
             let randomContainer = EisDealer.get1RandomListItem(EisDealer.container);
             let randomCream = EisDealer.get1RandomListItem(EisDealer.sahne);
-            let combinedarray = randomIceCreams.concat(randomContainer, randomCream, randomSauce, randomTopping);
+            //speichert die zufällige Wahl des kunden
+            let combinedarray = randomIceCreams.concat(randomContainer, randomCream, randomSauce, randomTopping); //alles in ein array, d.h. die kundenbestellung
             console.log(randomContainer);
             console.log(randomSauce);
             console.log(randomTopping);
@@ -152,8 +153,9 @@ var EisDealer;
                 EisDealer.crc2.stroke();
                 EisDealer.crc2.closePath(); //Löffel
             }
-            if (randomIceCreams.length == 1) {
-                switch (randomIceCreams[0]) {
+            if (randomIceCreams.length == 1) { //Wenn wir nur eine kugel haben
+                switch (randomIceCreams[0]) { //überprüfe welche sorte und male diese entsprechend
+                    //0 weil es gibt nur ein Element/ eine Kugel
                     case 'Amarena':
                         EisDealer.crc2.beginPath();
                         EisDealer.crc2.arc(positionx, positiony - 30, 15, 0, 2 * Math.PI);
@@ -319,9 +321,9 @@ var EisDealer;
                     }
                 }
             }
-            else {
+            else { //wenn zwei oder drei kugeln
                 for (let i = 0; i < randomIceCreams.length; i++) {
-                    if (i == 0) {
+                    if (i == 0) { //erste kugel und sauce bisschen weiter links 
                         switch (randomIceCreams[i]) {
                             case 'Amarena':
                                 EisDealer.crc2.beginPath();
@@ -383,7 +385,7 @@ var EisDealer;
                                 break;
                         }
                     }
-                    else if (i == 1) {
+                    else if (i == 1) { //zweite kugel bisschen weiter rechts
                         switch (randomIceCreams[i]) {
                             case 'Amarena':
                                 EisDealer.crc2.beginPath();
@@ -415,7 +417,7 @@ var EisDealer;
                                 break;
                         }
                     }
-                    else {
+                    else { //dritte kugel oben zeichnen
                         switch (randomIceCreams[i]) {
                             case 'Amarena':
                                 EisDealer.crc2.beginPath();
@@ -447,7 +449,7 @@ var EisDealer;
                                 break;
                         }
                     }
-                    switch (randomTopping[0]) {
+                    switch (randomTopping[0]) { //toppings
                         case 'Krokant':
                             EisDealer.crc2.beginPath();
                             EisDealer.crc2.arc(this.position.x + 100, this.position.y - 30, 5, 0, 2 * Math.PI);
@@ -503,7 +505,7 @@ var EisDealer;
                             EisDealer.crc2.closePath();
                             break;
                     }
-                    if (randomCream[0] == "ja") {
+                    if (randomCream[0] == "ja") { //sahne hat eine andere position als bei einer kugel
                         if (randomIceCreams.length == 1) {
                             EisDealer.crc2.beginPath();
                             EisDealer.crc2.ellipse(this.position.x + 115, this.position.y - 20, 20, 10, 0, 0, 2 * Math.PI);
@@ -554,7 +556,7 @@ var EisDealer;
                     }
                 }
             }
-            return combinedarray;
+            return combinedarray; //gibt array mit der bestellung des orderingcustomers zurück   
         }
     }
     EisDealer.OrderingCustomer = OrderingCustomer;
@@ -612,7 +614,7 @@ var EisDealer;
             this.position.add(offset);
         }
         eat() {
-            let order = EisDealer.checkServing(EisDealer.selectedItems);
+            let order = EisDealer.checkServing(EisDealer.selectedItems); //checkserving (überprüft ob nur ein behälter etc) ergebnis wird in order gespeichert
             console.log(order);
             EisDealer.selectedItems = [];
             if (order.container == "Waffel") {
@@ -644,8 +646,8 @@ var EisDealer;
                 EisDealer.crc2.stroke();
                 EisDealer.crc2.closePath(); //Löffel
             }
-            if (order.variation.length == 1) {
-                switch (order.variation[0]) {
+            if (order.variation.length == 1) { //wenns nur eine kugel ist
+                switch (order.variation[0]) { //zeichne kugel und sauce in die mitte und zeichne richtige sorte/ sauce
                     case 'Amarena':
                         EisDealer.crc2.beginPath();
                         EisDealer.crc2.arc(this.position.x + 55, this.position.y - 5, 15, 0, 2 * Math.PI);
@@ -810,11 +812,12 @@ var EisDealer;
                         EisDealer.crc2.closePath();
                     }
                 }
+                //topping und sahne bei einer kugel
             }
-            else {
+            else { //bei mehreren kugeln
                 for (let i = 0; i < order.variation.length; i++) {
-                    if (i == 0) {
-                        switch (order.variation[i]) {
+                    if (i == 0) { //erste kugel
+                        switch (order.variation[i]) { //zeichne kugel bisschen weiter links
                             case 'Amarena':
                                 EisDealer.crc2.beginPath();
                                 EisDealer.crc2.arc(this.position.x + 40, this.position.y - 5, 15, 0, 2 * Math.PI);
@@ -875,7 +878,7 @@ var EisDealer;
                                 break;
                         }
                     }
-                    else if (i == 1) {
+                    else if (i == 1) { //zeichne kugel bisschen weiter rechts
                         switch (order.variation[i]) {
                             case 'Amarena':
                                 EisDealer.crc2.beginPath();
@@ -907,7 +910,7 @@ var EisDealer;
                                 break;
                         }
                     }
-                    else {
+                    else { //zeichne dritte kugel bisschen weiter hoch und mittig
                         switch (order.variation[i]) {
                             case 'Amarena':
                                 EisDealer.crc2.beginPath();
@@ -1043,7 +1046,7 @@ var EisDealer;
                             EisDealer.crc2.closePath();
                         }
                     }
-                }
+                } //zeichne topping und sahne(etwas weiter höher)
             }
         }
     }
