@@ -408,138 +408,138 @@ namespace EisDealer {
                     }
                 }
 
-                switch(randomTopping[0]){
-
-                    case'Krokant':
-                    crc2.beginPath();
-                    crc2.arc(this.position.x+100, this.position.y-30, 5, 0, 2 * Math.PI);
-                    crc2.fillStyle = "#3c1a03";
-                    crc2.fill();
-                    crc2.closePath();
                 
-                    crc2.beginPath();
-                    crc2.arc(this.position.x+115, this.position.y-40, 5, 0, 2 * Math.PI);
-                    crc2.fillStyle = "#3c1a03";
-                    crc2.fill();
-                    crc2.closePath();
-                
-                    crc2.beginPath();
-                    crc2.arc(this.position.x+130, this.position.y-30, 5, 0, 2 * Math.PI);
-                    crc2.fillStyle = "#3c1a03";
-                    crc2.fill();
-                    crc2.closePath();
-                    break;
-                
-                    case'Streusel':
-                
-                    crc2.beginPath();
-                    crc2.moveTo(this.position.x+110,this.position.y-45);
-                    crc2.lineTo(this.position.x+120,this.position.y-50);
-                    crc2.strokeStyle="#ff0000"
-                    crc2.stroke();
-                    crc2.closePath();
-                    
-                    crc2.beginPath();
-                    crc2.moveTo(this.position.x+110,this.position.y-40);
-                    crc2.lineTo(this.position.x+120,this.position.y-45);
-                    crc2.strokeStyle="#ff0000"
-                    crc2.stroke();
-                    crc2.closePath();
-                    
-                    crc2.beginPath();
-                    crc2.moveTo(this.position.x+110,this.position.y-35);
-                    crc2.lineTo(this.position.x+120,this.position.y-40);
-                    crc2.strokeStyle="#ff0000"
-                    crc2.stroke();
-                    crc2.closePath();
-                
-                
-                    
-                    break;
-                
-                    case'Marshmallow':
-                    crc2.beginPath();
-                    crc2.arc(this.position.x+115, this.position.y-40, 12, 0, 2 * Math.PI);
-                    crc2.fillStyle = "#ffffff";
-                    crc2.fill();
-                    crc2.closePath();
-                    break;
-                
-                    case'Eiswaffel':
-                    crc2.beginPath();
-                    crc2.moveTo(this.position.x+130, this.position.y-25);
-                    crc2.lineTo(this.position.x+150, this.position.y-35);
-                    crc2.lineTo(this.position.x+145, this.position.y-55);
-                    crc2.lineTo(this.position.x+120, this.position.y-35);
-                    crc2.fillStyle = "#c99867";
-                    crc2.fill();
-                    crc2.closePath();
-                    break;
-                }
-                if(randomCream[0]=="ja"){
-                
-                    if (randomIceCreams.length==1){
-                        
-                    
-                        
-                        crc2.beginPath();
-                        crc2.ellipse(this.position.x+115, this.position.y-20, 20, 10, 0, 0, 2 * Math.PI);
-                        crc2.fillStyle = "white";
-                        crc2.strokeStyle="black";
-                        crc2.fill();
-                        crc2.stroke();
-                        crc2.closePath();
-                    
-                        crc2.beginPath();
-                        crc2.ellipse(this.position.x+115, this.position.y-30, 15, 10, 0, 0, 2 * Math.PI);
-                        crc2.fillStyle = "white";
-                        crc2.strokeStyle="black";
-                        crc2.fill();
-                        crc2.stroke();
-                        crc2.closePath();
-                    
-                        crc2.beginPath();
-                        crc2.ellipse(this.position.x+115, this.position.y-40, 10, 5, 0, 0, 2 * Math.PI);
-                        crc2.fillStyle = "white";
-                        crc2.strokeStyle="black";
-                        crc2.fill();
-                        crc2.stroke();
-                        crc2.closePath();
-                    
-                    }
-                    //zeichnet Sahne nicht?
-                    else{
-                        
-                        
-                        crc2.beginPath();
-                        crc2.ellipse(this.position.x+115, this.position.y-60, 20, 8, 0, 0, 2 * Math.PI);
-                        crc2.stroke();
-                        crc2.fillStyle = "white";
-                        crc2.strokeStyle="black";
-                        crc2.fill();
-                        crc2.closePath();
-                    
-                        crc2.beginPath();
-                        crc2.ellipse(this.position.x+115, this.position.y-70, 15, 5, 0, 0, 2 * Math.PI);
-                        crc2.fillStyle = "white";
-                        crc2.strokeStyle="black";
-                        crc2.fill();
-                        crc2.stroke();
-                        crc2.closePath();
-                    
-                        crc2.beginPath();
-                        crc2.ellipse(this.position.x+115, this.position.y-80, 10, 2, 0, 0, 2 * Math.PI);
-                        crc2.fillStyle = "white";
-                        crc2.strokeStyle="black";
-                        crc2.fill();
-                        crc2.stroke();
-                        crc2.closePath();
-                    }
-                    
-                            }
-                        
-
             }
+            switch(randomTopping[0]){
+
+                case'Krokant':
+                crc2.beginPath();
+                crc2.arc(this.position.x+100, this.position.y-30, 5, 0, 2 * Math.PI);
+                crc2.fillStyle = "#3c1a03";
+                crc2.fill();
+                crc2.closePath();
+            
+                crc2.beginPath();
+                crc2.arc(this.position.x+115, this.position.y-40, 5, 0, 2 * Math.PI);
+                crc2.fillStyle = "#3c1a03";
+                crc2.fill();
+                crc2.closePath();
+            
+                crc2.beginPath();
+                crc2.arc(this.position.x+130, this.position.y-30, 5, 0, 2 * Math.PI);
+                crc2.fillStyle = "#3c1a03";
+                crc2.fill();
+                crc2.closePath();
+                break;
+            
+                case'Streusel':
+            
+                crc2.beginPath();
+                crc2.moveTo(this.position.x+105,this.position.y-45);
+                crc2.lineTo(this.position.x+125,this.position.y-50);
+                crc2.strokeStyle="#ff0000"
+                crc2.stroke();
+                crc2.closePath();
+                
+                crc2.beginPath();
+                crc2.moveTo(this.position.x+105,this.position.y-40);
+                crc2.lineTo(this.position.x+125,this.position.y-45);
+                crc2.strokeStyle="#ff0000"
+                crc2.stroke();
+                crc2.closePath();
+                
+                crc2.beginPath();
+                crc2.moveTo(this.position.x+105,this.position.y-35);
+                crc2.lineTo(this.position.x+125,this.position.y-40);
+                crc2.strokeStyle="#ff0000"
+                crc2.stroke();
+                crc2.closePath();
+            
+            
+                
+                break;
+            
+                case'Marshmallow':
+                crc2.beginPath();
+                crc2.arc(this.position.x+115, this.position.y-40, 12, 0, 2 * Math.PI);
+                crc2.fillStyle = "#ffffff";
+                crc2.fill();
+                crc2.closePath();
+                break;
+            
+                case'Eiswaffel':
+                crc2.beginPath();
+                crc2.moveTo(this.position.x+130, this.position.y-25);
+                crc2.lineTo(this.position.x+170, this.position.y-35);
+                crc2.lineTo(this.position.x+160, this.position.y-55);
+                crc2.lineTo(this.position.x+120, this.position.y-35);
+                crc2.fillStyle = "#c99867";
+                crc2.fill();
+                crc2.closePath();
+                break;
+            }
+            if(randomCream[0]=="ja"){
+            
+                if (randomIceCreams.length==1){
+                    
+                
+                    
+                    crc2.beginPath();
+                    crc2.ellipse(this.position.x+115, this.position.y-20, 20, 10, 0, 0, 2 * Math.PI);
+                    crc2.fillStyle = "white";
+                    crc2.strokeStyle="black";
+                    crc2.fill();
+                    crc2.stroke();
+                    crc2.closePath();
+                
+                    crc2.beginPath();
+                    crc2.ellipse(this.position.x+115, this.position.y-30, 15, 10, 0, 0, 2 * Math.PI);
+                    crc2.fillStyle = "white";
+                    crc2.strokeStyle="black";
+                    crc2.fill();
+                    crc2.stroke();
+                    crc2.closePath();
+                
+                    crc2.beginPath();
+                    crc2.ellipse(this.position.x+115, this.position.y-40, 10, 5, 0, 0, 2 * Math.PI);
+                    crc2.fillStyle = "white";
+                    crc2.strokeStyle="black";
+                    crc2.fill();
+                    crc2.stroke();
+                    crc2.closePath();
+                
+                }
+                //zeichnet Sahne nicht?
+                else{
+                    
+                    
+                    crc2.beginPath();
+                    crc2.ellipse(this.position.x+115, this.position.y-60, 20, 8, 0, 0, 2 * Math.PI);
+                    crc2.stroke();
+                    crc2.fillStyle = "white";
+                    crc2.strokeStyle="black";
+                    crc2.fill();
+                    crc2.closePath();
+                
+                    crc2.beginPath();
+                    crc2.ellipse(this.position.x+115, this.position.y-70, 15, 5, 0, 0, 2 * Math.PI);
+                    crc2.fillStyle = "white";
+                    crc2.strokeStyle="black";
+                    crc2.fill();
+                    crc2.stroke();
+                    crc2.closePath();
+                
+                    crc2.beginPath();
+                    crc2.ellipse(this.position.x+115, this.position.y-80, 10, 2, 0, 0, 2 * Math.PI);
+                    crc2.fillStyle = "white";
+                    crc2.strokeStyle="black";
+                    crc2.fill();
+                    crc2.stroke();
+                    crc2.closePath();
+                }
+                
+                        }
+                    
 }
 
 return combinedarray        
@@ -621,7 +621,8 @@ return combinedarray
             selectedItems=[]
 
             if(order.container=="Waffel"){
-                crc2.beginPath();
+
+            crc2.beginPath();
             crc2.moveTo(this.position.x+30,this.position.y+10);
             crc2.lineTo(this.position.x+55,this.position.y+80);
             crc2.lineTo(this.position.x+80,this.position.y+10);
@@ -630,8 +631,10 @@ return combinedarray
             crc2.fill();
             crc2.strokeStyle = "black";
             crc2.stroke();//Waffel
+
             }
             else{
+
                 crc2.beginPath();
                 crc2.moveTo(this.position.x+30,this.position.y+10);
                 crc2.lineTo(this.position.x+30,this.position.y+60);
@@ -685,6 +688,41 @@ return combinedarray
                     break;
                 }
 
+                switch(order.sauce){
+
+                    case'Vanillesauce':
+                    crc2.beginPath();
+                    crc2.arc(this.position.x+55, this.position.y-5, 16, Math.PI, 2 * Math.PI);
+                    crc2.fillStyle = "#ffeb66";
+                    crc2.fill();
+                    crc2.closePath();
+                    break;
+                
+                    case'Schokosauce':
+                    crc2.beginPath();
+                    crc2.arc(this.position.x+55, this.position.y-5, 16, Math.PI, 2 * Math.PI);
+                    crc2.fillStyle = "#b58649";
+                    crc2.fill();
+                    crc2.closePath();
+                    break;
+                
+                    case'Karamellsauce':
+                    crc2.beginPath();
+                    crc2.arc(this.position.x+55, this.position.y-5, 16, Math.PI, 2 * Math.PI);
+                    crc2.fillStyle = "#ff9a1e";
+                    crc2.fill();
+                    crc2.closePath();
+                    break;
+                
+                    case'Likör':
+                    crc2.beginPath();
+                    crc2.arc(this.position.x+55, this.position.y-5, 16, Math.PI, 2 * Math.PI);
+                    crc2.fillStyle = "#f8ffb5";
+                    crc2.fill();
+                    crc2.closePath();
+                    break;
+                }
+
                 
             }
             else{
@@ -723,6 +761,42 @@ return combinedarray
                         crc2.closePath();
                         break;
                     }
+
+                    switch(order.sauce[i]){
+
+                        case'Vanillesauce':
+                        crc2.beginPath();
+                        crc2.arc(this.position.x+100, this.position.y-40, 16, Math.PI, 2 * Math.PI);
+                        crc2.fillStyle = "#ffeb66";
+                        crc2.fill();
+                        crc2.closePath();
+                        break;
+                    
+                        case'Schokosauce':
+                        crc2.beginPath();
+                        crc2.arc(this.position.x+100, this.position.y-40, 16, Math.PI, 2 * Math.PI);
+                        crc2.fillStyle = "#b58649";
+                        crc2.fill();
+                        crc2.closePath();
+                        break;
+                    
+                        case'Karamellsauce':
+                        crc2.beginPath();
+                        crc2.arc(this.position.x+100, this.position.y-40, 16, Math.PI, 2 * Math.PI);
+                        crc2.fillStyle = "#ff9a1e";
+                        crc2.fill();
+                        crc2.closePath();
+                        break;
+                    
+                        case'Likör':
+                        crc2.beginPath();
+                        crc2.arc(this.position.x+100, this.position.y-40, 16, Math.PI, 2 * Math.PI);
+                        crc2.fillStyle = "#f8ffb5";
+                        crc2.fill();
+                        crc2.closePath();
+                        break;
+            
+            }
 
                 }
                 else if (i==1){
@@ -790,189 +864,135 @@ return combinedarray
                         crc2.closePath();
                         break;
                     }
+                }switch(order.topping){
+
+                    case'Krokant':
+                    crc2.beginPath();
+                    crc2.arc(this.position.x+45, this.position.y-10, 5, 0, 2 * Math.PI);
+                    crc2.fillStyle = "#3c1a03";
+                    crc2.fill();
+                    crc2.closePath();
+                
+                    crc2.beginPath();
+                    crc2.arc(this.position.x+55, this.position.y-20, 5, 0, 2 * Math.PI);
+                    crc2.fillStyle = "#3c1a03";
+                    crc2.fill();
+                    crc2.closePath();
+                
+                    crc2.beginPath();
+                    crc2.arc(this.position.x+65, this.position.y-10, 5, 0, 2 * Math.PI);
+                    crc2.fillStyle = "#3c1a03";
+                    crc2.fill();
+                    crc2.closePath();
+                    break;
+                
+                    case'Streusel':
+                
+                
+                    crc2.beginPath();
+                    crc2.moveTo(this.position.x+45,this.position.y);
+                    crc2.lineTo(this.position.x+65,this.position.y-5);
+                    crc2.strokeStyle="#ff0000"
+                    crc2.stroke();
+                    crc2.closePath();
+                    
+                    crc2.beginPath();
+                    crc2.moveTo(this.position.x+45,this.position.y-5);
+                    crc2.lineTo(this.position.x+65,this.position.y-10);
+                    crc2.strokeStyle="#ff0000"
+                    crc2.stroke();
+                    crc2.closePath();
+                    
+                    crc2.beginPath();
+                    crc2.moveTo(this.position.x+45,this.position.y);
+                    crc2.lineTo(this.position.x+65,this.position.y-5);
+                    crc2.strokeStyle="#ff0000"
+                    crc2.stroke();
+                    crc2.closePath();
+                
+                
+                    break;
+                    case'Marshmallow':
+                    crc2.beginPath();
+                    crc2.arc(this.position.x+55, this.position.y-10, 12, 0, 2 * Math.PI);
+                    crc2.fillStyle = "#ffffff";
+                    crc2.fill();
+                    crc2.closePath();
+                    break;
+                    case'Eiswaffel':
+                    crc2.beginPath();
+                    crc2.moveTo(this.position.x+70, this.position.y-5);
+                    crc2.lineTo(this.position.x+90, this.position.y-15);
+                    crc2.lineTo(this.position.x+85, this.position.y-25);
+                    crc2.lineTo(this.position.x+60, this.position.y-15);
+                    crc2.fillStyle ="#c99867";
+                    crc2.fill();
+                    crc2.closePath();
+                    break;
+                
                 }
+                if(order.cream=="ja"){
+                
+                if (order.variation.length==1||order.variation.length==2){
+                
+                    
+                    crc2.beginPath();
+                    crc2.ellipse(this.position.x+55, this.position.y-20, 20, 10, 0, 0, 2 * Math.PI);
+                    crc2.stroke();
+                    crc2.fillStyle = "white";
+                    crc2.strokeStyle="black";
+                    crc2.fill();
+                    crc2.closePath();
+                
+                    crc2.beginPath();
+                    crc2.ellipse(this.position.x+55, this.position.y-30, 15, 10, 0, 0, 2 * Math.PI);
+                    crc2.fillStyle = "white";
+                    crc2.strokeStyle="black";
+                    crc2.fill();
+                    crc2.stroke();
+                    crc2.closePath();
+                
+                    crc2.beginPath();
+                    crc2.ellipse(this.position.x+55, this.position.y-40, 10, 5, 0, 0, 2 * Math.PI);
+                    crc2.fillStyle = "white";
+                    crc2.strokeStyle="black";
+                    crc2.fill();
+                    crc2.stroke();
+                    crc2.closePath();
+                
+                }
+                
+                else{
+                    crc2.beginPath();
+                    crc2.ellipse(this.position.x+55, this.position.y-35, 20, 10, 0, 0, 2 * Math.PI);
+                    crc2.stroke();
+                    crc2.fillStyle = "white";
+                    crc2.strokeStyle="black";
+                    crc2.fill();
+                    crc2.closePath();
+                
+                    crc2.beginPath();
+                    crc2.ellipse(this.position.x+55, this.position.y-45, 15, 10, 0, 0, 2 * Math.PI);
+                    crc2.fillStyle = "white";
+                    crc2.strokeStyle="black";
+                    crc2.fill();
+                    crc2.stroke();
+                    crc2.closePath();
+                
+                    crc2.beginPath();
+                    crc2.ellipse(this.position.x+55, this.position.y-55, 10, 5, 0, 0, 2 * Math.PI);
+                    crc2.fillStyle = "white";
+                    crc2.strokeStyle="black";
+                    crc2.fill();
+                    crc2.stroke();
+                    crc2.closePath();
+                }
+                
+                        }
+                
+                    }
 
             }
 }
-
-
-if (order.variation.length==1){
-
-switch(order.sauce){
-
-    case'Vanillesauce':
-    crc2.beginPath();
-    crc2.arc(this.position.x+55, this.position.y-5, 16, Math.PI, 2 * Math.PI);
-    crc2.fillStyle = "#ffeb66";
-    crc2.fill();
-    crc2.closePath();
-    break;
-
-    case'Schokosauce':
-    crc2.beginPath();
-    crc2.arc(this.position.x+55, this.position.y-5, 16, Math.PI, 2 * Math.PI);
-    crc2.fillStyle = "#b58649";
-    crc2.fill();
-    crc2.closePath();
-    break;
-
-    case'Karamellsauce':
-    crc2.beginPath();
-    crc2.arc(this.position.x+55, this.position.y-5, 16, Math.PI, 2 * Math.PI);
-    crc2.fillStyle = "#ff9a1e";
-    crc2.fill();
-    crc2.closePath();
-    break;
-
-    case'Likör':
-    crc2.beginPath();
-    crc2.arc(this.position.x+55, this.position.y-5, 16, Math.PI, 2 * Math.PI);
-    crc2.fillStyle = "#f8ffb5";
-    crc2.fill();
-    crc2.closePath();
-    break;
-    
-}}
-
-
-
-switch(order.topping){
-
-    case'Krokant':
-    crc2.beginPath();
-    crc2.arc(this.position.x+45, this.position.y-10, 5, 0, 2 * Math.PI);
-    crc2.fillStyle = "#3c1a03";
-    crc2.fill();
-    crc2.closePath();
-
-    crc2.beginPath();
-    crc2.arc(this.position.x+55, this.position.y-20, 5, 0, 2 * Math.PI);
-    crc2.fillStyle = "#3c1a03";
-    crc2.fill();
-    crc2.closePath();
-
-    crc2.beginPath();
-    crc2.arc(this.position.x+65, this.position.y-10, 5, 0, 2 * Math.PI);
-    crc2.fillStyle = "#3c1a03";
-    crc2.fill();
-    crc2.closePath();
-    break;
-
-    case'Streusel':
-
-
-    crc2.beginPath();
-    crc2.moveTo(this.position.x+50,this.position.y);
-    crc2.lineTo(this.position.x+60,this.position.y-5);
-    crc2.strokeStyle="#ff0000"
-    crc2.stroke();
-    crc2.closePath();
-    
-    crc2.beginPath();
-    crc2.moveTo(this.position.x+40,this.position.y-5);
-    crc2.lineTo(this.position.x+50,this.position.y-10);
-    crc2.strokeStyle="#ff0000"
-    crc2.stroke();
-    crc2.closePath();
-    
-    crc2.beginPath();
-    crc2.moveTo(this.position.x+60,this.position.y);
-    crc2.lineTo(this.position.x+70,this.position.y-5);
-    crc2.strokeStyle="#ff0000"
-    crc2.stroke();
-    crc2.closePath();
-
-
-    break;
-    case'Marshmallow':
-    crc2.beginPath();
-    crc2.arc(this.position.x+55, this.position.y-10, 12, 0, 2 * Math.PI);
-    crc2.fillStyle = "#ffffff";
-    crc2.fill();
-    crc2.closePath();
-    break;
-    case'Eiswaffel':
-    crc2.beginPath();
-    crc2.moveTo(this.position.x+70, this.position.y-5);
-    crc2.lineTo(this.position.x+90, this.position.y-15);
-    crc2.lineTo(this.position.x+85, this.position.y-25);
-    crc2.lineTo(this.position.x+60, this.position.y-15);
-    crc2.fillStyle ="#c99867";
-    crc2.fill();
-    crc2.closePath();
-    break;
-
-    // case'Amarena':
-    // crc2.beginPath();
-    // crc2.arc(this.position.x+55, this.position.y-5, 15, 0, 2 * Math.PI);
-    // crc2.fillStyle = "red";
-    // crc2.fill();
-    // crc2.closePath();
-    // break;
-
-
-}
-if(order.cream=="ja"){
-
-if (order.variation.length==1||order.variation.length==2){
-
-    
-    crc2.beginPath();
-    crc2.ellipse(this.position.x+55, this.position.y-20, 20, 10, 0, 0, 2 * Math.PI);
-    crc2.stroke();
-    crc2.fillStyle = "white";
-    crc2.strokeStyle="black";
-    crc2.fill();
-    crc2.closePath();
-
-    crc2.beginPath();
-    crc2.ellipse(this.position.x+55, this.position.y-30, 15, 10, 0, 0, 2 * Math.PI);
-    crc2.fillStyle = "white";
-    crc2.strokeStyle="black";
-    crc2.fill();
-    crc2.stroke();
-    crc2.closePath();
-
-    crc2.beginPath();
-    crc2.ellipse(this.position.x+55, this.position.y-40, 10, 5, 0, 0, 2 * Math.PI);
-    crc2.fillStyle = "white";
-    crc2.strokeStyle="black";
-    crc2.fill();
-    crc2.stroke();
-    crc2.closePath();
-
-}
-
-else{
-    crc2.beginPath();
-    crc2.ellipse(this.position.x+55, this.position.y-35, 20, 10, 0, 0, 2 * Math.PI);
-    crc2.stroke();
-    crc2.fillStyle = "white";
-    crc2.strokeStyle="black";
-    crc2.fill();
-    crc2.closePath();
-
-    crc2.beginPath();
-    crc2.ellipse(this.position.x+55, this.position.y-45, 15, 10, 0, 0, 2 * Math.PI);
-    crc2.fillStyle = "white";
-    crc2.strokeStyle="black";
-    crc2.fill();
-    crc2.stroke();
-    crc2.closePath();
-
-    crc2.beginPath();
-    crc2.ellipse(this.position.x+55, this.position.y-55, 10, 5, 0, 0, 2 * Math.PI);
-    crc2.fillStyle = "white";
-    crc2.strokeStyle="black";
-    crc2.fill();
-    crc2.stroke();
-    crc2.closePath();
-}
-
-        }
-
-    }
-
-
 
 }}

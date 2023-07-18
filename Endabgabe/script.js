@@ -21,7 +21,6 @@ var EisDealer;
     let finalorder;
     let amount = 100;
     let startamount = 100;
-    let endAmount = amount;
     EisDealer.selectedItems = []; // console.log(started)
     function handleload(_event) {
         EisDealer.crc2 = canvas.getContext("2d");
@@ -477,7 +476,9 @@ var EisDealer;
         updateCash(0);
         // console.log(cash.textContent)
         night();
-        let profit = endAmount - startamount;
+        let cashText = EisDealer.cash.textContent;
+        let endAmount = parseInt(cashText.replace(/[^\d.-]/g, '')); //löscht Euro zeichen
+        let profit = endAmount - 100;
         let profitString = profit.toString();
         EisDealer.crc2.beginPath();
         EisDealer.crc2.fillStyle = "black";
@@ -525,8 +526,6 @@ var EisDealer;
         EisDealer.cashEnd?.remove();
         document.body.appendChild(cashRegister);
         // console.log(cashRegister);//Wort Kasse
-        // let amount:number=100
-        // let endAmount=amount
         EisDealer.cash = document.createElement("p");
         EisDealer.cash.textContent = "";
         EisDealer.cash.textContent = amount + "€";

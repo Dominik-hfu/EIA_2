@@ -25,7 +25,6 @@ namespace EisDealer{
     let finalorder:string[];
     let amount:number=100
     let startamount:number=100
-    let endAmount=amount
     export let selectedItems:string[]=[];  // console.log(started)
     
     
@@ -628,7 +627,9 @@ function closeStore(){
     // console.log(cash.textContent)
     night();
 
-    let profit:number= endAmount-startamount
+    let cashText=cash.textContent;
+    let endAmount=parseInt(cashText.replace(/[^\d.-]/g,''))//löscht Euro zeichen
+    let profit:number= endAmount-100
     let profitString: string = profit.toString();
 
     crc2.beginPath();
@@ -695,8 +696,6 @@ function day(){
     document.body.appendChild(cashRegister);
     // console.log(cashRegister);//Wort Kasse
 
-    // let amount:number=100
-    // let endAmount=amount
     
     cash=document.createElement("p")as HTMLParagraphElement;
     cash.textContent="";
