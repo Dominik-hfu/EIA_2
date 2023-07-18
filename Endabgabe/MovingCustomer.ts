@@ -853,23 +853,23 @@ return combinedarray
                     break;
                 }
 
-                switch(order.topping[0]){
+                switch(order.topping){
 
                     case'Krokant':
                     crc2.beginPath();
-                    crc2.arc(this.position.x+100, this.position.y-30, 5, 0, 2 * Math.PI);
+                    crc2.arc(this.position.x+40, this.position.y-10, 5, 0, 2 * Math.PI);
                     crc2.fillStyle = "#3c1a03";
                     crc2.fill();
                     crc2.closePath();
                 
                     crc2.beginPath();
-                    crc2.arc(this.position.x+115, this.position.y-40, 5, 0, 2 * Math.PI);
+                    crc2.arc(this.position.x+55, this.position.y-20, 5, 0, 2 * Math.PI);
                     crc2.fillStyle = "#3c1a03";
                     crc2.fill();
                     crc2.closePath();
                 
                     crc2.beginPath();
-                    crc2.arc(this.position.x+130, this.position.y-30, 5, 0, 2 * Math.PI);
+                    crc2.arc(this.position.x+70, this.position.y-10, 5, 0, 2 * Math.PI);
                     crc2.fillStyle = "#3c1a03";
                     crc2.fill();
                     crc2.closePath();
@@ -878,22 +878,22 @@ return combinedarray
                     case'Streusel':
                 
                     crc2.beginPath();
-                    crc2.moveTo(this.position.x+105,this.position.y-45);
-                    crc2.lineTo(this.position.x+125,this.position.y-50);
+                    crc2.moveTo(this.position.x+45,this.position.y);
+                    crc2.lineTo(this.position.x+65,this.position.y-5);
                     crc2.strokeStyle="#ff0000"
                     crc2.stroke();
                     crc2.closePath();
                     
                     crc2.beginPath();
-                    crc2.moveTo(this.position.x+105,this.position.y-40);
-                    crc2.lineTo(this.position.x+125,this.position.y-45);
+                    crc2.moveTo(this.position.x+45,this.position.y-5);
+                    crc2.lineTo(this.position.x+65,this.position.y-10);
                     crc2.strokeStyle="#ff0000"
                     crc2.stroke();
                     crc2.closePath();
                     
                     crc2.beginPath();
-                    crc2.moveTo(this.position.x+105,this.position.y-35);
-                    crc2.lineTo(this.position.x+125,this.position.y-40);
+                    crc2.moveTo(this.position.x+45,this.position.y-10);
+                    crc2.lineTo(this.position.x+65,this.position.y-15);
                     crc2.strokeStyle="#ff0000"
                     crc2.stroke();
                     crc2.closePath();
@@ -904,7 +904,7 @@ return combinedarray
                 
                     case'Marshmallow':
                     crc2.beginPath();
-                    crc2.arc(this.position.x+115, this.position.y-40, 12, 0, 2 * Math.PI);
+                    crc2.arc(this.position.x+55, this.position.y, 12, 0, 2 * Math.PI);
                     crc2.fillStyle = "#ffffff";
                     crc2.fill();
                     crc2.closePath();
@@ -912,23 +912,23 @@ return combinedarray
                 
                     case'Eiswaffel':
                     crc2.beginPath();
-                    crc2.moveTo(this.position.x+130, this.position.y-25);
-                    crc2.lineTo(this.position.x+170, this.position.y-35);
-                    crc2.lineTo(this.position.x+160, this.position.y-55);
-                    crc2.lineTo(this.position.x+120, this.position.y-35);
+                    crc2.moveTo(this.position.x+60, this.position.y-5);
+                    crc2.lineTo(this.position.x+100, this.position.y-15);
+                    crc2.lineTo(this.position.x+90, this.position.y-35);
+                    crc2.lineTo(this.position.x+50, this.position.y-15);
                     crc2.fillStyle = "#c99867";
                     crc2.fill();
                     crc2.closePath();
                     break;
                 }
-                if(order.cream[0]=="ja"){
+                if(order.cream=="ja"){
                 
                     if (order.variation.length==1){
                         
                     
                         
                         crc2.beginPath();
-                        crc2.ellipse(this.position.x+115, this.position.y-55, 20, 10, 0, 0, 2 * Math.PI);
+                        crc2.ellipse(this.position.x+55, this.position.y-20, 20, 10, 0, 0, 2 * Math.PI);
                         crc2.fillStyle = "white";
                         crc2.strokeStyle="black";
                         crc2.fill();
@@ -936,7 +936,7 @@ return combinedarray
                         crc2.closePath();
                     
                         crc2.beginPath();
-                        crc2.ellipse(this.position.x+115, this.position.y-65, 15, 10, 0, 0, 2 * Math.PI);
+                        crc2.ellipse(this.position.x+55, this.position.y-30, 15, 10, 0, 0, 2 * Math.PI);
                         crc2.fillStyle = "white";
                         crc2.strokeStyle="black";
                         crc2.fill();
@@ -944,7 +944,7 @@ return combinedarray
                         crc2.closePath();
                     
                         crc2.beginPath();
-                        crc2.ellipse(this.position.x+115, this.position.y-75, 10, 5, 0, 0, 2 * Math.PI);
+                        crc2.ellipse(this.position.x+55, this.position.y-40, 10, 5, 0, 0, 2 * Math.PI);
                         crc2.fillStyle = "white";
                         crc2.strokeStyle="black";
                         crc2.fill();
