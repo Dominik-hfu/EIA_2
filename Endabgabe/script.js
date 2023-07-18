@@ -287,7 +287,7 @@ var EisDealer;
     let price;
     let previousSelection = []; // Variable für die vorherige Auswahl
     async function serveIce() {
-        if (EisDealer.selectedItems.includes("ja")) {
+        if (!EisDealer.selectedItems.includes("ja")) {
             EisDealer.selectedItems.push("nein");
         }
         let hasIcecream = false;

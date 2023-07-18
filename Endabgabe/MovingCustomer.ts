@@ -228,8 +228,43 @@ namespace EisDealer {
                     crc2.fill();
                     crc2.closePath();
                     break;
+                    
                 }
 
+                switch(randomSauce[0]){
+
+                    case'Vanillesauce':
+                    crc2.beginPath();
+                    crc2.arc(this.position.x+115, this.position.y-40, 16, Math.PI, 2 * Math.PI);
+                    crc2.fillStyle = "#ffeb66";
+                    crc2.fill();
+                    crc2.closePath();
+                    break;
+                
+                    case'Schokosauce':
+                    crc2.beginPath();
+                    crc2.arc(this.position.x+115, this.position.y-40, 16, Math.PI, 2 * Math.PI);
+                    crc2.fillStyle = "#b58649";
+                    crc2.fill();
+                    crc2.closePath();
+                    break;
+                
+                    case'Karamellsauce':
+                    crc2.beginPath();
+                    crc2.arc(this.position.x+115, this.position.y-40, 16, Math.PI, 2 * Math.PI);
+                    crc2.fillStyle = "#ff9a1e";
+                    crc2.fill();
+                    crc2.closePath();
+                    break;
+                
+                    case'Likör':
+                    crc2.beginPath();
+                    crc2.arc(this.position.x+115, this.position.y-40, 16, Math.PI, 2 * Math.PI);
+                    crc2.fillStyle = "#f8ffb5";
+                    crc2.fill();
+                    crc2.closePath();
+                    break;
+                }
                 
             }
             else{
@@ -268,6 +303,42 @@ namespace EisDealer {
                         crc2.closePath();
                         break;
                     }
+
+                    switch(randomSauce[0]){
+
+                        case'Vanillesauce':
+                        crc2.beginPath();
+                        crc2.arc(this.position.x+100, this.position.y-40, 16, Math.PI, 2 * Math.PI);
+                        crc2.fillStyle = "#ffeb66";
+                        crc2.fill();
+                        crc2.closePath();
+                        break;
+                    
+                        case'Schokosauce':
+                        crc2.beginPath();
+                        crc2.arc(this.position.x+100, this.position.y-40, 16, Math.PI, 2 * Math.PI);
+                        crc2.fillStyle = "#b58649";
+                        crc2.fill();
+                        crc2.closePath();
+                        break;
+                    
+                        case'Karamellsauce':
+                        crc2.beginPath();
+                        crc2.arc(this.position.x+100, this.position.y-40, 16, Math.PI, 2 * Math.PI);
+                        crc2.fillStyle = "#ff9a1e";
+                        crc2.fill();
+                        crc2.closePath();
+                        break;
+                    
+                        case'Likör':
+                        crc2.beginPath();
+                        crc2.arc(this.position.x+100, this.position.y-40, 16, Math.PI, 2 * Math.PI);
+                        crc2.fillStyle = "#f8ffb5";
+                        crc2.fill();
+                        crc2.closePath();
+                        break;
+            
+            }
 
                 }
                 else if (i==1){
@@ -337,214 +408,140 @@ namespace EisDealer {
                     }
                 }
 
+                switch(randomTopping[0]){
+
+                    case'Krokant':
+                    crc2.beginPath();
+                    crc2.arc(this.position.x+100, this.position.y-30, 5, 0, 2 * Math.PI);
+                    crc2.fillStyle = "#3c1a03";
+                    crc2.fill();
+                    crc2.closePath();
+                
+                    crc2.beginPath();
+                    crc2.arc(this.position.x+115, this.position.y-40, 5, 0, 2 * Math.PI);
+                    crc2.fillStyle = "#3c1a03";
+                    crc2.fill();
+                    crc2.closePath();
+                
+                    crc2.beginPath();
+                    crc2.arc(this.position.x+130, this.position.y-30, 5, 0, 2 * Math.PI);
+                    crc2.fillStyle = "#3c1a03";
+                    crc2.fill();
+                    crc2.closePath();
+                    break;
+                
+                    case'Streusel':
+                
+                    crc2.beginPath();
+                    crc2.moveTo(this.position.x+110,this.position.y-45);
+                    crc2.lineTo(this.position.x+120,this.position.y-50);
+                    crc2.strokeStyle="#ff0000"
+                    crc2.stroke();
+                    crc2.closePath();
+                    
+                    crc2.beginPath();
+                    crc2.moveTo(this.position.x+110,this.position.y-40);
+                    crc2.lineTo(this.position.x+120,this.position.y-45);
+                    crc2.strokeStyle="#ff0000"
+                    crc2.stroke();
+                    crc2.closePath();
+                    
+                    crc2.beginPath();
+                    crc2.moveTo(this.position.x+110,this.position.y-35);
+                    crc2.lineTo(this.position.x+120,this.position.y-40);
+                    crc2.strokeStyle="#ff0000"
+                    crc2.stroke();
+                    crc2.closePath();
+                
+                
+                    
+                    break;
+                
+                    case'Marshmallow':
+                    crc2.beginPath();
+                    crc2.arc(this.position.x+115, this.position.y-40, 12, 0, 2 * Math.PI);
+                    crc2.fillStyle = "#ffffff";
+                    crc2.fill();
+                    crc2.closePath();
+                    break;
+                
+                    case'Eiswaffel':
+                    crc2.beginPath();
+                    crc2.moveTo(this.position.x+130, this.position.y-25);
+                    crc2.lineTo(this.position.x+150, this.position.y-35);
+                    crc2.lineTo(this.position.x+145, this.position.y-55);
+                    crc2.lineTo(this.position.x+120, this.position.y-35);
+                    crc2.fillStyle = "#c99867";
+                    crc2.fill();
+                    crc2.closePath();
+                    break;
+                }
+                if(randomCream[0]=="ja"){
+                
+                    if (randomIceCreams.length==1){
+                        
+                    
+                        
+                        crc2.beginPath();
+                        crc2.ellipse(this.position.x+115, this.position.y-20, 20, 10, 0, 0, 2 * Math.PI);
+                        crc2.fillStyle = "white";
+                        crc2.strokeStyle="black";
+                        crc2.fill();
+                        crc2.stroke();
+                        crc2.closePath();
+                    
+                        crc2.beginPath();
+                        crc2.ellipse(this.position.x+115, this.position.y-30, 15, 10, 0, 0, 2 * Math.PI);
+                        crc2.fillStyle = "white";
+                        crc2.strokeStyle="black";
+                        crc2.fill();
+                        crc2.stroke();
+                        crc2.closePath();
+                    
+                        crc2.beginPath();
+                        crc2.ellipse(this.position.x+115, this.position.y-40, 10, 5, 0, 0, 2 * Math.PI);
+                        crc2.fillStyle = "white";
+                        crc2.strokeStyle="black";
+                        crc2.fill();
+                        crc2.stroke();
+                        crc2.closePath();
+                    
+                    }
+                    //zeichnet Sahne nicht?
+                    else{
+                        
+                        
+                        crc2.beginPath();
+                        crc2.ellipse(this.position.x+115, this.position.y-60, 20, 8, 0, 0, 2 * Math.PI);
+                        crc2.stroke();
+                        crc2.fillStyle = "white";
+                        crc2.strokeStyle="black";
+                        crc2.fill();
+                        crc2.closePath();
+                    
+                        crc2.beginPath();
+                        crc2.ellipse(this.position.x+115, this.position.y-70, 15, 5, 0, 0, 2 * Math.PI);
+                        crc2.fillStyle = "white";
+                        crc2.strokeStyle="black";
+                        crc2.fill();
+                        crc2.stroke();
+                        crc2.closePath();
+                    
+                        crc2.beginPath();
+                        crc2.ellipse(this.position.x+115, this.position.y-80, 10, 2, 0, 0, 2 * Math.PI);
+                        crc2.fillStyle = "white";
+                        crc2.strokeStyle="black";
+                        crc2.fill();
+                        crc2.stroke();
+                        crc2.closePath();
+                    }
+                    
+                            }
+                        
+
             }
 }
 
-if (randomIceCreams.length==1){
-switch(randomSauce[0]){
-
-    case'Vanillesauce':
-    crc2.beginPath();
-    crc2.arc(this.position.x+115, this.position.y-40, 16, Math.PI, 2 * Math.PI);
-    crc2.fillStyle = "#ffeb66";
-    crc2.fill();
-    crc2.closePath();
-    break;
-
-    case'Schokosauce':
-    crc2.beginPath();
-    crc2.arc(this.position.x+115, this.position.y-40, 16, Math.PI, 2 * Math.PI);
-    crc2.fillStyle = "#b58649";
-    crc2.fill();
-    crc2.closePath();
-    break;
-
-    case'Karamellsauce':
-    crc2.beginPath();
-    crc2.arc(this.position.x+115, this.position.y-40, 16, Math.PI, 2 * Math.PI);
-    crc2.fillStyle = "#ff9a1e";
-    crc2.fill();
-    crc2.closePath();
-    break;
-
-    case'Likör':
-    crc2.beginPath();
-    crc2.arc(this.position.x+115, this.position.y-40, 16, Math.PI, 2 * Math.PI);
-    crc2.fillStyle = "#f8ffb5";
-    crc2.fill();
-    crc2.closePath();
-    break;
-}}
-else{
-    for(let i=0; i<randomIceCreams.length;i++){
-
-       if(i==0){
-        switch(randomSauce[0]){
-
-            case'Vanillesauce':
-            crc2.beginPath();
-            crc2.arc(this.position.x+100, this.position.y-40, 16, Math.PI, 2 * Math.PI);
-            crc2.fillStyle = "#ffeb66";
-            crc2.fill();
-            crc2.closePath();
-            break;
-        
-            case'Schokosauce':
-            crc2.beginPath();
-            crc2.arc(this.position.x+100, this.position.y-40, 16, Math.PI, 2 * Math.PI);
-            crc2.fillStyle = "#b58649";
-            crc2.fill();
-            crc2.closePath();
-            break;
-        
-            case'Karamellsauce':
-            crc2.beginPath();
-            crc2.arc(this.position.x+100, this.position.y-40, 16, Math.PI, 2 * Math.PI);
-            crc2.fillStyle = "#ff9a1e";
-            crc2.fill();
-            crc2.closePath();
-            break;
-        
-            case'Likör':
-            crc2.beginPath();
-            crc2.arc(this.position.x+100, this.position.y-40, 16, Math.PI, 2 * Math.PI);
-            crc2.fillStyle = "#f8ffb5";
-            crc2.fill();
-            crc2.closePath();
-            break;
-
-}}
-
-switch(randomTopping[0]){
-
-    case'Krokant':
-    crc2.beginPath();
-    crc2.arc(this.position.x+100, this.position.y-30, 5, 0, 2 * Math.PI);
-    crc2.fillStyle = "#3c1a03";
-    crc2.fill();
-    crc2.closePath();
-
-    crc2.beginPath();
-    crc2.arc(this.position.x+115, this.position.y-40, 5, 0, 2 * Math.PI);
-    crc2.fillStyle = "#3c1a03";
-    crc2.fill();
-    crc2.closePath();
-
-    crc2.beginPath();
-    crc2.arc(this.position.x+130, this.position.y-30, 5, 0, 2 * Math.PI);
-    crc2.fillStyle = "#3c1a03";
-    crc2.fill();
-    crc2.closePath();
-    break;
-
-    case'Streusel':
-
-    crc2.beginPath();
-    crc2.moveTo(this.position.x+110,this.position.y-45);
-    crc2.lineTo(this.position.x+120,this.position.y-50);
-    crc2.stroke();
-    crc2.strokeStyle="#ff0000"
-    crc2.closePath();
-    
-    crc2.beginPath();
-    crc2.moveTo(this.position.x+110,this.position.y-40);
-    crc2.lineTo(this.position.x+120,this.position.y-45);
-    crc2.stroke();
-    crc2.strokeStyle="#ff0000"
-    crc2.closePath();
-    
-    crc2.beginPath();
-    crc2.moveTo(this.position.x+110,this.position.y-35);
-    crc2.lineTo(this.position.x+120,this.position.y-40);
-    crc2.stroke();
-    crc2.strokeStyle="#ff0000"
-    crc2.closePath();
-
-
-    
-    break;
-
-    case'Marshmallow':
-    crc2.beginPath();
-    crc2.arc(this.position.x+115, this.position.y-40, 5, 0, 2 * Math.PI);
-    crc2.fillStyle = "#ffffff";
-    crc2.fill();
-    crc2.closePath();
-    break;
-
-    case'Eiswaffel':
-    crc2.beginPath();
-    crc2.moveTo(this.position.x+130, this.position.y-25);
-    crc2.lineTo(this.position.x+150, this.position.y-35);
-    crc2.lineTo(this.position.x+145, this.position.y-55);
-    crc2.lineTo(this.position.x+120, this.position.y-35);
-    crc2.fillStyle = "#c99867";
-    crc2.fill();
-    crc2.closePath();
-    break;
-}
-if(randomCream[0]=="ja"){
-
-    if (randomIceCreams.length==1){
-        
-    
-        
-        crc2.beginPath();
-        crc2.ellipse(this.position.x+115, this.position.y-20, 20, 10, 0, 0, 2 * Math.PI);
-        crc2.fillStyle = "white";
-        crc2.strokeStyle="black";
-        crc2.fill();
-        crc2.stroke();
-        crc2.closePath();
-    
-        crc2.beginPath();
-        crc2.ellipse(this.position.x+115, this.position.y-30, 15, 10, 0, 0, 2 * Math.PI);
-        crc2.fillStyle = "white";
-        crc2.strokeStyle="black";
-        crc2.fill();
-        crc2.stroke();
-        crc2.closePath();
-    
-        crc2.beginPath();
-        crc2.ellipse(this.position.x+115, this.position.y-40, 10, 5, 0, 0, 2 * Math.PI);
-        crc2.fillStyle = "white";
-        crc2.strokeStyle="black";
-        crc2.fill();
-        crc2.stroke();
-        crc2.closePath();
-    
-    }
-    //zeichnet Sahne nicht?
-    else{
-        
-        
-        crc2.beginPath();
-        crc2.ellipse(this.position.x+115, this.position.y-60, 20, 8, 0, 0, 2 * Math.PI);
-        crc2.stroke();
-        crc2.fillStyle = "white";
-        crc2.strokeStyle="black";
-        crc2.fill();
-        crc2.closePath();
-    
-        crc2.beginPath();
-        crc2.ellipse(this.position.x+115, this.position.y-70, 15, 5, 0, 0, 2 * Math.PI);
-        crc2.fillStyle = "white";
-        crc2.strokeStyle="black";
-        crc2.fill();
-        crc2.stroke();
-        crc2.closePath();
-    
-        crc2.beginPath();
-        crc2.ellipse(this.position.x+115, this.position.y-80, 10, 2, 0, 0, 2 * Math.PI);
-        crc2.fillStyle = "white";
-        crc2.strokeStyle="black";
-        crc2.fill();
-        crc2.stroke();
-        crc2.closePath();
-    }
-    
-            }
-        }}
 return combinedarray        
 }
     }
@@ -862,19 +859,34 @@ switch(order.topping){
     break;
 
     case'Streusel':
+
+
     crc2.beginPath();
     crc2.moveTo(this.position.x+50,this.position.y);
     crc2.lineTo(this.position.x+60,this.position.y-5);
-    crc2.moveTo(this.position.x+40,this.position.y-5);
-    crc2.lineTo(this.position.x+50,this.position.y-10);
-    crc2.moveTo(this.position.x+60,this.position.y);
-    crc2.lineTo(this.position.x+70,this.position.y-5);
+    crc2.strokeStyle="#ff0000"
     crc2.stroke();
     crc2.closePath();
+    
+    crc2.beginPath();
+    crc2.moveTo(this.position.x+40,this.position.y-5);
+    crc2.lineTo(this.position.x+50,this.position.y-10);
+    crc2.strokeStyle="#ff0000"
+    crc2.stroke();
+    crc2.closePath();
+    
+    crc2.beginPath();
+    crc2.moveTo(this.position.x+60,this.position.y);
+    crc2.lineTo(this.position.x+70,this.position.y-5);
+    crc2.strokeStyle="#ff0000"
+    crc2.stroke();
+    crc2.closePath();
+
+
     break;
     case'Marshmallow':
     crc2.beginPath();
-    crc2.arc(this.position.x+55, this.position.y-10, 5, 0, 2 * Math.PI);
+    crc2.arc(this.position.x+55, this.position.y-10, 12, 0, 2 * Math.PI);
     crc2.fillStyle = "#ffffff";
     crc2.fill();
     crc2.closePath();
@@ -963,4 +975,4 @@ else{
 
 
 
-}
+}}

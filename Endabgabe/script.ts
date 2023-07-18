@@ -373,7 +373,7 @@ let price: number | undefined
 let previousSelection: string[] = []; // Variable für die vorherige Auswahl
 async function serveIce(){
 
-    if(selectedItems.includes("ja")!){
+    if(!selectedItems.includes("ja")){
 
         selectedItems.push("nein")
     }
