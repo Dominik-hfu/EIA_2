@@ -106,7 +106,7 @@ export interface order {
   };
 
 export let iceCreamFlavors = ["Amarena", "Kaffee", "Banane", "Pistazie"];
-export let Toppings=["Krokant","Streusel","Kaffeepulver","Marshmallow"]
+export let Toppings=["Krokant","Streusel","Eiswaffel","Marshmallow"]
 export let IceCreamSauce=["Vanillesauce","Schokosauce","Karamellsauce","Likör"]
 export let container=["Waffel","Becher"]
 export let sahne=["ja","nein"]
@@ -687,6 +687,7 @@ function day(){
     orderingCustomer.drawSelf();
     finalorder=orderingCustomer.order();
     orderer=orderingCustomer
+    
         
 
         let waitingCustomer= new WaitingCustomer(new Vector(475,590),new Vector(0,0.1),0);
@@ -824,7 +825,7 @@ function day(){
 
     caramel = document.createElement("button")as HTMLButtonElement;
     caramel.classList.add("caramel")
-    caramel.textContent = "Karamel Soße";
+    caramel.textContent = "Karamell Soße";
     document.body.appendChild(caramel);
     caramel.addEventListener("click", () => {
         caramelSauce();
@@ -856,7 +857,7 @@ function day(){
 
     coffeePowder = document.createElement("button")as HTMLButtonElement;
     coffeePowder.classList.add("coffeePowder")
-    coffeePowder.textContent = "Kaffeepulver";
+    coffeePowder.textContent = "Eiswaffel";
     document.body.appendChild(coffeePowder);
     coffeePowder.addEventListener("click", () => {
         coffeeTopping();
@@ -905,45 +906,7 @@ function day(){
  
     
 };
-// console.log(started)
 
-
-// if (!started==true){
-// window.setInterval(() => {
-//     crc2.putImageData(back, 0, 0);
-    // console.log("aktualisiert")
-    // console.log(started)
-//     if (isDay==true) {
-//     //   drawStore()
-//       day()
-
-      
-//     } else{
-//         night()
-//         closeStore();
-//     }
-
-// let waitingCustomer= new WaitingCustomer(new Vector(200,400),new Vector(0.5,0.5));
-// waitingCustomer.move(0.5);
-//     waitingCustomer.drawSelf();
-    // console.log(waitingCustomer.position)
-//     // customers.push(waitingCustomer)
-
-// let orderingCustomer= new OrderingCustomer(new Vector(200,400),new Vector(0.5,0.5));
-// orderingCustomer.move(0.5);
-//     orderingCustomer.drawSelf();
-    // console.log(orderingCustomer.position)
-//     customers[0]=orderingCustomer
-
-
-// let eatingCustomer= new EatingCustomer(new Vector(200,400),new Vector(0.5,0.5));
-// eatingCustomer.move(0.5);
-//     eatingCustomer.drawSelf();
-    // console.log(eatingCustomer.position)
-//     // customers.push(eatingCustomer)
-
-    
-    // },1000)}
  
     drawStore();
     //hier enum oder switch case
@@ -1040,8 +1003,8 @@ function day(){
     function coffeeTopping(){
         let value:boolean=checkSelection(selectedItems,Toppings)
         if (value==true){
-        selectedItems.push("Kaffeepulver")
-        // console.log("1x Kaffeepulver")
+        selectedItems.push("Eiswaffel")
+        // console.log("1x Eiswaffel")
         console.log(selectedItems)
         }
     }

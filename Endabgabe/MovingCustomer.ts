@@ -29,6 +29,7 @@ namespace EisDealer {
             crc2.arc(this.position.x, this.position.y, 30, 0, 2 * Math.PI);
             crc2.fillStyle = "hsl(50, 98%, 88%)";
             crc2.fill();
+            crc2.strokeStyle = "black";
             crc2.stroke();
             crc2.closePath();//Kopf
 
@@ -140,12 +141,12 @@ namespace EisDealer {
             let randomTopping=get1RandomListItem(Toppings);
             let randomSauce=get1RandomListItem(IceCreamSauce);
             let randomContainer=get1RandomListItem(container);
-            let randomSahne=get1RandomListItem(sahne)
+            let randomCream=get1RandomListItem(sahne)
             let combinedarray=randomIceCreams.concat(randomContainer)
             console.log(randomContainer)
             console.log(randomSauce)
             console.log(randomTopping)
-            console.log(randomSahne)
+            console.log(randomCream)
             let positionx: number = 590;
             let positiony:number=510;
 
@@ -338,82 +339,215 @@ namespace EisDealer {
 
             }
 }
+
+if (randomIceCreams.length==1){
 switch(randomSauce[0]){
 
     case'Vanillesauce':
     crc2.beginPath();
-    crc2.arc(positionx, positiony-30, 15, 0, 2 * Math.PI);
-    crc2.fillStyle = "red";
-    crc2.fill();
-    crc2.closePath();
-    break;
-    case'Schokosauce':
-    crc2.beginPath();
-    crc2.arc(positionx, positiony-30, 15, 0, 2 * Math.PI);
+    crc2.arc(this.position.x+115, this.position.y-40, 16, Math.PI, 2 * Math.PI);
     crc2.fillStyle = "yellow";
     crc2.fill();
     crc2.closePath();
     break;
-    case'Karamellsauce':
+
+    case'Schokosauce':
     crc2.beginPath();
-    crc2.arc(positionx, positiony-30, 15, 0, 2 * Math.PI);
+    crc2.arc(this.position.x+115, this.position.y-40, 16, Math.PI, 2 * Math.PI);
     crc2.fillStyle = "brown";
     crc2.fill();
     crc2.closePath();
     break;
+
+    case'Karamellsauce':
+    crc2.beginPath();
+    crc2.arc(this.position.x+115, this.position.y-40, 16, Math.PI, 2 * Math.PI);
+    crc2.fillStyle = "orange";
+    crc2.fill();
+    crc2.closePath();
+    break;
+
     case'Likör':
     crc2.beginPath();
-    crc2.arc(positionx, positiony-30, 15, 0, 2 * Math.PI);
+    crc2.arc(this.position.x+115, this.position.y-40, 16, Math.PI, 2 * Math.PI);
     crc2.fillStyle = "green";
     crc2.fill();
     crc2.closePath();
     break;
-}
+}}
+else{
+    for(let i=0; i<randomIceCreams.length;i++){
+
+       if(i==0){
+        switch(randomSauce[0]){
+
+            case'Vanillesauce':
+            crc2.beginPath();
+            crc2.arc(this.position.x+100, this.position.y-40, 16, Math.PI, 2 * Math.PI);
+            crc2.fillStyle = "yellow";
+            crc2.fill();
+            crc2.closePath();
+            break;
+        
+            case'Schokosauce':
+            crc2.beginPath();
+            crc2.arc(this.position.x+100, this.position.y-40, 16, Math.PI, 2 * Math.PI);
+            crc2.fillStyle = "brown";
+            crc2.fill();
+            crc2.closePath();
+            break;
+        
+            case'Karamellsauce':
+            crc2.beginPath();
+            crc2.arc(this.position.x+100, this.position.y-40, 16, Math.PI, 2 * Math.PI);
+            crc2.fillStyle = "orange";
+            crc2.fill();
+            crc2.closePath();
+            break;
+        
+            case'Likör':
+            crc2.beginPath();
+            crc2.arc(this.position.x+100, this.position.y-40, 16, Math.PI, 2 * Math.PI);
+            crc2.fillStyle = "green";
+            crc2.fill();
+            crc2.closePath();
+            break;
+
+}}
 
 switch(randomTopping[0]){
 
     case'Krokant':
     crc2.beginPath();
-    crc2.arc(positionx, positiony-30, 15, 0, 2 * Math.PI);
-    crc2.fillStyle = "red";
+    crc2.arc(this.position.x+100, this.position.y-30, 5, 0, 2 * Math.PI);
+    crc2.fillStyle = "brown";
     crc2.fill();
     crc2.closePath();
-    break;
-    case'Streusel':
+
     crc2.beginPath();
-    crc2.arc(positionx, positiony-30, 15, 0, 2 * Math.PI);
-    crc2.fillStyle = "yellow";
+    crc2.arc(this.position.x+115, this.position.y-40, 5, 0, 2 * Math.PI);
+    crc2.fillStyle = "brown";
     crc2.fill();
     crc2.closePath();
-    break;
-    case'Marshmallow':
+
     crc2.beginPath();
-    crc2.arc(positionx, positiony-30, 15, 0, 2 * Math.PI);
+    crc2.arc(this.position.x+130, this.position.y-30, 5, 0, 2 * Math.PI);
     crc2.fillStyle = "brown";
     crc2.fill();
     crc2.closePath();
     break;
-    case'Kaffeepulver':
+
+    case'Streusel':
+
     crc2.beginPath();
-    crc2.arc(positionx, positiony-30, 15, 0, 2 * Math.PI);
-    crc2.fillStyle = "green";
+    crc2.moveTo(this.position.x+110,this.position.y-45);
+    crc2.lineTo(this.position.x+120,this.position.y-50);
+    crc2.stroke();
+    crc2.strokeStyle="yellow"
+    crc2.closePath();
+    
+    crc2.beginPath();
+    crc2.moveTo(this.position.x+110,this.position.y-40);
+    crc2.lineTo(this.position.x+120,this.position.y-45);
+    crc2.stroke();
+    crc2.strokeStyle="green"
+    crc2.closePath();
+    
+    crc2.beginPath();
+    crc2.moveTo(this.position.x+110,this.position.y-35);
+    crc2.lineTo(this.position.x+120,this.position.y-40);
+    crc2.stroke();
+    crc2.strokeStyle="red"
+    crc2.closePath();
+
+
+    
+    break;
+
+    case'Marshmallow':
+    crc2.beginPath();
+    crc2.arc(this.position.x+115, this.position.y-40, 5, 0, 2 * Math.PI);
+    crc2.fillStyle = "white";
+    crc2.fill();
+    crc2.closePath();
+    break;
+
+    case'Eiswaffel':
+    crc2.beginPath();
+    crc2.moveTo(this.position.x+130, this.position.y-25);
+    crc2.lineTo(this.position.x+150, this.position.y-35);
+    crc2.lineTo(this.position.x+145, this.position.y-55);
+    crc2.lineTo(this.position.x+120, this.position.y-35);
+    crc2.fillStyle = "brown";
     crc2.fill();
     crc2.closePath();
     break;
 }
-if(randomSahne[0]=="ja"){
+if(randomCream[0]=="ja"){
 
+    if (randomIceCreams.length==1){
+        
     
-    crc2.beginPath();
-    crc2.arc(positionx, positiony-30, 15, 0, 2 * Math.PI);
-    crc2.fillStyle = "red";
-    crc2.fill();
-    crc2.closePath();
-
-}
+        
+        crc2.beginPath();
+        crc2.ellipse(this.position.x+115, this.position.y-20, 20, 10, 0, 0, 2 * Math.PI);
+        crc2.fillStyle = "white";
+        crc2.strokeStyle="black";
+        crc2.fill();
+        crc2.stroke();
+        crc2.closePath();
+    
+        crc2.beginPath();
+        crc2.ellipse(this.position.x+115, this.position.y-30, 15, 10, 0, 0, 2 * Math.PI);
+        crc2.fillStyle = "white";
+        crc2.strokeStyle="black";
+        crc2.fill();
+        crc2.stroke();
+        crc2.closePath();
+    
+        crc2.beginPath();
+        crc2.ellipse(this.position.x+115, this.position.y-40, 10, 5, 0, 0, 2 * Math.PI);
+        crc2.fillStyle = "white";
+        crc2.strokeStyle="black";
+        crc2.fill();
+        crc2.stroke();
+        crc2.closePath();
+    
+    }
+    //zeichnet Sahne nicht?
+    else{
+        
+        
+        crc2.beginPath();
+        crc2.ellipse(this.position.x+115, this.position.y-60, 20, 8, 0, 0, 2 * Math.PI);
+        crc2.stroke();
+        crc2.fillStyle = "white";
+        crc2.strokeStyle="black";
+        crc2.fill();
+        crc2.closePath();
+    
+        crc2.beginPath();
+        crc2.ellipse(this.position.x+115, this.position.y-70, 15, 5, 0, 0, 2 * Math.PI);
+        crc2.fillStyle = "white";
+        crc2.strokeStyle="black";
+        crc2.fill();
+        crc2.stroke();
+        crc2.closePath();
+    
+        crc2.beginPath();
+        crc2.ellipse(this.position.x+115, this.position.y-80, 10, 2, 0, 0, 2 * Math.PI);
+        crc2.fillStyle = "white";
+        crc2.strokeStyle="black";
+        crc2.fill();
+        crc2.stroke();
+        crc2.closePath();
+    }
+    
+            }
+        }
 return combinedarray        
 }
-    }
+    }}
 
 
     export class EatingCustomer extends Customer {
@@ -453,6 +587,7 @@ return combinedarray
             crc2.arc(this.position.x, this.position.y, 30, 0, 2 * Math.PI);
             crc2.fillStyle = "hsl(50, 98%, 88%)";
             crc2.fill();
+            crc2.strokeStyle = "black";
             crc2.stroke();
             crc2.closePath();//Kopf
 
@@ -496,6 +631,7 @@ return combinedarray
             crc2.closePath();
             crc2.fillStyle="hsl(53, 91%, 81%)"
             crc2.fill();
+            crc2.strokeStyle = "black";
             crc2.stroke();//Waffel
             }
             else{
@@ -506,12 +642,14 @@ return combinedarray
                 crc2.lineTo(this.position.x+80,this.position.y+10);
                 crc2.closePath();
                 crc2.fillStyle="blue"
+                crc2.strokeStyle = "black";
                 crc2.fill()
                 crc2.stroke();//Eisbecher
                 
                 crc2.beginPath();
                 crc2.moveTo(this.position.x+60,this.position.y+5);
                 crc2.lineTo(this.position.x+80,this.position.y-15);
+                crc2.strokeStyle = "black"; 
                 crc2.stroke();
                 crc2.closePath();//Löffel
             }
@@ -661,80 +799,162 @@ return combinedarray
 }
 
 
-
+if (order.variation.length==1){
 
 switch(order.sauce){
 
     case'Vanillesauce':
     crc2.beginPath();
-    crc2.arc(this.position.x, this.position.y-30, 15, 0, 2 * Math.PI);
-    crc2.fillStyle = "red";
-    crc2.fill();
-    crc2.closePath();
-    break;
-    case'Schokosauce':
-    crc2.beginPath();
-    crc2.arc(this.position.x, this.position.y-30, 15, 0, 2 * Math.PI);
+    crc2.arc(this.position.x+55, this.position.y-5, 16, Math.PI, 2 * Math.PI);
     crc2.fillStyle = "yellow";
     crc2.fill();
     crc2.closePath();
     break;
-    case'Karamellsauce':
+
+    case'Schokosauce':
     crc2.beginPath();
-    crc2.arc(this.position.x, this.position.y-30, 15, 0, 2 * Math.PI);
+    crc2.arc(this.position.x+55, this.position.y-5, 16, Math.PI, 2 * Math.PI);
     crc2.fillStyle = "brown";
     crc2.fill();
     crc2.closePath();
     break;
-    case'Likör':
+
+    case'Karamellsauce':
     crc2.beginPath();
-    crc2.arc(this.position.x, this.position.y-30, 15, 0, 2 * Math.PI);
-    crc2.fillStyle = "green";
+    crc2.arc(this.position.x+55, this.position.y-5, 16, Math.PI, 2 * Math.PI);
+    crc2.fillStyle = "orange";
     crc2.fill();
     crc2.closePath();
     break;
-}
+
+    case'Likör':
+    crc2.beginPath();
+    crc2.arc(this.position.x+55, this.position.y-5, 16, Math.PI, 2 * Math.PI);
+    crc2.fillStyle = "yellow";
+    crc2.fill();
+    crc2.closePath();
+    break;
+    
+}}
+
+
 
 switch(order.topping){
 
     case'Krokant':
     crc2.beginPath();
-    crc2.arc(this.position.x, this.position.y-30, 15, 0, 2 * Math.PI);
-    crc2.fillStyle = "red";
+    crc2.arc(this.position.x+45, this.position.y-10, 5, 0, 2 * Math.PI);
+    crc2.fillStyle = "brown";
     crc2.fill();
     crc2.closePath();
-    break;
-    case'Streusel':
+
     crc2.beginPath();
-    crc2.arc(this.position.x, this.position.y-30, 15, 0, 2 * Math.PI);
-    crc2.fillStyle = "yellow";
+    crc2.arc(this.position.x+55, this.position.y-20, 5, 0, 2 * Math.PI);
+    crc2.fillStyle = "brown";
     crc2.fill();
     crc2.closePath();
-    break;
-    case'Marshmallow':
+
     crc2.beginPath();
-    crc2.arc(this.position.x, this.position.y-30, 15, 0, 2 * Math.PI);
+    crc2.arc(this.position.x+65, this.position.y-10, 5, 0, 2 * Math.PI);
     crc2.fillStyle = "brown";
     crc2.fill();
     crc2.closePath();
     break;
-    case'Kaffeepulver':
+
+    case'Streusel':
     crc2.beginPath();
-    crc2.arc(this.position.x, this.position.y-30, 15, 0, 2 * Math.PI);
-    crc2.fillStyle = "green";
+    crc2.moveTo(this.position.x+50,this.position.y);
+    crc2.lineTo(this.position.x+60,this.position.y-5);
+    crc2.moveTo(this.position.x+40,this.position.y-5);
+    crc2.lineTo(this.position.x+50,this.position.y-10);
+    crc2.moveTo(this.position.x+60,this.position.y);
+    crc2.lineTo(this.position.x+70,this.position.y-5);
+    crc2.stroke();
+    crc2.closePath();
+    break;
+    case'Marshmallow':
+    crc2.beginPath();
+    crc2.arc(this.position.x+55, this.position.y-10, 5, 0, 2 * Math.PI);
+    crc2.fillStyle = "white";
     crc2.fill();
     crc2.closePath();
     break;
+    case'Eiswaffel':
+    crc2.beginPath();
+    crc2.moveTo(this.position.x+70, this.position.y-5);
+    crc2.lineTo(this.position.x+90, this.position.y-15);
+    crc2.lineTo(this.position.x+85, this.position.y-25);
+    crc2.lineTo(this.position.x+60, this.position.y-15);
+    crc2.fillStyle = "brown";
+    crc2.fill();
+    crc2.closePath();
+    break;
+
+    // case'Amarena':
+    // crc2.beginPath();
+    // crc2.arc(this.position.x+55, this.position.y-5, 15, 0, 2 * Math.PI);
+    // crc2.fillStyle = "red";
+    // crc2.fill();
+    // crc2.closePath();
+    // break;
+
+
 }
 if(order.cream=="ja"){
 
+if (order.variation.length==1||order.variation.length==2){
+
     
     crc2.beginPath();
-    crc2.arc(this.position.x, this.position.y-30, 15, 0, 2 * Math.PI);
-    crc2.fillStyle = "red";
+    crc2.ellipse(this.position.x+55, this.position.y-20, 20, 10, 0, 0, 2 * Math.PI);
+    crc2.stroke();
+    crc2.fillStyle = "white";
+    crc2.strokeStyle="black";
     crc2.fill();
     crc2.closePath();
 
+    crc2.beginPath();
+    crc2.ellipse(this.position.x+55, this.position.y-30, 15, 10, 0, 0, 2 * Math.PI);
+    crc2.fillStyle = "white";
+    crc2.strokeStyle="black";
+    crc2.fill();
+    crc2.stroke();
+    crc2.closePath();
+
+    crc2.beginPath();
+    crc2.ellipse(this.position.x+55, this.position.y-40, 10, 5, 0, 0, 2 * Math.PI);
+    crc2.fillStyle = "white";
+    crc2.strokeStyle="black";
+    crc2.fill();
+    crc2.stroke();
+    crc2.closePath();
+
+}
+
+else{
+    crc2.beginPath();
+    crc2.ellipse(this.position.x+55, this.position.y-35, 20, 10, 0, 0, 2 * Math.PI);
+    crc2.stroke();
+    crc2.fillStyle = "white";
+    crc2.strokeStyle="black";
+    crc2.fill();
+    crc2.closePath();
+
+    crc2.beginPath();
+    crc2.ellipse(this.position.x+55, this.position.y-45, 15, 10, 0, 0, 2 * Math.PI);
+    crc2.fillStyle = "white";
+    crc2.strokeStyle="black";
+    crc2.fill();
+    crc2.stroke();
+    crc2.closePath();
+
+    crc2.beginPath();
+    crc2.ellipse(this.position.x+55, this.position.y-55, 10, 5, 0, 0, 2 * Math.PI);
+    crc2.fillStyle = "white";
+    crc2.strokeStyle="black";
+    crc2.fill();
+    crc2.stroke();
+    crc2.closePath();
 }
 
         }

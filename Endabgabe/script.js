@@ -79,7 +79,7 @@ var EisDealer;
     }
     ;
     EisDealer.iceCreamFlavors = ["Amarena", "Kaffee", "Banane", "Pistazie"];
-    EisDealer.Toppings = ["Krokant", "Streusel", "Kaffeepulver", "Marshmallow"];
+    EisDealer.Toppings = ["Krokant", "Streusel", "Eiswaffel", "Marshmallow"];
     EisDealer.IceCreamSauce = ["Vanillesauce", "Schokosauce", "Karamellsauce", "Likör"];
     EisDealer.container = ["Waffel", "Becher"];
     EisDealer.sahne = ["ja", "nein"];
@@ -643,7 +643,7 @@ var EisDealer;
         });
         caramel = document.createElement("button");
         caramel.classList.add("caramel");
-        caramel.textContent = "Karamel Soße";
+        caramel.textContent = "Karamell Soße";
         document.body.appendChild(caramel);
         caramel.addEventListener("click", () => {
             caramelSauce();
@@ -671,7 +671,7 @@ var EisDealer;
         });
         coffeePowder = document.createElement("button");
         coffeePowder.classList.add("coffeePowder");
-        coffeePowder.textContent = "Kaffeepulver";
+        coffeePowder.textContent = "Eiswaffel";
         document.body.appendChild(coffeePowder);
         coffeePowder.addEventListener("click", () => {
             coffeeTopping();
@@ -711,35 +711,6 @@ var EisDealer;
         // console.log(creamFont)
     }
     ;
-    // console.log(started)
-    // if (!started==true){
-    // window.setInterval(() => {
-    //     crc2.putImageData(back, 0, 0);
-    // console.log("aktualisiert")
-    // console.log(started)
-    //     if (isDay==true) {
-    //     //   drawStore()
-    //       day()
-    //     } else{
-    //         night()
-    //         closeStore();
-    //     }
-    // let waitingCustomer= new WaitingCustomer(new Vector(200,400),new Vector(0.5,0.5));
-    // waitingCustomer.move(0.5);
-    //     waitingCustomer.drawSelf();
-    // console.log(waitingCustomer.position)
-    //     // customers.push(waitingCustomer)
-    // let orderingCustomer= new OrderingCustomer(new Vector(200,400),new Vector(0.5,0.5));
-    // orderingCustomer.move(0.5);
-    //     orderingCustomer.drawSelf();
-    // console.log(orderingCustomer.position)
-    //     customers[0]=orderingCustomer
-    // let eatingCustomer= new EatingCustomer(new Vector(200,400),new Vector(0.5,0.5));
-    // eatingCustomer.move(0.5);
-    //     eatingCustomer.drawSelf();
-    // console.log(eatingCustomer.position)
-    //     // customers.push(eatingCustomer)
-    // },1000)}
     drawStore();
     //hier enum oder switch case
     function amarenaIce() {
@@ -824,8 +795,8 @@ var EisDealer;
     function coffeeTopping() {
         let value = checkSelection(EisDealer.selectedItems, EisDealer.Toppings);
         if (value == true) {
-            EisDealer.selectedItems.push("Kaffeepulver");
-            // console.log("1x Kaffeepulver")
+            EisDealer.selectedItems.push("Eiswaffel");
+            // console.log("1x Eiswaffel")
             console.log(EisDealer.selectedItems);
         }
     }
