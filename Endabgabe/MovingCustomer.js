@@ -272,21 +272,21 @@ var EisDealer;
                 if (randomCream[0] == "ja") {
                     if (randomIceCreams.length == 1) {
                         EisDealer.crc2.beginPath();
-                        EisDealer.crc2.ellipse(this.position.x + 115, this.position.y - 20, 20, 10, 0, 0, 2 * Math.PI);
+                        EisDealer.crc2.ellipse(this.position.x + 115, this.position.y - 55, 20, 10, 0, 0, 2 * Math.PI);
                         EisDealer.crc2.fillStyle = "white";
                         EisDealer.crc2.strokeStyle = "black";
                         EisDealer.crc2.fill();
                         EisDealer.crc2.stroke();
                         EisDealer.crc2.closePath();
                         EisDealer.crc2.beginPath();
-                        EisDealer.crc2.ellipse(this.position.x + 115, this.position.y - 30, 15, 10, 0, 0, 2 * Math.PI);
+                        EisDealer.crc2.ellipse(this.position.x + 115, this.position.y - 65, 15, 10, 0, 0, 2 * Math.PI);
                         EisDealer.crc2.fillStyle = "white";
                         EisDealer.crc2.strokeStyle = "black";
                         EisDealer.crc2.fill();
                         EisDealer.crc2.stroke();
                         EisDealer.crc2.closePath();
                         EisDealer.crc2.beginPath();
-                        EisDealer.crc2.ellipse(this.position.x + 115, this.position.y - 40, 10, 5, 0, 0, 2 * Math.PI);
+                        EisDealer.crc2.ellipse(this.position.x + 115, this.position.y - 75, 10, 5, 0, 0, 2 * Math.PI);
                         EisDealer.crc2.fillStyle = "white";
                         EisDealer.crc2.strokeStyle = "black";
                         EisDealer.crc2.fill();
@@ -704,6 +704,111 @@ var EisDealer;
                         EisDealer.crc2.fill();
                         EisDealer.crc2.closePath();
                         break;
+                }
+                switch (order.topping[0]) {
+                    case 'Krokant':
+                        EisDealer.crc2.beginPath();
+                        EisDealer.crc2.arc(this.position.x + 100, this.position.y - 30, 5, 0, 2 * Math.PI);
+                        EisDealer.crc2.fillStyle = "#3c1a03";
+                        EisDealer.crc2.fill();
+                        EisDealer.crc2.closePath();
+                        EisDealer.crc2.beginPath();
+                        EisDealer.crc2.arc(this.position.x + 115, this.position.y - 40, 5, 0, 2 * Math.PI);
+                        EisDealer.crc2.fillStyle = "#3c1a03";
+                        EisDealer.crc2.fill();
+                        EisDealer.crc2.closePath();
+                        EisDealer.crc2.beginPath();
+                        EisDealer.crc2.arc(this.position.x + 130, this.position.y - 30, 5, 0, 2 * Math.PI);
+                        EisDealer.crc2.fillStyle = "#3c1a03";
+                        EisDealer.crc2.fill();
+                        EisDealer.crc2.closePath();
+                        break;
+                    case 'Streusel':
+                        EisDealer.crc2.beginPath();
+                        EisDealer.crc2.moveTo(this.position.x + 105, this.position.y - 45);
+                        EisDealer.crc2.lineTo(this.position.x + 125, this.position.y - 50);
+                        EisDealer.crc2.strokeStyle = "#ff0000";
+                        EisDealer.crc2.stroke();
+                        EisDealer.crc2.closePath();
+                        EisDealer.crc2.beginPath();
+                        EisDealer.crc2.moveTo(this.position.x + 105, this.position.y - 40);
+                        EisDealer.crc2.lineTo(this.position.x + 125, this.position.y - 45);
+                        EisDealer.crc2.strokeStyle = "#ff0000";
+                        EisDealer.crc2.stroke();
+                        EisDealer.crc2.closePath();
+                        EisDealer.crc2.beginPath();
+                        EisDealer.crc2.moveTo(this.position.x + 105, this.position.y - 35);
+                        EisDealer.crc2.lineTo(this.position.x + 125, this.position.y - 40);
+                        EisDealer.crc2.strokeStyle = "#ff0000";
+                        EisDealer.crc2.stroke();
+                        EisDealer.crc2.closePath();
+                        break;
+                    case 'Marshmallow':
+                        EisDealer.crc2.beginPath();
+                        EisDealer.crc2.arc(this.position.x + 115, this.position.y - 40, 12, 0, 2 * Math.PI);
+                        EisDealer.crc2.fillStyle = "#ffffff";
+                        EisDealer.crc2.fill();
+                        EisDealer.crc2.closePath();
+                        break;
+                    case 'Eiswaffel':
+                        EisDealer.crc2.beginPath();
+                        EisDealer.crc2.moveTo(this.position.x + 130, this.position.y - 25);
+                        EisDealer.crc2.lineTo(this.position.x + 170, this.position.y - 35);
+                        EisDealer.crc2.lineTo(this.position.x + 160, this.position.y - 55);
+                        EisDealer.crc2.lineTo(this.position.x + 120, this.position.y - 35);
+                        EisDealer.crc2.fillStyle = "#c99867";
+                        EisDealer.crc2.fill();
+                        EisDealer.crc2.closePath();
+                        break;
+                }
+                if (order.cream[0] == "ja") {
+                    if (order.variation.length == 1) {
+                        EisDealer.crc2.beginPath();
+                        EisDealer.crc2.ellipse(this.position.x + 115, this.position.y - 55, 20, 10, 0, 0, 2 * Math.PI);
+                        EisDealer.crc2.fillStyle = "white";
+                        EisDealer.crc2.strokeStyle = "black";
+                        EisDealer.crc2.fill();
+                        EisDealer.crc2.stroke();
+                        EisDealer.crc2.closePath();
+                        EisDealer.crc2.beginPath();
+                        EisDealer.crc2.ellipse(this.position.x + 115, this.position.y - 65, 15, 10, 0, 0, 2 * Math.PI);
+                        EisDealer.crc2.fillStyle = "white";
+                        EisDealer.crc2.strokeStyle = "black";
+                        EisDealer.crc2.fill();
+                        EisDealer.crc2.stroke();
+                        EisDealer.crc2.closePath();
+                        EisDealer.crc2.beginPath();
+                        EisDealer.crc2.ellipse(this.position.x + 115, this.position.y - 75, 10, 5, 0, 0, 2 * Math.PI);
+                        EisDealer.crc2.fillStyle = "white";
+                        EisDealer.crc2.strokeStyle = "black";
+                        EisDealer.crc2.fill();
+                        EisDealer.crc2.stroke();
+                        EisDealer.crc2.closePath();
+                    }
+                    //zeichnet Sahne nicht?
+                    else {
+                        EisDealer.crc2.beginPath();
+                        EisDealer.crc2.ellipse(this.position.x + 115, this.position.y - 60, 20, 8, 0, 0, 2 * Math.PI);
+                        EisDealer.crc2.stroke();
+                        EisDealer.crc2.fillStyle = "white";
+                        EisDealer.crc2.strokeStyle = "black";
+                        EisDealer.crc2.fill();
+                        EisDealer.crc2.closePath();
+                        EisDealer.crc2.beginPath();
+                        EisDealer.crc2.ellipse(this.position.x + 115, this.position.y - 70, 15, 5, 0, 0, 2 * Math.PI);
+                        EisDealer.crc2.fillStyle = "white";
+                        EisDealer.crc2.strokeStyle = "black";
+                        EisDealer.crc2.fill();
+                        EisDealer.crc2.stroke();
+                        EisDealer.crc2.closePath();
+                        EisDealer.crc2.beginPath();
+                        EisDealer.crc2.ellipse(this.position.x + 115, this.position.y - 80, 10, 2, 0, 0, 2 * Math.PI);
+                        EisDealer.crc2.fillStyle = "white";
+                        EisDealer.crc2.strokeStyle = "black";
+                        EisDealer.crc2.fill();
+                        EisDealer.crc2.stroke();
+                        EisDealer.crc2.closePath();
+                    }
                 }
             }
             else {
