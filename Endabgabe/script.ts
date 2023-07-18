@@ -656,6 +656,20 @@ function closeStore(){//Schönere Variante?Theke weiß
     // console.log(cash.textContent)
     night();
 
+    let profit:number= cash-amount
+
+    crc2.beginPath();
+    crc2.moveTo(canvas.width/2-50,canvas.height/2);
+    crc2.lineTo(canvas.width/2+50,canvas.height/2);
+    crc2.lineTo(canvas.width/2+50,canvas.height/2-50);
+    crc2.lineTo(canvas.width/2-50,canvas.height/2-50);
+    crc2.fillStyle="grey"
+    crc2.fill();
+    crc2.fillText(profit)
+    crc2.closePath();
+    
+    crc2.lineTo(canvas.width/2-50,canvas.height/2);
+
     
 
 };

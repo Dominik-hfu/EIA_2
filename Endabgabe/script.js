@@ -508,6 +508,17 @@ var EisDealer;
         updateCash(0);
         // console.log(cash.textContent)
         night();
+        let profit = EisDealer.cash - amount;
+        EisDealer.crc2.beginPath();
+        EisDealer.crc2.moveTo(canvas.width / 2 - 50, canvas.height / 2);
+        EisDealer.crc2.lineTo(canvas.width / 2 + 50, canvas.height / 2);
+        EisDealer.crc2.lineTo(canvas.width / 2 + 50, canvas.height / 2 - 50);
+        EisDealer.crc2.lineTo(canvas.width / 2 - 50, canvas.height / 2 - 50);
+        EisDealer.crc2.fillStyle = "grey";
+        EisDealer.crc2.fill();
+        EisDealer.crc2.fillText(profit);
+        EisDealer.crc2.closePath();
+        EisDealer.crc2.lineTo(canvas.width / 2 - 50, canvas.height / 2);
     }
     ;
     let startamount = 100;
