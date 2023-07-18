@@ -631,13 +631,8 @@ function drawStore(){
     
 }
 
-function closeStore(){//Schönere Variante?Theke weiß
+function closeStore(){
 
-    //imageData=black
-    // console.log("Store wurde geschlossen")
-    // isDay=false;
-    // console.log(isDay)
-    // console.log(started)
     serveButton.remove();
     closeButton.remove();
     document.body.appendChild(button);
@@ -656,7 +651,7 @@ function closeStore(){//Schönere Variante?Theke weiß
     // console.log(cash.textContent)
     night();
 
-    let profit:number= cash-amount
+    let profit:string= cash-100
 
     crc2.beginPath();
     crc2.moveTo(canvas.width/2-50,canvas.height/2);
@@ -665,7 +660,7 @@ function closeStore(){//Schönere Variante?Theke weiß
     crc2.lineTo(canvas.width/2-50,canvas.height/2-50);
     crc2.fillStyle="grey"
     crc2.fill();
-    crc2.fillText(profit)
+    crc2.fillText(profit,canvas.height/2,canvas.width/2)
     crc2.closePath();
     
     crc2.lineTo(canvas.width/2-50,canvas.height/2);

@@ -491,11 +491,6 @@ var EisDealer;
         EisDealer.crc2.closePath(); //Ausgang 
     }
     function closeStore() {
-        //imageData=black
-        // console.log("Store wurde geschlossen")
-        // isDay=false;
-        // console.log(isDay)
-        // console.log(started)
         serveButton.remove();
         closeButton.remove();
         document.body.appendChild(button);
@@ -508,7 +503,7 @@ var EisDealer;
         updateCash(0);
         // console.log(cash.textContent)
         night();
-        let profit = EisDealer.cash - amount;
+        let profit = EisDealer.cash - 100;
         EisDealer.crc2.beginPath();
         EisDealer.crc2.moveTo(canvas.width / 2 - 50, canvas.height / 2);
         EisDealer.crc2.lineTo(canvas.width / 2 + 50, canvas.height / 2);
@@ -516,7 +511,7 @@ var EisDealer;
         EisDealer.crc2.lineTo(canvas.width / 2 - 50, canvas.height / 2 - 50);
         EisDealer.crc2.fillStyle = "grey";
         EisDealer.crc2.fill();
-        EisDealer.crc2.fillText(profit);
+        EisDealer.crc2.fillText(profit, canvas.height / 2, canvas.width / 2);
         EisDealer.crc2.closePath();
         EisDealer.crc2.lineTo(canvas.width / 2 - 50, canvas.height / 2);
     }
