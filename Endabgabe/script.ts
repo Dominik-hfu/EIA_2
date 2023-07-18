@@ -18,14 +18,17 @@ namespace EisDealer{
     let closeButton:HTMLButtonElement;
     let serveButton:HTMLButtonElement;
 
+    let dealer:Eisdealer
     let eater:EatingCustomer;
     let waiter:WaitingCustomer[]=[];
     let orderer: OrderingCustomer;
     let newwaiter:WaitingCustomer;
     let finalorder:string[];
+
     let amount:number=100
     let startamount:number=100
     export let selectedItems:string[]=[];  // console.log(started)
+    
     
     //handleload wird auf windowload ausgeführt
     //canvas wird ausgewählt und mit rendering context wird festgelegt
@@ -647,7 +650,7 @@ cash.textContent = startamount.toString()+"€";
 cashEnd.textContent="0€";
 }
 
-let dealer:Eisdealer
+// let dealer:Eisdealer
 
 function day(){//Öffnet den store, lässt tag beginnen
 

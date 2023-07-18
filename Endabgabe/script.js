@@ -14,6 +14,7 @@ var EisDealer;
     let button;
     let closeButton;
     let serveButton;
+    let dealer;
     let eater;
     let waiter = [];
     let orderer;
@@ -493,7 +494,7 @@ var EisDealer;
         EisDealer.cashEnd.textContent = "0€";
     }
     EisDealer.updateCash = updateCash;
-    let dealer;
+    // let dealer:Eisdealer
     function day() {
         drawStore();
         // started=true;
