@@ -76,8 +76,6 @@ export let items: item[] = [
 
 ];
 
-
-
 export let URL = "https://webuser.hs-furtwangen.de/~putzdomi/Database/"
 
 export async function findPreis(collection: string, name: string): Promise<number|undefined> {
