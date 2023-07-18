@@ -19,6 +19,9 @@ var EisDealer;
     let orderer;
     let newwaiter;
     let finalorder;
+    let amount = 100;
+    let startamount = 100;
+    let endAmount = amount;
     EisDealer.selectedItems = []; // console.log(started)
     function handleload(_event) {
         EisDealer.crc2 = canvas.getContext("2d");
@@ -471,7 +474,8 @@ var EisDealer;
         updateCash(0);
         // console.log(cash.textContent)
         night();
-        let profit = EisDealer.cash - 100;
+        let profit = endAmount - startamount;
+        let profitString = profit.toString();
         EisDealer.crc2.beginPath();
         EisDealer.crc2.moveTo(canvas.width / 2 - 200, canvas.height / 2 - 100);
         EisDealer.crc2.lineTo(canvas.width / 2 + 200, canvas.height / 2 - 100);
@@ -479,12 +483,19 @@ var EisDealer;
         EisDealer.crc2.lineTo(canvas.width / 2 - 200, canvas.height / 2 - 200);
         EisDealer.crc2.fillStyle = "white";
         EisDealer.crc2.fill();
-        EisDealer.crc2.fillText(profit, canvas.height / 2, canvas.width / 2);
         EisDealer.crc2.closePath();
-        EisDealer.crc2.lineTo(canvas.width / 2 - 50, canvas.height / 2);
+        EisDealer.crc2.beginPath();
+        EisDealer.crc2.fillText("Umsatz heute " + profitString, canvas.height / 2, canvas.width / 2 - 150);
+        EisDealer.crc2.font = "20pt Arial";
+        EisDealer.crc2.fillStyle = "black";
+        EisDealer.crc2.fill();
+        EisDealer.crc2.strokeStyle = "black";
+        EisDealer.crc2.stroke();
+        EisDealer.crc2.closePath();
+        // crc2.lineTo(canvas.width/2-50,canvas.height/2);
     }
     ;
-    let startamount = 100;
+    // let startamount:number=100
     function updateCash(amount) {
         startamount = startamount + amount;
         EisDealer.cash.textContent = startamount.toString() + "€";
@@ -522,7 +533,8 @@ var EisDealer;
         EisDealer.cashEnd?.remove();
         document.body.appendChild(cashRegister);
         // console.log(cashRegister);//Wort Kasse
-        let amount = 100;
+        // let amount:number=100
+        // let endAmount=amount
         EisDealer.cash = document.createElement("p");
         EisDealer.cash.textContent = "";
         EisDealer.cash.textContent = amount + "€";
@@ -802,6 +814,9 @@ var EisDealer;
         let value = checkSelection(EisDealer.selectedItems, EisDealer.sahne);
         if (value == true) {
             EisDealer.selectedItems.push("ja");
+        }
+        else {
+            EisDealer.selectedItems.push("nein");
         }
         // console.log("1x Eis mit Sahne")
         console.log(EisDealer.selectedItems);
