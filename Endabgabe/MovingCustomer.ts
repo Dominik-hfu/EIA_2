@@ -183,7 +183,7 @@ namespace EisDealer {
                 crc2.lineTo(positionx+25,positiony+35);
                 crc2.lineTo(positionx+25,positiony-15);
                 crc2.closePath();
-                crc2.fillStyle="blue"
+                crc2.fillStyle="#47edff"
                 crc2.fill()
                 crc2.stroke();//Eisbecher
                 
@@ -203,28 +203,28 @@ namespace EisDealer {
                     case'Amarena':
                     crc2.beginPath();
                     crc2.arc(positionx, positiony-30, 15, 0, 2 * Math.PI);
-                    crc2.fillStyle = "red";
+                    crc2.fillStyle = "#ff4760";
                     crc2.fill();
                     crc2.closePath();
                     break;
                     case'Banane':
                     crc2.beginPath();
                     crc2.arc(positionx, positiony-30, 15, 0, 2 * Math.PI);
-                    crc2.fillStyle = "yellow";
+                    crc2.fillStyle = "#fcff3e";
                     crc2.fill();
                     crc2.closePath();
                     break;
                     case'Kaffee':
                     crc2.beginPath();
                     crc2.arc(positionx, positiony-30, 15, 0, 2 * Math.PI);
-                    crc2.fillStyle = "brown";
+                    crc2.fillStyle = "#c77646";
                     crc2.fill();
                     crc2.closePath();
                     break;
                     case'Pistazie':
                     crc2.beginPath();
                     crc2.arc(positionx, positiony-30, 15, 0, 2 * Math.PI);
-                    crc2.fillStyle = "green";
+                    crc2.fillStyle = "#a3ff47";
                     crc2.fill();
                     crc2.closePath();
                     break;
@@ -242,28 +242,28 @@ namespace EisDealer {
                         case'Amarena':
                         crc2.beginPath();
                         crc2.arc(positionx-15, positiony-30, 15, 0, 2 * Math.PI);
-                        crc2.fillStyle = "red";
+                        crc2.fillStyle = "#ff4760";
                         crc2.fill();
                         crc2.closePath();
                         break;
                         case'Banane':
                         crc2.beginPath();
                         crc2.arc(positionx-15, positiony-30, 15, 0, 2 * Math.PI);
-                        crc2.fillStyle = "yellow";
+                        crc2.fillStyle = "#fcff3e";
                         crc2.fill();
                         crc2.closePath();
                         break;
                         case'Kaffee':
                         crc2.beginPath();
                         crc2.arc(positionx-15, positiony-30, 15, 0, 2 * Math.PI);
-                        crc2.fillStyle = "brown";
+                        crc2.fillStyle = "#c77646";
                         crc2.fill();
                         crc2.closePath();
                         break;
                         case'Pistazie':
                         crc2.beginPath();
                         crc2.arc(positionx-15, positiony-30, 15, 0, 2 * Math.PI);
-                        crc2.fillStyle = "green";
+                        crc2.fillStyle = "#a3ff47";
                         crc2.fill();
                         crc2.closePath();
                         break;
@@ -276,28 +276,28 @@ namespace EisDealer {
                         case'Amarena':
                         crc2.beginPath();
                         crc2.arc(positionx+15, positiony-30, 15, 0, 2 * Math.PI);
-                        crc2.fillStyle = "red";
+                        crc2.fillStyle = "#ff4760";
                         crc2.fill();
                         crc2.closePath();
                         break;
                         case'Banane':
                         crc2.beginPath();
                         crc2.arc(positionx+15, positiony-30, 15, 0, 2 * Math.PI);
-                        crc2.fillStyle = "yellow";
+                        crc2.fillStyle = "#fcff3e";
                         crc2.fill();
                         crc2.closePath();
                         break;
                         case'Kaffee':
                         crc2.beginPath();
                         crc2.arc(positionx+15, positiony-30, 15, 0, 2 * Math.PI);
-                        crc2.fillStyle = "brown";
+                        crc2.fillStyle = "#c77646";
                         crc2.fill();
                         crc2.closePath();
                         break;
                         case'Pistazie':
                         crc2.beginPath();
                         crc2.arc(positionx+15, positiony-30, 15, 0, 2 * Math.PI);
-                        crc2.fillStyle = "green";
+                        crc2.fillStyle ="#a3ff47";
                         crc2.fill();
                         crc2.closePath();
                         break;
@@ -309,28 +309,28 @@ namespace EisDealer {
                         case'Amarena':
                         crc2.beginPath();
                         crc2.arc(positionx, positiony-45, 15, 0, 2 * Math.PI);
-                        crc2.fillStyle = "red";
+                        crc2.fillStyle = "#ff4760";
                         crc2.fill();
                         crc2.closePath();
                         break;
                         case'Banane':
                         crc2.beginPath();
                         crc2.arc(positionx, positiony-45, 15, 0, 2 * Math.PI);
-                        crc2.fillStyle = "yellow";
+                        crc2.fillStyle = "#fcff3e";
                         crc2.fill();
                         crc2.closePath();
                         break;
                         case'Kaffee':
                         crc2.beginPath();
                         crc2.arc(positionx, positiony-45, 15, 0, 2 * Math.PI);
-                        crc2.fillStyle = "brown";
+                        crc2.fillStyle = "#c77646";
                         crc2.fill();
                         crc2.closePath();
                         break;
                         case'Pistazie':
                         crc2.beginPath();
                         crc2.arc(positionx, positiony-45, 15, 0, 2 * Math.PI);
-                        crc2.fillStyle = "green";
+                        crc2.fillStyle = "#a3ff47";
                         crc2.fill();
                         crc2.closePath();
                         break;
@@ -346,7 +346,7 @@ switch(randomSauce[0]){
     case'Vanillesauce':
     crc2.beginPath();
     crc2.arc(this.position.x+115, this.position.y-40, 16, Math.PI, 2 * Math.PI);
-    crc2.fillStyle = "yellow";
+    crc2.fillStyle = "#ffeb66";
     crc2.fill();
     crc2.closePath();
     break;
@@ -354,7 +354,7 @@ switch(randomSauce[0]){
     case'Schokosauce':
     crc2.beginPath();
     crc2.arc(this.position.x+115, this.position.y-40, 16, Math.PI, 2 * Math.PI);
-    crc2.fillStyle = "brown";
+    crc2.fillStyle = "#b58649";
     crc2.fill();
     crc2.closePath();
     break;
@@ -362,7 +362,7 @@ switch(randomSauce[0]){
     case'Karamellsauce':
     crc2.beginPath();
     crc2.arc(this.position.x+115, this.position.y-40, 16, Math.PI, 2 * Math.PI);
-    crc2.fillStyle = "orange";
+    crc2.fillStyle = "#ff9a1e";
     crc2.fill();
     crc2.closePath();
     break;
@@ -370,7 +370,7 @@ switch(randomSauce[0]){
     case'Likör':
     crc2.beginPath();
     crc2.arc(this.position.x+115, this.position.y-40, 16, Math.PI, 2 * Math.PI);
-    crc2.fillStyle = "green";
+    crc2.fillStyle = "#f8ffb5";
     crc2.fill();
     crc2.closePath();
     break;
@@ -384,7 +384,7 @@ else{
             case'Vanillesauce':
             crc2.beginPath();
             crc2.arc(this.position.x+100, this.position.y-40, 16, Math.PI, 2 * Math.PI);
-            crc2.fillStyle = "yellow";
+            crc2.fillStyle = "#ffeb66";
             crc2.fill();
             crc2.closePath();
             break;
@@ -392,7 +392,7 @@ else{
             case'Schokosauce':
             crc2.beginPath();
             crc2.arc(this.position.x+100, this.position.y-40, 16, Math.PI, 2 * Math.PI);
-            crc2.fillStyle = "brown";
+            crc2.fillStyle = "#b58649";
             crc2.fill();
             crc2.closePath();
             break;
@@ -400,7 +400,7 @@ else{
             case'Karamellsauce':
             crc2.beginPath();
             crc2.arc(this.position.x+100, this.position.y-40, 16, Math.PI, 2 * Math.PI);
-            crc2.fillStyle = "orange";
+            crc2.fillStyle = "#ff9a1e";
             crc2.fill();
             crc2.closePath();
             break;
@@ -408,7 +408,7 @@ else{
             case'Likör':
             crc2.beginPath();
             crc2.arc(this.position.x+100, this.position.y-40, 16, Math.PI, 2 * Math.PI);
-            crc2.fillStyle = "green";
+            crc2.fillStyle = "#f8ffb5";
             crc2.fill();
             crc2.closePath();
             break;
@@ -420,19 +420,19 @@ switch(randomTopping[0]){
     case'Krokant':
     crc2.beginPath();
     crc2.arc(this.position.x+100, this.position.y-30, 5, 0, 2 * Math.PI);
-    crc2.fillStyle = "brown";
+    crc2.fillStyle = "#3c1a03";
     crc2.fill();
     crc2.closePath();
 
     crc2.beginPath();
     crc2.arc(this.position.x+115, this.position.y-40, 5, 0, 2 * Math.PI);
-    crc2.fillStyle = "brown";
+    crc2.fillStyle = "#3c1a03";
     crc2.fill();
     crc2.closePath();
 
     crc2.beginPath();
     crc2.arc(this.position.x+130, this.position.y-30, 5, 0, 2 * Math.PI);
-    crc2.fillStyle = "brown";
+    crc2.fillStyle = "#3c1a03";
     crc2.fill();
     crc2.closePath();
     break;
@@ -443,21 +443,21 @@ switch(randomTopping[0]){
     crc2.moveTo(this.position.x+110,this.position.y-45);
     crc2.lineTo(this.position.x+120,this.position.y-50);
     crc2.stroke();
-    crc2.strokeStyle="yellow"
+    crc2.strokeStyle="#ff0000"
     crc2.closePath();
     
     crc2.beginPath();
     crc2.moveTo(this.position.x+110,this.position.y-40);
     crc2.lineTo(this.position.x+120,this.position.y-45);
     crc2.stroke();
-    crc2.strokeStyle="green"
+    crc2.strokeStyle="#ff0000"
     crc2.closePath();
     
     crc2.beginPath();
     crc2.moveTo(this.position.x+110,this.position.y-35);
     crc2.lineTo(this.position.x+120,this.position.y-40);
     crc2.stroke();
-    crc2.strokeStyle="red"
+    crc2.strokeStyle="#ff0000"
     crc2.closePath();
 
 
@@ -467,7 +467,7 @@ switch(randomTopping[0]){
     case'Marshmallow':
     crc2.beginPath();
     crc2.arc(this.position.x+115, this.position.y-40, 5, 0, 2 * Math.PI);
-    crc2.fillStyle = "white";
+    crc2.fillStyle = "#ffffff";
     crc2.fill();
     crc2.closePath();
     break;
@@ -478,7 +478,7 @@ switch(randomTopping[0]){
     crc2.lineTo(this.position.x+150, this.position.y-35);
     crc2.lineTo(this.position.x+145, this.position.y-55);
     crc2.lineTo(this.position.x+120, this.position.y-35);
-    crc2.fillStyle = "brown";
+    crc2.fillStyle = "#c99867";
     crc2.fill();
     crc2.closePath();
     break;
@@ -641,7 +641,7 @@ return combinedarray
                 crc2.lineTo(this.position.x+80,this.position.y+60);
                 crc2.lineTo(this.position.x+80,this.position.y+10);
                 crc2.closePath();
-                crc2.fillStyle="blue"
+                crc2.fillStyle="#47edff"
                 crc2.strokeStyle = "black";
                 crc2.fill()
                 crc2.stroke();//Eisbecher
@@ -661,28 +661,28 @@ return combinedarray
                     case'Amarena':
                     crc2.beginPath();
                     crc2.arc(this.position.x+55, this.position.y-5, 15, 0, 2 * Math.PI);
-                    crc2.fillStyle = "red";
+                    crc2.fillStyle = "#ff4760";
                     crc2.fill();
                     crc2.closePath();
                     break;
                     case'Banane':
                     crc2.beginPath();
                     crc2.arc(this.position.x+55, this.position.y-5, 15, 0, 2 * Math.PI);
-                    crc2.fillStyle = "yellow";
+                    crc2.fillStyle = "#fcff3e";
                     crc2.fill();
                     crc2.closePath();
                     break;
                     case'Kaffee':
                     crc2.beginPath();
                     crc2.arc(this.position.x+55, this.position.y-5, 15, 0, 2 * Math.PI);
-                    crc2.fillStyle = "brown";
+                    crc2.fillStyle = "#c77646";
                     crc2.fill();
                     crc2.closePath();
                     break;
                     case'Pistazie':
                     crc2.beginPath();
                     crc2.arc(this.position.x+55, this.position.y-5, 15, 0, 2 * Math.PI);
-                    crc2.fillStyle = "green";
+                    crc2.fillStyle = "#a3ff47";
                     crc2.fill();
                     crc2.closePath();
                     break;
@@ -700,28 +700,28 @@ return combinedarray
                         case'Amarena':
                         crc2.beginPath();
                         crc2.arc(this.position.x+40, this.position.y-5, 15, 0, 2 * Math.PI);
-                        crc2.fillStyle = "red";
+                        crc2.fillStyle = "#ff4760";
                         crc2.fill();
                         crc2.closePath();
                         break;
                         case'Banane':
                         crc2.beginPath();
                         crc2.arc(this.position.x+40, this.position.y-5, 15, 0, 2 * Math.PI);
-                        crc2.fillStyle = "yellow";
+                        crc2.fillStyle = "#fcff3e";
                         crc2.fill();
                         crc2.closePath();
                         break;
                         case'Kaffee':
                         crc2.beginPath();
                         crc2.arc(this.position.x+40, this.position.y-5, 15, 0, 2 * Math.PI);
-                        crc2.fillStyle = "brown";
+                        crc2.fillStyle = "#c77646";
                         crc2.fill();
                         crc2.closePath();
                         break;
                         case'Pistazie':
                         crc2.beginPath();
                         crc2.arc(this.position.x+40, this.position.y-5, 15, 0, 2 * Math.PI);
-                        crc2.fillStyle = "green";
+                        crc2.fillStyle = "#a3ff47";
                         crc2.fill();
                         crc2.closePath();
                         break;
@@ -734,28 +734,28 @@ return combinedarray
                         case'Amarena':
                         crc2.beginPath();
                         crc2.arc(this.position.x+70, this.position.y-5, 15, 0, 2 * Math.PI);
-                        crc2.fillStyle = "red";
+                        crc2.fillStyle = "#ff4760";
                         crc2.fill();
                         crc2.closePath();
                         break;
                         case'Banane':
                         crc2.beginPath();
                         crc2.arc(this.position.x+70, this.position.y-5, 15, 0, 2 * Math.PI);
-                        crc2.fillStyle = "yellow";
+                        crc2.fillStyle = "#fcff3e";
                         crc2.fill();
                         crc2.closePath();
                         break;
                         case'Kaffee':
                         crc2.beginPath();
                         crc2.arc(this.position.x+70, this.position.y-5, 15, 0, 2 * Math.PI);
-                        crc2.fillStyle = "brown";
+                        crc2.fillStyle = "#c77646";
                         crc2.fill();
                         crc2.closePath();
                         break;
                         case'Pistazie':
                         crc2.beginPath();
                         crc2.arc(this.position.x+70, this.position.y-5, 15, 0, 2 * Math.PI);
-                        crc2.fillStyle = "green";
+                        crc2.fillStyle = "#a3ff47";
                         crc2.fill();
                         crc2.closePath();
                         break;
@@ -767,28 +767,28 @@ return combinedarray
                         case'Amarena':
                         crc2.beginPath();
                         crc2.arc(this.position.x+55, this.position.y-30, 15, 0, 2 * Math.PI);
-                        crc2.fillStyle = "red";
+                        crc2.fillStyle = "#ff4760";
                         crc2.fill();
                         crc2.closePath();
                         break;
                         case'Banane':
                         crc2.beginPath();
                         crc2.arc(this.position.x+55, this.position.y-30, 15, 0, 2 * Math.PI);
-                        crc2.fillStyle = "yellow";
+                        crc2.fillStyle = "#fcff3e";
                         crc2.fill();
                         crc2.closePath();
                         break;
                         case'Kaffee':
                         crc2.beginPath();
                         crc2.arc(this.position.x+55, this.position.y-30, 15, 0, 2 * Math.PI);
-                        crc2.fillStyle = "brown";
+                        crc2.fillStyle = "#c77646";
                         crc2.fill();
                         crc2.closePath();
                         break;
                         case'Pistazie':
                         crc2.beginPath();
                         crc2.arc(this.position.x+55, this.position.y-30, 15, 0, 2 * Math.PI);
-                        crc2.fillStyle = "green";
+                        crc2.fillStyle ="#a3ff47";
                         crc2.fill();
                         crc2.closePath();
                         break;
@@ -806,7 +806,7 @@ switch(order.sauce){
     case'Vanillesauce':
     crc2.beginPath();
     crc2.arc(this.position.x+55, this.position.y-5, 16, Math.PI, 2 * Math.PI);
-    crc2.fillStyle = "yellow";
+    crc2.fillStyle = "#ffeb66";
     crc2.fill();
     crc2.closePath();
     break;
@@ -814,7 +814,7 @@ switch(order.sauce){
     case'Schokosauce':
     crc2.beginPath();
     crc2.arc(this.position.x+55, this.position.y-5, 16, Math.PI, 2 * Math.PI);
-    crc2.fillStyle = "brown";
+    crc2.fillStyle = "#b58649";
     crc2.fill();
     crc2.closePath();
     break;
@@ -822,7 +822,7 @@ switch(order.sauce){
     case'Karamellsauce':
     crc2.beginPath();
     crc2.arc(this.position.x+55, this.position.y-5, 16, Math.PI, 2 * Math.PI);
-    crc2.fillStyle = "orange";
+    crc2.fillStyle = "#ff9a1e";
     crc2.fill();
     crc2.closePath();
     break;
@@ -830,7 +830,7 @@ switch(order.sauce){
     case'Likör':
     crc2.beginPath();
     crc2.arc(this.position.x+55, this.position.y-5, 16, Math.PI, 2 * Math.PI);
-    crc2.fillStyle = "yellow";
+    crc2.fillStyle = "#f8ffb5";
     crc2.fill();
     crc2.closePath();
     break;
@@ -844,19 +844,19 @@ switch(order.topping){
     case'Krokant':
     crc2.beginPath();
     crc2.arc(this.position.x+45, this.position.y-10, 5, 0, 2 * Math.PI);
-    crc2.fillStyle = "brown";
+    crc2.fillStyle = "#3c1a03";
     crc2.fill();
     crc2.closePath();
 
     crc2.beginPath();
     crc2.arc(this.position.x+55, this.position.y-20, 5, 0, 2 * Math.PI);
-    crc2.fillStyle = "brown";
+    crc2.fillStyle = "#3c1a03";
     crc2.fill();
     crc2.closePath();
 
     crc2.beginPath();
     crc2.arc(this.position.x+65, this.position.y-10, 5, 0, 2 * Math.PI);
-    crc2.fillStyle = "brown";
+    crc2.fillStyle = "#3c1a03";
     crc2.fill();
     crc2.closePath();
     break;
@@ -875,7 +875,7 @@ switch(order.topping){
     case'Marshmallow':
     crc2.beginPath();
     crc2.arc(this.position.x+55, this.position.y-10, 5, 0, 2 * Math.PI);
-    crc2.fillStyle = "white";
+    crc2.fillStyle = "#ffffff";
     crc2.fill();
     crc2.closePath();
     break;
@@ -885,7 +885,7 @@ switch(order.topping){
     crc2.lineTo(this.position.x+90, this.position.y-15);
     crc2.lineTo(this.position.x+85, this.position.y-25);
     crc2.lineTo(this.position.x+60, this.position.y-15);
-    crc2.fillStyle = "brown";
+    crc2.fillStyle ="#c99867";
     crc2.fill();
     crc2.closePath();
     break;

@@ -287,6 +287,9 @@ var EisDealer;
     let price;
     let previousSelection = []; // Variable für die vorherige Auswahl
     async function serveIce() {
+        if (EisDealer.selectedItems.includes("ja")) {
+            EisDealer.selectedItems.push("nein");
+        }
         let hasIcecream = false;
         let hasContainer = false;
         console.log((EisDealer.selectedItems));
@@ -477,22 +480,11 @@ var EisDealer;
         let profit = endAmount - startamount;
         let profitString = profit.toString();
         EisDealer.crc2.beginPath();
-        EisDealer.crc2.moveTo(canvas.width / 2 - 200, canvas.height / 2 - 100);
-        EisDealer.crc2.lineTo(canvas.width / 2 + 200, canvas.height / 2 - 100);
-        EisDealer.crc2.lineTo(canvas.width / 2 + 200, canvas.height / 2 - 200);
-        EisDealer.crc2.lineTo(canvas.width / 2 - 200, canvas.height / 2 - 200);
-        EisDealer.crc2.fillStyle = "white";
-        EisDealer.crc2.fill();
-        EisDealer.crc2.closePath();
-        EisDealer.crc2.beginPath();
-        EisDealer.crc2.fillText("Umsatz heute " + profitString, canvas.height / 2, canvas.width / 2 - 150);
-        EisDealer.crc2.font = "20pt Arial";
         EisDealer.crc2.fillStyle = "black";
-        EisDealer.crc2.fill();
-        EisDealer.crc2.strokeStyle = "black";
-        EisDealer.crc2.stroke();
+        EisDealer.crc2.font = "20pt Arial";
+        EisDealer.crc2.fillText("Umsatz heute " + profitString + " €", canvas.height / 2 - 150, canvas.width / 2);
         EisDealer.crc2.closePath();
-        // crc2.lineTo(canvas.width/2-50,canvas.height/2);
+        console.log(profitString, endAmount, startamount);
     }
     ;
     // let startamount:number=100
@@ -814,9 +806,6 @@ var EisDealer;
         let value = checkSelection(EisDealer.selectedItems, EisDealer.sahne);
         if (value == true) {
             EisDealer.selectedItems.push("ja");
-        }
-        else {
-            EisDealer.selectedItems.push("nein");
         }
         // console.log("1x Eis mit Sahne")
         console.log(EisDealer.selectedItems);

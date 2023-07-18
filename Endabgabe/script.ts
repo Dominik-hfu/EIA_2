@@ -373,6 +373,11 @@ let price: number | undefined
 let previousSelection: string[] = []; // Variable für die vorherige Auswahl
 async function serveIce(){
 
+    if(selectedItems.includes("ja")!){
+
+        selectedItems.push("nein")
+    }
+
     let hasIcecream:boolean=false;
     let hasContainer:boolean=false;
     console.log((selectedItems));
@@ -627,25 +632,12 @@ function closeStore(){
     let profitString: string = profit.toString();
 
     crc2.beginPath();
-    crc2.moveTo(canvas.width/2-200,canvas.height/2-100);
-    crc2.lineTo(canvas.width/2+200,canvas.height/2-100);
-    crc2.lineTo(canvas.width/2+200,canvas.height/2-200);
-    crc2.lineTo(canvas.width/2-200,canvas.height/2-200);
-    crc2.fillStyle="white"
-    crc2.fill();
-    crc2.closePath();
-
-    crc2.beginPath();
-
-    crc2.fillText("Umsatz heute "+ profitString,canvas.height/2,canvas.width/2-150)
-    crc2.font="20pt Arial"
     crc2.fillStyle="black"
-    crc2.fill();
-    crc2.strokeStyle="black";
-    crc2.stroke();
+    crc2.font="20pt Arial"
+    crc2.fillText("Umsatz heute "+ profitString +" €",canvas.height/2-150,canvas.width/2)
     crc2.closePath();
-    
-    // crc2.lineTo(canvas.width/2-50,canvas.height/2);
+    console.log(profitString,endAmount,startamount)
+
 
     
 
@@ -1031,10 +1023,6 @@ function day(){
             selectedItems.push("ja")
         }
 
-        else{
-
-            selectedItems.push("nein")
-        }
         // console.log("1x Eis mit Sahne")
         console.log(selectedItems)
         
