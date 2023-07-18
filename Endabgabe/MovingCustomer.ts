@@ -142,7 +142,7 @@ namespace EisDealer {
             let randomSauce=get1RandomListItem(IceCreamSauce);
             let randomContainer=get1RandomListItem(container);
             let randomCream=get1RandomListItem(sahne)
-            let combinedarray=randomIceCreams.concat(randomContainer)
+            let combinedarray=randomIceCreams.concat(randomContainer,randomCream,randomSauce,randomTopping)
             console.log(randomContainer)
             console.log(randomSauce)
             console.log(randomTopping)
@@ -544,10 +544,10 @@ if(randomCream[0]=="ja"){
     }
     
             }
-        }
+        }}
 return combinedarray        
 }
-    }}
+    }
 
 
     export class EatingCustomer extends Customer {

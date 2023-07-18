@@ -11,13 +11,9 @@ var EisDealer;
     window.addEventListener("load", handleload);
     let canvas = document.querySelector("canvas");
     let back;
-    // let background:boolean=true;
-    // let serve:boolean=false;
     let button;
     let closeButton;
     let serveButton;
-    // let isDay:boolean=true;
-    // let started:boolean=false;
     let eater;
     let waiter = [];
     let orderer;
@@ -159,38 +155,10 @@ var EisDealer;
     }
     let chosenIceCreams = getRandomListItems(EisDealer.iceCreamFlavors);
     console.log(chosenIceCreams);
-    // Array muss deklariert aber kann auch leer sein, da Daten in json sind
-    // for (let i = 0; i < iceCream.length; i++) {
-    //     switch (iceCream[i].type) {
-    //       case 1:
     console.log("Type 1: Waffle");
-    //         // Weitere Aktionen für Typ 1 hier einfügen
-    //         break;
-    //       case 2:
     console.log("Type 2: Cup");
-    //         // Weitere Aktionen für Typ 2 hier einfügen
-    //         break;
-    //       case 3:
     console.log("Type 3: Cup");
-    //         // Weitere Aktionen für Typ 3 hier einfügen
-    //         break;
-    //       default:
     console.log("Unbekannter Typ");
-    //         // Aktionen für unbekannten Typ hier einfügen
-    //     }
-    //   }
-    //Hier switch case die überprüft welches eis
-    // switch (type {
-    //     case 'not-started':
-    //       progressBar.value = 0;
-    //       break;
-    //     case 'in-progress':
-    //       progressBar.value = 50;
-    //       break;
-    //     case 'completed':
-    //       progressBar.value = 100;
-    //       break;
-    //   }
     function createStartButton() {
         button = document.createElement("button");
         button.textContent = "Start Day";
@@ -505,11 +473,11 @@ var EisDealer;
         night();
         let profit = EisDealer.cash - 100;
         EisDealer.crc2.beginPath();
-        EisDealer.crc2.moveTo(canvas.width / 2 - 50, canvas.height / 2);
-        EisDealer.crc2.lineTo(canvas.width / 2 + 50, canvas.height / 2);
-        EisDealer.crc2.lineTo(canvas.width / 2 + 50, canvas.height / 2 - 50);
-        EisDealer.crc2.lineTo(canvas.width / 2 - 50, canvas.height / 2 - 50);
-        EisDealer.crc2.fillStyle = "grey";
+        EisDealer.crc2.moveTo(canvas.width / 2 - 200, canvas.height / 2 - 100);
+        EisDealer.crc2.lineTo(canvas.width / 2 + 200, canvas.height / 2 - 100);
+        EisDealer.crc2.lineTo(canvas.width / 2 + 200, canvas.height / 2 - 200);
+        EisDealer.crc2.lineTo(canvas.width / 2 - 200, canvas.height / 2 - 200);
+        EisDealer.crc2.fillStyle = "white";
         EisDealer.crc2.fill();
         EisDealer.crc2.fillText(profit, canvas.height / 2, canvas.width / 2);
         EisDealer.crc2.closePath();

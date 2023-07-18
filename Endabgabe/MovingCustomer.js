@@ -107,7 +107,7 @@ var EisDealer;
             let randomSauce = EisDealer.get1RandomListItem(EisDealer.IceCreamSauce);
             let randomContainer = EisDealer.get1RandomListItem(EisDealer.container);
             let randomCream = EisDealer.get1RandomListItem(EisDealer.sahne);
-            let combinedarray = randomIceCreams.concat(randomContainer);
+            let combinedarray = randomIceCreams.concat(randomContainer, randomCream, randomSauce, randomTopping);
             console.log(randomContainer);
             console.log(randomSauce);
             console.log(randomTopping);
@@ -456,8 +456,8 @@ var EisDealer;
                         }
                     }
                 }
-                return combinedarray;
             }
+            return combinedarray;
         }
     }
     EisDealer.OrderingCustomer = OrderingCustomer;

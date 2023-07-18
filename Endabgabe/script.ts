@@ -13,13 +13,11 @@ namespace EisDealer{
     let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.querySelector("canvas");
     
     let back: ImageData;
-    // let background:boolean=true;
-    // let serve:boolean=false;
+
     let button:HTMLButtonElement;
     let closeButton:HTMLButtonElement;
     let serveButton:HTMLButtonElement;
-    // let isDay:boolean=true;
-    // let started:boolean=false;
+
     let eater:EatingCustomer;
     let waiter:WaitingCustomer[]=[];
     let orderer: OrderingCustomer;
@@ -209,43 +207,14 @@ let chosenIceCreams = getRandomListItems(iceCreamFlavors);
 
 console.log(chosenIceCreams);
 
-  // Array muss deklariert aber kann auch leer sein, da Daten in json sind
- 
 
-    // for (let i = 0; i < iceCream.length; i++) {
-    //     switch (iceCream[i].type) {
-    //       case 1:
             console.log("Type 1: Waffle");
-    //         // Weitere Aktionen für Typ 1 hier einfügen
-    //         break;
-    //       case 2:
+
             console.log("Type 2: Cup");
-    //         // Weitere Aktionen für Typ 2 hier einfügen
-    //         break;
-    //       case 3:
+
             console.log("Type 3: Cup");
-    //         // Weitere Aktionen für Typ 3 hier einfügen
-    //         break;
-    //       default:
+
             console.log("Unbekannter Typ");
-    //         // Aktionen für unbekannten Typ hier einfügen
-    //     }
-    //   }
-      
-    //Hier switch case die überprüft welches eis
-
-    // switch (type {
-    //     case 'not-started':
-    //       progressBar.value = 0;
-    //       break;
-    //     case 'in-progress':
-    //       progressBar.value = 50;
-    //       break;
-    //     case 'completed':
-    //       progressBar.value = 100;
-    //       break;
-    //   }
-
 
 
 function createStartButton(): void {
@@ -654,11 +623,11 @@ function closeStore(){
     let profit:string= cash-100
 
     crc2.beginPath();
-    crc2.moveTo(canvas.width/2-50,canvas.height/2);
-    crc2.lineTo(canvas.width/2+50,canvas.height/2);
-    crc2.lineTo(canvas.width/2+50,canvas.height/2-50);
-    crc2.lineTo(canvas.width/2-50,canvas.height/2-50);
-    crc2.fillStyle="grey"
+    crc2.moveTo(canvas.width/2-200,canvas.height/2-100);
+    crc2.lineTo(canvas.width/2+200,canvas.height/2-100);
+    crc2.lineTo(canvas.width/2+200,canvas.height/2-200);
+    crc2.lineTo(canvas.width/2-200,canvas.height/2-200);
+    crc2.fillStyle="white"
     crc2.fill();
     crc2.fillText(profit,canvas.height/2,canvas.width/2)
     crc2.closePath();
